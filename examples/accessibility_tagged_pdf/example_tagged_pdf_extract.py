@@ -1,5 +1,5 @@
 import aspose.pdf as ap
-from aspose.pycore import *
+from aspose.pycore import cast
 import sys
 from os import path
 
@@ -40,6 +40,12 @@ def get_root_structure(outfile):
         struct_tree_root_element = tagged_content.struct_tree_root_element
         root_element = tagged_content.root_element
 
+        print(f"StructTreeRootElement: {struct_tree_root_element}")
+        print(f"RootElement: {root_element}")
+
+        # Save Tagged PDF Document
+        document.save(outfile)
+
 
 def access_child_elements(infile, outfile):
 
@@ -53,14 +59,16 @@ def access_child_elements(infile, outfile):
 
         for element in element_list:
             if isinstance(element, ap.logicalstructure.StructureElement):
-                structure_element = cast(ap.logical_structure.StructureElement, element)
-
+                structure_element = cast(ap.logicalstructure.StructureElement, element)
                 # Get properties
-                title = structure_element.title
-                language = structure_element.language
-                actual_text = structure_element.actual_text
-                expansion_text = structure_element.expansion_text
-                alternative_text = structure_element.alternative_text
+                print(
+                    "StructureElement properties - "
+                    f"title: {structure_element.title}, "
+                    f"language: {structure_element.language}, "
+                    f"actual_text: {structure_element.actual_text}, "
+                    f"expansion_text: {structure_element.expansion_text}, "
+                    f"alternative_text: {structure_element.alternative_text}"
+                )
 
         # Access to child elements of first element in root element
         element_list = tagged_content.root_element.child_elements[1].child_elements

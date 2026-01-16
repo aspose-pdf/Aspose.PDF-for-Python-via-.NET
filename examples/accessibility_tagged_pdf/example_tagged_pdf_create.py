@@ -10,97 +10,96 @@ from config import initialize_data_dir, set_license
 def create_tagged_pdf_document_simple(outfile):
 
     # Create PDF Document
-    document = ap.Document()
+    with ap.Document() as document:
 
-    # Get Content for working with TaggedPdf
-    tagged_content = document.tagged_content
-    root_element = tagged_content.root_element
+        # Get Content for working with TaggedPdf
+        tagged_content = document.tagged_content
+        root_element = tagged_content.root_element
 
-    # Set Title and Language for Document
-    tagged_content.set_title("Tagged Pdf Document")
-    tagged_content.set_language("en-US")
-    main_header = tagged_content.create_header_element()
-    main_header.set_text("Main Header")
-    paragraph_element = tagged_content.create_paragraph_element()
-    paragraph_element.set_text(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-        + "Aenean nec lectus ac sem faucibus imperdiet. Sed ut erat ac magna ullamcorper hendrerit. "
-        + "Cras pellentesque libero semper, gravida magna sed, luctus leo. Fusce lectus odio, laoreet"
-        + "nec ullamcorper ut, molestie eu elit. Interdum et malesuada fames ac ante ipsum primis in faucibus."
-        + "Aliquam lacinia sit amet elit ac consectetur. Donec cursus condimentum ligula, vitae volutpat"
-        + "sem tristique eget. Nulla in consectetur massa. Vestibulum vitae lobortis ante. Nulla ullamcorper"
-        + "pellentesque justo rhoncus accumsan. Mauris ornare eu odio non lacinia. Aliquam massa leo, rhoncus"
-        + "ac iaculis eget, tempus et magna. Sed non consectetur elit. Sed vulputate, quam sed lacinia luctus,"
-        + "ipsum nibh fringilla purus, vitae posuere risus odio id massa. Cras sed venenatis lacus."
-    )
-    root_element.append_child(main_header, True)
-    root_element.append_child(paragraph_element, True)
+        # Set Title and Language for Document
+        tagged_content.set_title("Tagged Pdf Document")
+        tagged_content.set_language("en-US")
+        main_header = tagged_content.create_header_element()
+        main_header.set_text("Main Header")
+        paragraph_element = tagged_content.create_paragraph_element()
+        paragraph_element.set_text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+            + "Aenean nec lectus ac sem faucibus imperdiet. Sed ut erat ac magna ullamcorper hendrerit. "
+            + "Cras pellentesque libero semper, gravida magna sed, luctus leo. Fusce lectus odio, laoreet "
+            + "nec ullamcorper ut, molestie eu elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. "
+            + "Aliquam lacinia sit amet elit ac consectetur. Donec cursus condimentum ligula, vitae volutpat "
+            + "sem tristique eget. Nulla in consectetur massa. Vestibulum vitae lobortis ante. Nulla ullamcorper "
+            + "pellentesque justo rhoncus accumsan. Mauris ornare eu odio non lacinia. Aliquam massa leo, rhoncus "
+            + "ac iaculis eget, tempus et magna. Sed non consectetur elit. Sed vulputate, quam sed lacinia luctus, "
+            + "ipsum nibh fringilla purus, vitae posuere risus odio id massa. Cras sed venenatis lacus."
+        )
+        root_element.append_child(main_header, True)
+        root_element.append_child(paragraph_element, True)
 
-    # Save Tagged PDF Document
-    document.save(outfile)
+        # Save Tagged PDF Document
+        document.save(outfile)
 
 
 def create_tagged_pdf_document_adv(outfile):
     # Create PDF Document
-    document = ap.Document()
+    with ap.Document() as document:
+        # Get Content for working with TaggedPdf
+        tagged_content = document.tagged_content
+        root_element = tagged_content.root_element
 
-    # Get Content for working with TaggedPdf
-    tagged_content = document.tagged_content
-    root_element = tagged_content.root_element
+        # Set Title and Language for Document
+        tagged_content.set_title("Tagged Pdf Document")
+        tagged_content.set_language("en-US")
 
-    # Set Title and Language for Document
-    tagged_content.set_title("Tagged Pdf Document")
-    tagged_content.set_language("en-US")
+        # Create Header Level 1
+        header1 = tagged_content.create_header_element(1)
+        header1.set_text("Header Level 1")
 
-    # Create Header Level 1
-    header1 = tagged_content.create_header_element(1)
-    header1.set_text("Header Level 1")
+        # Create Paragraph with Quotes
+        paragraph_with_quotes = tagged_content.create_paragraph_element()
+        paragraph_with_quotes.structure_text_state.font = ap.text.FontRepository.find_font(
+            "Arial"
+        )
+        position_settings = ap.tagged.PositionSettings()
+        position_settings.margin = ap.MarginInfo(10, 5, 10, 5)
+        paragraph_with_quotes.adjust_position(position_settings)
 
-    # Create Paragraph with Quotes
-    paragraph_with_quotes = tagged_content.create_paragraph_element()
-    paragraph_with_quotes.structure_text_state.font = ap.text.FontRepository.find_font(
-        "Arial"
-    )
-    position_settings = ap.tagged.PositionSettings()
-    position_settings.margin = ap.MarginInfo(10, 5, 10, 5)
-    paragraph_with_quotes.adjust_position(position_settings)
+        # Create Span Element
+        span_element1 = tagged_content.create_span_element()
+        span_element1.set_text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec lectus ac sem faucibus imperdiet. "
+            "Sed ut erat ac magna ullamcorper hendrerit. Cras pellentesque libero semper, gravida magna sed, "
+            "luctus leo. Fusce lectus odio, laoreet nec ullamcorper ut, molestie eu elit. Interdum et malesuada "
+            "fames ac ante ipsum primis in faucibus. Aliquam lacinia sit amet elit ac consectetur. Donec cursus "
+            "condimentum ligula, vitae volutpat sem tristique eget. Nulla in consectetur massa. Vestibulum vitae "
+            "lobortis ante. Nulla ullamcorper pellentesque justo rhoncus accumsan. Mauris ornare eu odio non "
+            "lacinia. Aliquam massa leo, rhoncus ac iaculis eget, tempus et magna. Sed non consectetur elit."
+        )
 
-    # Create Span Element
-    span_element1 = tagged_content.create_span_element()
-    span_element1.set_text(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec lectus ac sem faucibus imperdiet. "
-        "Sed ut erat ac magna ullamcorper hendrerit. Cras pellentesque libero semper, gravida magna sed, "
-        "luctus leo. Fusce lectus odio, laoreet nec ullamcorper ut, molestie eu elit. Interdum et malesuada "
-        "fames ac ante ipsum primis in faucibus. Aliquam lacinia sit amet elit ac consectetur. Donec cursus "
-        "condimentum ligula, vitae volutpat sem tristique eget. Nulla in consectetur massa. Vestibulum vitae "
-        "lobortis ante. Nulla ullamcorper pellentesque justo rhoncus accumsan. Mauris ornare eu odio non "
-        "lacinia. Aliquam massa leo, rhoncus ac iaculis eget, tempus et magna. Sed non consectetur elit."
-    )
+        # Create Quote Element
+        quote_element = tagged_content.create_quote_element()
+        quote_element.set_text(
+            "Sed vulputate, quam sed lacinia luctus, ipsum nibh fringilla purus, vitae posuere risus odio id massa."
+        )
+        quote_element.structure_text_state.font_style = (
+            ap.text.FontStyles.BOLD | ap.text.FontStyles.ITALIC
+        )
 
-    # Create Quote Element
-    quote_element = tagged_content.create_quote_element()
-    quote_element.set_text(
-        "Sed vulputate, quam sed lacinia luctus, ipsum nibh fringilla purus, vitae posuere risus odio id massa."
-    )
-    quote_element.structure_text_state.font_style = (
-        ap.text.FontStyles.BOLD | ap.text.FontStyles.ITALIC
-    )
+        # Create Another Span Element
+        span_element2 = tagged_content.create_span_element()
+        span_element2.set_text(" Sed non consectetur elit.")
 
-    # Create Another Span Element
-    span_element2 = tagged_content.create_span_element()
-    span_element2.set_text(" Sed non consectetur elit.")
+        # Append Children to Paragraph
+        paragraph_with_quotes.append_child(span_element1, True)
+        paragraph_with_quotes.append_child(quote_element, True)
+        paragraph_with_quotes.append_child(span_element2, True)
 
-    # Append Children to Paragraph
-    paragraph_with_quotes.append_child(span_element1, True)
-    paragraph_with_quotes.append_child(quote_element, True)
-    paragraph_with_quotes.append_child(span_element2, True)
+        # Append Header and Paragraph to Root Element
+        root_element.append_child(header1, True)
+        root_element.append_child(paragraph_with_quotes, True)
 
-    # Append Header and Paragraph to Root Element
-    root_element.append_child(header1, True)
-    root_element.append_child(paragraph_with_quotes, True)
-
-    # Save Tagged PDF Document
-    document.save(outfile)
+        # Save Tagged PDF Document
+        document.save(outfile)
 
 
 def add_style(outfile):
@@ -399,7 +398,7 @@ def run_all_examples(data_dir=None, license_path=None):
             ),
         ),
         (
-            "Validate Tagged Tagged PDF",
+            "Validate Tagged PDF",
             validate_tagged_pdf,
             (
                 path.join(input_dir, "StructureElements.pdf"),

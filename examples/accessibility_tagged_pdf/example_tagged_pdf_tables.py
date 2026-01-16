@@ -58,9 +58,7 @@ def create_table(outfile):
                 if column_index == 1 and row_index == 1:
                     col_span = 2
                     row_span = 2
-                elif column_index == 2 and (row_index == 1 or row_index == 2):
-                    continue
-                elif row_index == 2 and (column_index == 1 or column_index == 2):
+                elif (row_index == 1 and column_index == 2) or (row_index == 2 and column_index in (1, 2)):
                     continue
 
                 td_element = tr_element.create_td()
@@ -209,10 +207,10 @@ def style_table_row(outfile):
         head_tr_element.alternative_text = "Head Row"
         for col_index in range(col_count):
             th_element = head_tr_element.create_th()
-            th_element.set_text("Head {}".format(col_index))
+            th_element.set_text(f"Head {col_index}")
         for row_index in range(row_count):
             tr_element = table_t_body_element.create_tr()
-            tr_element.alternative_text = "Row {}".format(row_index)
+            tr_element.alternative_text = f"Row {row_index}"
             tr_element.background_color = ap.Color.light_goldenrod_yellow
             tr_element.border = ap.BorderInfo(
                 ap.BorderSide.ALL, 0.75, ap.Color.dark_gray
@@ -293,9 +291,7 @@ def style_table_cell(outfile):
                 if col_index == 1 and row_index == 1:
                     col_span = 2
                     row_span = 2
-                elif col_index == 2 and (row_index == 1 or row_index == 2):
-                    continue
-                elif row_index == 2 and (col_index == 1 or col_index == 2):
+                elif (row_index == 1 and col_index == 2) or (row_index == 2 and col_index in (1, 2)):
                     continue
 
                 td_element = tr_element.create_td()
@@ -393,9 +389,7 @@ def adjust_table_position(outfile):
                 if col_index == 1 and row_index == 1:
                     col_span = 2
                     row_span = 2
-                elif col_index == 2 and (row_index == 1 or row_index == 2):
-                    continue
-                elif row_index == 2 and (col_index == 1 or col_index == 2):
+                elif (row_index == 1 and col_index == 2) or (row_index == 2 and col_index in (1, 2)):
                     continue
 
                 td_element = tr_element.create_td()
