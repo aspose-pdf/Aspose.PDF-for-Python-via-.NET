@@ -334,7 +334,7 @@ def adjust_table_position(outfile):
     with ap.Document() as document:
         # Create tagged content
         tagged_content = document.tagged_content
-        tagged_content.set_title("Example table cell style")
+        tagged_content.set_title("Example table position")
         tagged_content.set_language("en-US")
 
         # Get root structure element

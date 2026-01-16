@@ -406,7 +406,7 @@ def run_all_examples(data_dir=None, license_path=None):
             ),
         ),
         (
-            "Convert to PDF/UA with automatic_tagging",
+            "Convert to PDF/UA with automatic tagging",
             convert_to_pdf_ua_with_automatic_tagging,
             (
                 path.join(input_dir, "BreakfastMenu.pdf"),
