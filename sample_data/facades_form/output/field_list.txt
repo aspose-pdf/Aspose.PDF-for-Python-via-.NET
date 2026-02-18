@@ -1,4 +1,0 @@
-First Name
-Last Name
-City
-Country
