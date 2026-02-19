@@ -110,11 +110,15 @@ def fill_fields_by_name_and_value(infile, outfile):
         "address": "456 Elm St, Othertown, USA",
         "email": "jane.smith@example.com"
     }
-    for field_name, value in fields.items():
-        pdf_form.fill_field(field_name, value)
+
+    names = list(fields.keys())
+    values = list(fields.values())
+    
+    result = pdf_form.fill_fields(names, values, [])
+    print(f"Filled {result} fields by name and value.")
 
     # Save updated PDF
-    pdf_form.save()  
+    pdf_form.save(outfile)
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all import form data examples and report status.
