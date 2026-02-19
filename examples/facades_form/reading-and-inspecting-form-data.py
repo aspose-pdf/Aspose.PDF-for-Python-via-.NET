@@ -75,7 +75,38 @@ def resolve_full_field_names(infile):
     for field in pdf_form.field_names:
         name= pdf_form.get_full_field_name(field)
         print(f"Full field name: {name}")
-    
+
+# Get required field names
+def get_required_field_names(infile):
+    """Get required field names from a PDF document."""
+    # Create Form object
+    pdf_form = pdf_facades.Form()
+
+    # Bind PDF document
+    pdf_form.bind_pdf(infile)
+
+    # Get required field names
+    for field in pdf_form.field_names:
+        if pdf_form.is_required_field(field):
+            print(f"Required field: {field}")
+
+#get field facades 
+def get_field_facades(infile):
+    """Get field facades from a PDF document."""
+    # Create Form object
+    pdf_form = pdf_facades.Form()
+
+    # Bind PDF document
+    pdf_form.bind_pdf(infile)
+
+    # Get field facades
+    for field in pdf_form.field_names:
+        facade = pdf_form.get_field_facade(field)
+        print(f"Field facade for '{field}': {facade.box.location}, {facade.box.size}")
+        print(f"Field facade for '{field}': {facade.font.name}, {facade.font_size}")
+
+
+
 def run_all_examples(data_dir=None, license_path=None):
     """Run all import form data examples and report status.
 
@@ -87,13 +118,15 @@ def run_all_examples(data_dir=None, license_path=None):
         None
     """
     set_license(license_path)
-    input_dir, output_dir = initialize_data_dir(data_dir)
+    input_dir, _ = initialize_data_dir(data_dir)
 
     examples = [
         ("Get Field Values", get_field_values),
         ("Get Rich Text Values", get_rich_text_values),
         ("Get Radio Button Options", get_radio_button_options),
         ("Resolve Full Field Names", resolve_full_field_names),
+        ("Get Required Field Names", get_required_field_names),
+        ("Get Field Facades", get_field_facades)
     ]
 
     for name, func in examples:
