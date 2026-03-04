@@ -81,11 +81,10 @@ def copy_inner_field(infile, outfile):
     # Bind document to FormEditor
     form_editor.bind_pdf(infile)
     # Copies an existing field to a new position specified by both page number and ordinates. 
-    # A new document will be produced, which contains everything the source document has except for the newly copied field.    
+    # A new document will be produced, which contains everything the source document has except for the newly copied field.        
     form_editor.copy_inner_field("First Name", "First Name Copy", 2, 200, 600)
     # Save updated document
     form_editor.save(outfile)
-
 
 def copy_outer_field(infile, outfile):
     # Since copy_outer_field() method needs to copy field from source document to target document, we need to create a new document as target document first.

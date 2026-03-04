@@ -1,38 +1,45 @@
-# Booklet & N-Up Layout
-#─ Create PDF Booklet
-# ─ Create N-Up PDF Document
-
-from io import FileIO
-import sys
-from os import path
 import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
+from io import FileIO
+
+import sys
+from os import path
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
 # Create PDF Booklet
-def create_pdf_booklet():
-    # Initialize data directory path
-    data_dir = initialize_data_dir()
+def create_pdf_booklet(infile, outfile):
     # Create BookletMaker object
-    booklet_maker = pdf_facades.BookletMaker()
-    # Set input PDF file
-    booklet_maker.bind_pdf(data_dir + "input.pdf")
-    # Set output PDF file
-    booklet_maker.save(data_dir + "booklet_output.pdf")
+    booklet_maker = pdf_facades.PdfFileEditor()
+    # Make booklet from input PDF file and save to output PDF file
+    booklet_maker.make_booklet(FileIO(infile), FileIO(outfile, "w"))
+
+def try_create_pdf_booklet(infile, outfile):
+    # Create BookletMaker object
+    booklet_maker = pdf_facades.PdfFileEditor()
+    # Make booklet from input PDF file and save to output PDF file
+    # The try_make_booklet method is like the make_booklet method, 
+    # except the try_make_booklet method does not throw an exception if the operation fails.
+    if not booklet_maker.try_make_booklet(FileIO(infile), FileIO(outfile, "w")):
+        print("Failed to create booklet.")
+    
+    
+# Create N-Up PDF Document
+def create_nup_pdf_document(infile, outfile):
+    # Create NUpMaker object
+    nup_maker = pdf_facades.PdfFileEditor()
+    # Make N-Up layout from input PDF file and save to output PDF file
+    nup_maker.make_n_up(FileIO(infile), FileIO(outfile, "w"), 2, 2)  # 2 rows and 2 columns for N-Up layout
 
 # Create N-Up PDF Document
-def create_nup_pdf_document():
-    # Initialize data directory path
-    data_dir = initialize_data_dir()
+def try_create_nup_pdf_document(infile, outfile):
     # Create NUpMaker object
-    nup_maker = pdf_facades.NUpMaker()
-    # Set input PDF file
-    nup_maker.bind_pdf(data_dir + "input.pdf")
-    # Set output PDF file
-    nup_maker.save(data_dir + "nup_output.pdf")
+    nup_maker = pdf_facades.PdfFileEditor()
+    # Make N-Up layout from input PDF file and save to output PDF file
+    if not nup_maker.try_make_n_up(FileIO(infile), FileIO(outfile, "w"), 2, 2):
+        print("Failed to create N-Up PDF document.")
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all booklet and N-Up layout examples and report status.
@@ -50,24 +57,22 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
 
-        ("Create PDF Booklet", create_pdf_booklet, "booklet_output.pdf"),
-        ("Create N-Up PDF Document", create_nup_pdf_document, "nup_output.pdf")
+        ("Create PDF Booklet", create_pdf_booklet),
+        ("Create N-Up PDF Document", create_nup_pdf_document),
+        ("Try Create PDF Booklet", try_create_pdf_booklet),
+        ("Try Create N-Up PDF Document", try_create_nup_pdf_document)
     ]
 
-    for name, func, data_file_name in examples:
+    for name, func in examples:
         try:
-            if (func.__name__ == "create_pdf_booklet") or (func.__name__ == "create_nup_pdf_document"):
-                input_file_name = path.join(input_dir, "input.pdf")
-            else:
-                input_file_name = path.join(input_dir, "f")
-            output_file_name = path.join(output_dir, data_file_name)
+            input_file_name = path.join(input_dir, func.__name__ + ".pdf")
+            output_file_name = path.join(output_dir, func.__name__ + ".pdf")
             func(input_file_name, output_file_name)
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
 
-    print("\nAll booklet and N-Up layout examples finished.")
-
+    print("\nAll booklet and N-Up layout examples finished.\n")
 
 if __name__ == "__main__":
     run_all_examples()          
