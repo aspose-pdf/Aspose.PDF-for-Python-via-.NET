@@ -105,16 +105,7 @@ def copy_outer_field(infile, outfile):
 
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run all import/export form data examples and report status.
-
-    Args:
-        data_dir (str, optional): Input/output directory override.
-        license_path (str, optional): Path to Aspose.PDF license file.
-
-    Returns:
-        None
-    """
-
+    """Run all form field modification examples and report status."""
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
@@ -131,14 +122,11 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, func.__name__ + ".pdf")
-            output_file_name = path.join(output_dir, func.__name__ + ".pdf")
-            func(input_file_name, output_file_name)
+            func(path.join(input_dir, f"{func.__name__}.pdf"),
+                 path.join(output_dir, f"{func.__name__}.pdf"))
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
-
-    print("\nAll Modifying Form Fields examples finished.")
 
 
 if __name__ == "__main__":
