@@ -8,85 +8,101 @@ sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
-def add_list_item(infile,outfile):
-    # Open document
-    doc = ap.Document(infile)
+
+def add_list_item(infile, outfile):
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
+    # Bind document to FormEditor
+    form_editor.bind_pdf(infile)
     # Add list item to list box field
-    form_editor.add_list_item(doc, "list_box", "item 4")
+    form_editor.add_list_item("Country", ["New Zealand","New Zealand"])
     # Save updated document
-    doc.save(outfile)
+    form_editor.save(outfile)
 
-def del_list_item(infile,outfile):
-    # Open document
-    doc = ap.Document(infile)
+
+def del_list_item(infile, outfile):
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
+    # Bind document to FormEditor
+    form_editor.bind_pdf(infile)
     # Delete list item from list box field
-    form_editor.del_list_item(doc, "list_box", "item 2")
+    form_editor.del_list_item("Country", "UK")
     # Save updated document
-    doc.save(outfile)
+    form_editor.save(outfile)
 
-def move_field(infile,outfile): 
-    # Open document
-    doc = ap.Document(infile)
+
+def move_field(infile, outfile):
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
+    # Bind document to FormEditor
+    form_editor.bind_pdf(infile)
     # Move field to new page
-    form_editor.move_field(doc, "text_box", 2)
+    form_editor.move_field("Country", 200, 600, 280, 620)
     # Save updated document
-    doc.save(outfile)
+    form_editor.save(outfile)
 
-def remove_field(infile,outfile):
-    # Open document
-    doc = ap.Document(infile)
+
+def remove_field(infile, outfile):
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
+    # Bind document to FormEditor
+    form_editor.bind_pdf(infile)
     # Remove field from document
-    form_editor.remove_field(doc, "text_box")
+    form_editor.remove_field("Country")
     # Save updated document
-    doc.save(outfile)
+    form_editor.save(outfile)
 
-def rename_field(infile,outfile):
-    # Open document
-    doc = ap.Document(infile)
+
+def rename_field(infile, outfile):
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
+    # Bind document to FormEditor
+    form_editor.bind_pdf(infile)
     # Rename field in document
-    form_editor.rename_field(doc, "text_box", "new_text_box")
+    form_editor.rename_field("City", "Town")
     # Save updated document
-    doc.save(outfile)
+    form_editor.save(outfile)
 
-def single2multiple(infile,outfile):
-    # Open document
-    doc = ap.Document(infile)
+
+def single2multiple(infile, outfile):
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
-    # Convert single field to multiple fields
-    form_editor.single2multiple(doc, "text_box", 3)
+    # Bind document to FormEditor
+    form_editor.bind_pdf(infile)    
+    # Change a single-lined text field to a multiple-lined one
+    form_editor.single_2_multiple("City")
     # Save updated document
-    doc.save(outfile)
+    form_editor.save(outfile)
+
 
 def copy_inner_field(infile, outfile):
-    # Open document
-    doc = ap.Document(infile)
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
-    # Copy inner field to new page
-    form_editor.copy_inner_field(doc, "text_box", 2)
+    # Bind document to FormEditor
+    form_editor.bind_pdf(infile)
+    # Copies an existing field to a new position specified by both page number and ordinates. 
+    # A new document will be produced, which contains everything the source document has except for the newly copied field.    
+    form_editor.copy_inner_field("First Name", "First Name Copy", 2, 200, 600)
     # Save updated document
-    doc.save(outfile)
+    form_editor.save(outfile)
+
 
 def copy_outer_field(infile, outfile):
-    # Open document
-    doc = ap.Document(infile)
+    # Since copy_outer_field() method needs to copy field from source document to target document, we need to create a new document as target document first.
+    doc = ap.Document()
+    doc.pages.add()
+    doc.save(outfile)
+
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
-    # Copy outer field to new page
-    form_editor.copy_outer_field(doc, "text_box", 2)
+    # Bind document to FormEditor
+    form_editor.bind_pdf(outfile)
+    # Copies an existing field to a new position specified by both page number and ordinates. 
+    # A new document will be produced, which contains everything the source document has except for the newly copied field.
+    form_editor.copy_outer_field(infile, "First Name", 1, 200, 600)
     # Save updated document
-    doc.save(outfile)    
+    form_editor.save(outfile)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all import/export form data examples and report status.
@@ -103,20 +119,20 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Add List Item", add_list_item, "add_list_item.pdf"),
-        ("Delete List Item", del_list_item, "del_list_item.pdf"),
-        ("Move Field", move_field, "move_field.pdf"),
-        ("Remove Field", remove_field, "remove_field.pdf"),
-        ("Rename Field", rename_field, "rename_field.pdf"),
-        ("Single to Multiple", single2multiple, "single2multiple.pdf"),
-        ("Copy Inner Field", copy_inner_field, "copy_inner_field.pdf"),
-        ("Copy Outer Field", copy_outer_field, "copy_outer_field.pdf")
+        ("Add List Item", add_list_item),
+        ("Delete List Item", del_list_item),
+        ("Move Field", move_field),
+        ("Remove Field", remove_field),
+        ("Rename Field", rename_field),
+        ("Single to Multiple", single2multiple),
+        ("Copy Inner Field", copy_inner_field),
+        ("Copy Outer Field", copy_outer_field),
     ]
 
-    for name, func, data_file_name in examples:
+    for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, "sample_form.pdf")
-            output_file_name = path.join(output_dir, data_file_name)
+            input_file_name = path.join(input_dir, func.__name__ + ".pdf")
+            output_file_name = path.join(output_dir, func.__name__ + ".pdf")
             func(input_file_name, output_file_name)
             print(f"✅ Success: {name}")
         except Exception as e:
