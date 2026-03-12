@@ -1,8 +1,7 @@
-from io import FileIO
-import sys
-from os import path
 import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
+import sys
+from os import path
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 
