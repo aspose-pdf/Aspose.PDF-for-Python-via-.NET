@@ -1,8 +1,3 @@
-# Set PDF Privileges
-# ├── Set PDF Privileges Without Passwords
-# ├── Set PDF Privileges with User and Owner Passwords
-# └── Try Set PDF Privileges Without Exception
-
 from io import FileIO
 import sys
 from os import path
@@ -107,7 +102,7 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, "input.pdf")
+            input_file_name = path.join(input_dir, "sample.pdf")
             output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
             func(input_file_name, output_file_name)
 

@@ -43,9 +43,9 @@ def encrypt_pdf_with_permissions(infile, outfile):
     file_security.bind_pdf(infile)
 
     # Configure privileges
-    privilege = pdf_facades.DocumentPrivilege.forbid_all
-    privilege.allow_print = True
-    privilege.allow_copy = True
+    privilege = pdf_facades.DocumentPrivilege.allow_all
+    privilege.allow_print = False
+    privilege.allow_copy = False    
 
     # Encrypt the PDF
     file_security.encrypt_file(
