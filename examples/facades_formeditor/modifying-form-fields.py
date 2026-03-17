@@ -1,8 +1,7 @@
-from io import FileIO
-import sys
-from os import path
 import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
+import sys
+from os import path
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 
@@ -81,11 +80,10 @@ def copy_inner_field(infile, outfile):
     # Bind document to FormEditor
     form_editor.bind_pdf(infile)
     # Copies an existing field to a new position specified by both page number and ordinates. 
-    # A new document will be produced, which contains everything the source document has except for the newly copied field.    
+    # A new document will be produced, which contains everything the source document has except for the newly copied field.        
     form_editor.copy_inner_field("First Name", "First Name Copy", 2, 200, 600)
     # Save updated document
     form_editor.save(outfile)
-
 
 def copy_outer_field(infile, outfile):
     # Since copy_outer_field() method needs to copy field from source document to target document, we need to create a new document as target document first.
@@ -105,16 +103,7 @@ def copy_outer_field(infile, outfile):
 
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run all import/export form data examples and report status.
-
-    Args:
-        data_dir (str, optional): Input/output directory override.
-        license_path (str, optional): Path to Aspose.PDF license file.
-
-    Returns:
-        None
-    """
-
+    """Run all form field modification examples and report status."""
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
@@ -131,14 +120,11 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, func.__name__ + ".pdf")
-            output_file_name = path.join(output_dir, func.__name__ + ".pdf")
-            func(input_file_name, output_file_name)
+            func(path.join(input_dir, f"{func.__name__}.pdf"),
+                 path.join(output_dir, f"{func.__name__}.pdf"))
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
-
-    print("\nAll Modifying Form Fields examples finished.")
 
 
 if __name__ == "__main__":

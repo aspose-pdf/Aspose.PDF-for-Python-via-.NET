@@ -1,12 +1,3 @@
-# Filling PDF Form Fields
-# ├── Fill Text Fields
-# ├── Fill Check Box Fields
-# ├── Fill Radio Button Fields
-# ├── Fill List Box / Multi-Select Fields
-# ├── Fill Barcode Fields
-# └── Fill Fields by Name and Value
-
-from io import FileIO
 import sys
 from os import path
 import aspose.pdf as ap
@@ -113,12 +104,12 @@ def fill_fields_by_name_and_value(infile, outfile):
 
     names = list(fields.keys())
     values = list(fields.values())
-    
-    result = pdf_form.fill_fields(names, values, [])
-    print(f"Filled {result} fields by name and value.")
-
-    # Save updated PDF
-    pdf_form.save(outfile)
+    output = []
+    pdf_form.fill_fields(names, values, output)
+    stream = output[0] # Get filled PDF as stream
+    stream.seek(0) # Reset stream position to beginning
+    with open(outfile, 'wb') as f:
+        f.write(stream.read())
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all import form data examples and report status.

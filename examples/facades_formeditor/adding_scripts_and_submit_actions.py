@@ -47,25 +47,23 @@ def remove_field_script(input_file_name, output_file_name):
     form_editor.bind_pdf(input_file_name)
 
     # Remove JavaScript action from the field
-    if not form_editor.remove_field_action("Script_Demo_Button"):
-        raise Exception("Failed to remove field script")        
-
+    form_editor.remove_field_action("Script_Demo_Button")
+    
     # Save output PDF file
     form_editor.save(output_file_name)
 
-def set_submit_flag(input_file_name, output_file_name):
-    pass
-#     # Create FormEditor object
-#     form_editor = pdf_facades.FormEditor()
+def set_submit_flag(input_file_name, output_file_name):    
+    # Create FormEditor object
+    form_editor = pdf_facades.FormEditor()
 
-#     # Open input PDF file
-#     form_editor.bind_pdf(input_file_name)
+    # Open input PDF file
+    form_editor.bind_pdf(input_file_name)
 
-#     # Set submit flag for the form
-#     form_editor.set_submit_flag("Script_Demo_Button", ap.facades.SubmitFlag.IncludeNoValueFields)
+    # Set submit flag for the form
+    form_editor.set_submit_flag("Script_Demo_Button", ap.facades.SubmitFormFlag.XFDF)
 
-#     # Save output PDF file
-#     form_editor.save(output_file_name)
+    # Save output PDF file
+    form_editor.save(output_file_name)
 
 def set_submit_url(input_file_name, output_file_name):
     # Create FormEditor object
