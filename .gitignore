@@ -250,3 +250,4 @@ BundleArtifacts/
 .cake/*
 
 .nugetapikey
+.vscode
