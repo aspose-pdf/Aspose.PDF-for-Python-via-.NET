@@ -1,5 +1,6 @@
 import aspose.pdf.facades as pdf_facades
 import aspose.pydrawing as apd
+from io import BytesIO
 import sys
 from os import path
 
@@ -23,6 +24,20 @@ def add_attachment(infile, attachment_file ,outfile):
     content_editor.save(outfile)
 
 
+def add_attachment_from_path(infile, attachment_file, outfile):
+    # Create PdfContentEditor object
+    content_editor = pdf_facades.PdfContentEditor()
+    # Bind document to PdfContentEditor
+    content_editor.bind_pdf(infile)
+    # Add attachment using file-path overload
+    content_editor.add_document_attachment(
+        attachment_file,
+        "Attachment added using file path overload.",
+    )
+    # Save updated document
+    content_editor.save(outfile)
+
+
 def add_file_attachment_annotation(infile, attachment_file, outfile):
     # Create PdfContentEditor object
     content_editor = pdf_facades.PdfContentEditor()
@@ -35,6 +50,29 @@ def add_file_attachment_annotation(infile, attachment_file, outfile):
         attachment_file,
         1,
         "PushPin",
+    )
+    # Save updated document
+    content_editor.save(outfile)
+
+
+def add_file_attachment_annotation_from_stream(infile, attachment_file, outfile):
+    # Create PdfContentEditor object
+    content_editor = pdf_facades.PdfContentEditor()
+    # Bind document to PdfContentEditor
+    content_editor.bind_pdf(infile)
+
+    with open(attachment_file, "rb") as source_stream:
+        attachment_stream = BytesIO(source_stream.read())
+
+    # Create file attachment annotation using stream+opacity overload
+    content_editor.create_file_attachment(
+        apd.Rectangle(130, 520, 20, 20),
+        "Attachment annotation from stream",
+        attachment_stream,
+        path.basename(attachment_file),
+        1,
+        "Tag",
+        0.75,
     )
     # Save updated document
     content_editor.save(outfile)
@@ -57,7 +95,13 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Add Attachment", add_attachment, True),
+        ("Add Attachment From Path", add_attachment_from_path, True),
         ("Add File Attachment Annotation", add_file_attachment_annotation, True),
+        (
+            "Add File Attachment Annotation From Stream",
+            add_file_attachment_annotation_from_stream,
+            True,
+        ),
         ("Remove Attachments", remove_attachments, False),
     ]
 

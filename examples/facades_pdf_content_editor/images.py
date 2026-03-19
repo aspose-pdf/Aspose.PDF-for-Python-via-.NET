@@ -1,5 +1,3 @@
-import io
-
 import aspose.pdf.facades as pdf_facades
 import sys
 from os import path

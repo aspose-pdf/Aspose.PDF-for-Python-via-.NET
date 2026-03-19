@@ -55,6 +55,22 @@ def add_markup_annotation(infile, outfile):
     # Save updated document
     content_editor.save(outfile)
 
+
+def add_popup_annotation(infile, outfile):
+    # Create PdfContentEditor object
+    content_editor = pdf_facades.PdfContentEditor()
+    # Bind document to PdfContentEditor
+    content_editor.bind_pdf(infile)
+    # Add popup annotation to page 1
+    content_editor.create_popup(
+        apd.Rectangle(220, 520, 180, 80),
+        "This is a popup annotation",
+        True,
+        1,
+    )
+    # Save updated document
+    content_editor.save(outfile)
+
 def run_all_examples(data_dir=None, license_path=None):
     """Run all form field modification examples and report status."""
     set_license(license_path)
@@ -65,11 +81,12 @@ def run_all_examples(data_dir=None, license_path=None):
         ("Add Free Text Annotation", add_free_text_annotation),
         ("Add Caret Annotation", add_caret_annotation),
         ("Add Markup Annotation", add_markup_annotation),
+        ("Add Popup Annotation", add_popup_annotation),
     ]
 
     for name, func in examples:
         try:
-            func(path.join(input_dir, f"{func.__name__}.pdf"),
+            func(path.join(input_dir, "sample.pdf"),
                  path.join(output_dir, f"{func.__name__}.pdf"))
             print(f"✅ Success: {name}")
         except Exception as e:
