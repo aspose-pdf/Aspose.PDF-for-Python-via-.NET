@@ -1,47 +1,46 @@
-from facades import PDFDocument
-from config import set_license, initialize_data_dir
-from os import name, name, path
+import sys
+from os import path
 
-def remove_usage_rights(input_file_name, output_file_name):
-    # Load PDF document
-    pdf_document = PDFDocument(input_file_name)
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
-    # Remove usage rights
-    pdf_document.remove_usage_rights()
+from config import initialize_data_dir, set_license
 
-    # Save updated PDF document
-    pdf_document.save(output_file_name)
-    print(f"Usage rights removed and saved to: {output_file_name}")
+from _pdf_file_signature_helpers import (
+    DEFAULT_SIGNED_PDF,
+    create_pdf_file_signature,
+)
+
+
+def remove_usage_rights(infile, outfile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        had_usage_rights = pdf_signature.contains_usage_rights()
+        print(f"PDF contains usage rights before removal: {had_usage_rights}")
+        pdf_signature.remove_usage_rights()
+        pdf_signature.save(outfile)
+    finally:
+        pdf_signature.close()
+
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run all usage rights management examples and report status.
-
-    Args:
-        data_dir (str, optional): Input/output directory override.
-        license_path (str, optional): Path to Aspose.PDF license file.
-
-    Returns:
-        None
-    """
+    """Run all usage rights management examples and report status."""
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Remove Usage Rights", remove_usage_rights)
+        ("Remove Usage Rights", remove_usage_rights),
     ]
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, "input.pdf")
-            output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
-            func(input_file_name, output_file_name)
-
-            print(f"✅ Success: {name}")
+            func(
+                path.join(input_dir, DEFAULT_SIGNED_PDF),
+                path.join(output_dir, f"{func.__name__}.pdf"),
+            )
+            print(f"Success: {name}")
         except Exception as e:
-            print(f"❌ Failed: {name} - {str(e)}")
-
-    print("\nAll usage rights management examples finished.")
+            print(f"Failed: {name} - {e}")
 
 
 if __name__ == "__main__":
-    run_all_examples()     
+    run_all_examples()

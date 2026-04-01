@@ -1,81 +1,89 @@
-from io import FileIO
-import sys  
-from os import path
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
-
-from examples.config import initialize_data_dir, set_license   
+import sys
+from os import path
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 
-from certificate_configuration import set_certificate_for_signing
+from config import initialize_data_dir, set_license
 
-def sign_pdf_with_basic_parameters(input_file_name, output_file_name):
-    pdf_signature = pdf_facades.PdfFileSignature()
-    pdf_signature.bind_pdf(input_file_name)
+from _pdf_file_signature_helpers import (
+    DEFAULT_INPUT_PDF,
+    DEFAULT_SIGNATURE_NAME,
+    configure_signature_certificate,
+    create_custom_signature_appearance,
+    create_pdf_file_signature,
+    create_pkcs7_signature,
+    create_signature_rectangle,
+)
 
-    # Set certificate for signing
-    set_certificate_for_signing(input_file_name)
 
-    # Sign PDF with basic parameters
-    signature_reason = "Document approval"
-    signature_location = "New York, USA"
-    pdf_signature.sign(output_file_name, signature_reason, signature_location)
-    print(f"PDF signed successfully: {output_file_name}")
+def sign_pdf_with_basic_parameters(infile, outfile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        configure_signature_certificate(pdf_signature)
+        pdf_signature.sign(
+            1,
+            "Document approval",
+            "qa@example.com",
+            "New York, USA",
+            False,
+            create_signature_rectangle(),
+        )
+        pdf_signature.save(outfile)
+    finally:
+        pdf_signature.close()
 
-def sign_pdf_with_certificate_object(input_file_name, output_file_name):
-    pdf_signature = pdf_facades.PdfFileSignature()
-    pdf_signature.bind_pdf(input_file_name)
 
-    # Set certificate for signing
-    set_certificate_for_signing(input_file_name)
+def sign_pdf_with_certificate_object(infile, outfile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        signature = create_pkcs7_signature()
+        pdf_signature.sign(1, False, create_signature_rectangle(), signature)
+        pdf_signature.save(outfile)
+    finally:
+        pdf_signature.close()
 
-    # Sign PDF with certificate object
-    signature_reason = "Document approval"
-    signature_location = "New York, USA"
-    pdf_signature.sign(output_file_name, signature_reason, signature_location)
-    print(f"PDF signed successfully: {output_file_name}")
 
-def sign_pdf_with_named_signature(input_file_name, output_file_name):
-    pdf_signature = pdf_facades.PdfFileSignature()
-    pdf_signature.bind_pdf(input_file_name)
+def sign_pdf_with_named_signature(infile, outfile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        signature = create_pkcs7_signature(reason="Approved by signing workflow")
+        pdf_signature.sign(
+            1,
+            DEFAULT_SIGNATURE_NAME,
+            "Approved by signing workflow",
+            "qa@example.com",
+            "New York, USA",
+            True,
+            create_signature_rectangle(),
+            signature,
+        )
+        pdf_signature.save(outfile)
+    finally:
+        pdf_signature.close()
 
-    # Set certificate for signing
-    set_certificate_for_signing(input_file_name)
 
-    # Sign PDF with named signature
-    signature_reason = "Document approval"
-    signature_location = "New York, USA"
-    signature_name = "MySignature"
-    pdf_signature.sign(output_file_name, signature_reason, signature_location, signature_name)
-    print(f"PDF signed successfully with named signature: {output_file_name}")
+def apply_visible_signature(infile, outfile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        signature = create_pkcs7_signature(reason="Visible approval signature")
+        signature.custom_appearance = create_custom_signature_appearance()
+        pdf_signature.sign(
+            1,
+            "Visible approval signature",
+            "qa@example.com",
+            "New York, USA",
+            True,
+            create_signature_rectangle(),
+            signature,
+        )
+        pdf_signature.save(outfile)
+    finally:
+        pdf_signature.close()
 
-def apply_visible_signature(input_file_name, output_file_name):
-    pdf_signature = pdf_facades.PdfFileSignature()
-    pdf_signature.bind_pdf(input_file_name)
-
-    # Set certificate for signing
-    set_certificate_for_signing(input_file_name)
-
-    # Apply visible signature
-    signature_reason = "Document approval"
-    signature_location = "New York, USA"
-    signature_name = "VisibleSignature"
-    page_number = 1
-    rectangle = ap.Rectangle(100, 100, 200, 150)
-    pdf_signature.sign(output_file_name, signature_reason, signature_location, signature_name, page_number, rectangle)
-    print(f"PDF signed successfully with visible signature: {output_file_name}")
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run all PDF signing examples and report status.
-
-    Args:
-        data_dir (str, optional): Input/output directory override.
-        license_path (str, optional): Path to Aspose.PDF license file.
-
-    Returns:
-        None
-    """
+    """Run all PDF signing examples and report status."""
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
@@ -88,19 +96,14 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, "input.pdf")
-            output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
-            func(input_file_name, output_file_name)
-
-            print(f"✅ Success: {name}")
+            func(
+                path.join(input_dir, DEFAULT_INPUT_PDF),
+                path.join(output_dir, f"{func.__name__}.pdf"),
+            )
+            print(f"Success: {name}")
         except Exception as e:
-            print(f"❌ Failed: {name} - {str(e)}")
-
-    print("\nAll PDF signing examples finished.")
+            print(f"Failed: {name} - {e}")
 
 
 if __name__ == "__main__":
-    run_all_examples() 
-
-
-
+    run_all_examples()

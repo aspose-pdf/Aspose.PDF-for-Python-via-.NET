@@ -1,64 +1,57 @@
-from facades import PDFDocument, PDFSignature
-from config import set_license, initialize_data_dir
-from os import name, name, path
+import sys
+from os import path
 
-def remove_signature(input_file_name, output_file_name):
-    # Load PDF document
-    pdf_document = PDFDocument(input_file_name)
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
-    # Create PDF signature object
-    pdf_signature = PDFSignature()
+from config import initialize_data_dir, set_license
 
-    # Remove signature from PDF
-    pdf_signature.remove_signature(pdf_document)
+from _pdf_file_signature_helpers import (
+    DEFAULT_SIGNED_PDF,
+    create_pdf_file_signature,
+    require_signature_name,
+)
 
-    # Save updated PDF document
-    pdf_document.save(output_file_name)
-    print(f"Signature removed and saved to: {output_file_name}")
 
-def remove_signature_with_field_cleanup(input_file_name, output_file_name):
-    # Load PDF document
-    pdf_document = PDFDocument(input_file_name)
+def remove_signature_from_pdf(infile, outfile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        sign_name = require_signature_name(pdf_signature)
+        pdf_signature.remove_signature(sign_name)
+        pdf_signature.save(outfile)
+    finally:
+        pdf_signature.close()
 
-    # Create PDF signature object
-    pdf_signature = PDFSignature()
 
-    # Remove signature with field cleanup
-    pdf_signature.remove_signature_with_field_cleanup(pdf_document)
+def remove_signature_with_field_cleanup(infile, outfile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        sign_name = require_signature_name(pdf_signature)
+        pdf_signature.remove_signature(sign_name, True)
+        pdf_signature.save(outfile)
+    finally:
+        pdf_signature.close()
 
-    # Save updated PDF document
-    pdf_document.save(output_file_name)
-    print(f"Signature removed with field cleanup and saved to: {output_file_name}")
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run all signature management examples and report status.
-
-    Args:
-        data_dir (str, optional): Input/output directory override.
-        license_path (str, optional): Path to Aspose.PDF license file.
-
-    Returns:
-        None
-    """
+    """Run all signature management examples and report status."""
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Remove Signature from PDF", remove_signature),
-        ("Remove Signature with Field Cleanup", remove_signature_with_field_cleanup)
+        ("Remove Signature from PDF", remove_signature_from_pdf),
+        ("Remove Signature with Field Cleanup", remove_signature_with_field_cleanup),
     ]
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, "input.pdf")
-            output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
-            func(input_file_name, output_file_name)
-
-            print(f"✅ Success: {name}")
+            func(
+                path.join(input_dir, DEFAULT_SIGNED_PDF),
+                path.join(output_dir, f"{func.__name__}.pdf"),
+            )
+            print(f"Success: {name}")
         except Exception as e:
-            print(f"❌ Failed: {name} - {str(e)}")
+            print(f"Failed: {name} - {e}")
 
-    print("\nAll signature management examples finished.")
 
 if __name__ == "__main__":
-    run_all_examples()     
+    run_all_examples()

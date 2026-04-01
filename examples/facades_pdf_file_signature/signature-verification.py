@@ -1,59 +1,53 @@
-from facades import PDFDocument, PDFSignature
-from config import set_license, initialize_data_dir
-from os import name, name, path
+import sys
+from os import path
 
-def verify_pdf_signature(input_file_name, output_file_name):
-    # Load PDF document
-    pdf_document = PDFDocument(input_file_name)
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
-    # Create PDF signature object
-    pdf_signature = PDFSignature()
+from config import initialize_data_dir, set_license
 
-    # Verify PDF signature
-    is_valid = pdf_signature.verify_signature(pdf_document)
-    print(f"Is the PDF signature valid? {is_valid}")
+from _pdf_file_signature_helpers import (
+    DEFAULT_SIGNED_PDF,
+    create_pdf_file_signature,
+    require_signature_name,
+)
 
-def check_pdf_contains_signatures(input_file_name, output_file_name):
-    # Load PDF document
-    pdf_document = PDFDocument(input_file_name)
 
-    # Create PDF signature object
-    pdf_signature = PDFSignature()
+def verify_pdf_signature(infile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        sign_name = require_signature_name(pdf_signature)
+        is_valid = pdf_signature.verify_signature(sign_name)
+        print(f"Signature '{sign_name}' is valid: {is_valid}")
+    finally:
+        pdf_signature.close()
 
-    # Check if PDF contains signatures
-    contains_signatures = pdf_signature.contains_signatures(pdf_document)
-    print(f"Does the PDF contain signatures? {contains_signatures}")
+
+def check_if_pdf_contains_signatures(infile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        contains_signatures = pdf_signature.contains_signature()
+        print(f"PDF contains signatures: {contains_signatures}")
+    finally:
+        pdf_signature.close()
+
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run all signature verification examples and report status.
-
-    Args:
-        data_dir (str, optional): Input/output directory override.
-        license_path (str, optional): Path to Aspose.PDF license file.
-
-    Returns:
-        None
-    """
+    """Run all signature verification examples and report status."""
     set_license(license_path)
-    input_dir, output_dir = initialize_data_dir(data_dir)
+    input_dir, _ = initialize_data_dir(data_dir)
 
     examples = [
         ("Verify PDF Signature", verify_pdf_signature),
-        ("Check if PDF Contains Signatures", check_pdf_contains_signatures)
+        ("Check if PDF Contains Signatures", check_if_pdf_contains_signatures),
     ]
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, "input.pdf")
-            output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
-            func(input_file_name, output_file_name)
-
-            print(f"✅ Success: {name}")
+            func(path.join(input_dir, DEFAULT_SIGNED_PDF))
+            print(f"Success: {name}")
         except Exception as e:
-            print(f"❌ Failed: {name} - {str(e)}")
-
-    print("\nAll signature verification examples finished.")
+            print(f"Failed: {name} - {e}")
 
 
 if __name__ == "__main__":
-    run_all_examples()     
+    run_all_examples()

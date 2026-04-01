@@ -1,41 +1,41 @@
-from io import FileIO
 import sys
 from os import path
-import aspose.pdf as ap 
-import aspose.pdf.facades as pdf_facades
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 
-from config import set_license, initialize_data_dir
+from config import initialize_data_dir, set_license
 
-def check_signature_coverage(input_file_name, output_file_name):
-    pdf_signature = pdf_facades.PdfFileSignature()
-    pdf_signature.bind_pdf(input_file_name)
+from _pdf_file_signature_helpers import (
+    DEFAULT_SIGNED_PDF,
+    create_pdf_file_signature,
+    require_signature_name,
+)
 
-    # Check signature coverage
-    coverage = pdf_signature.check_signature_coverage()
-    print(f"Signature Coverage: {coverage}%")
 
-def validate_document_integrity(input_file_name, output_file_name):
-    pdf_signature = pdf_facades.PdfFileSignature()
-    pdf_signature.bind_pdf(input_file_name)
+def check_signature_coverage(infile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        sign_name = require_signature_name(pdf_signature)
+        covers_document = pdf_signature.covers_whole_document(sign_name)
+        print(f"Signature '{sign_name}' covers the whole document: {covers_document}")
+    finally:
+        pdf_signature.close()
 
-    # Validate document integrity
-    is_valid = pdf_signature.validate_document_integrity()
-    print(f"Document Integrity Valid: {is_valid}")
+
+def validate_document_integrity(infile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        sign_name = require_signature_name(pdf_signature)
+        is_valid = pdf_signature.verify_signed(sign_name)
+        print(f"Document integrity for '{sign_name}' is valid: {is_valid}")
+    finally:
+        pdf_signature.close()
+
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run all signature integrity check examples and report status.
-
-    Args: 
-        data_dir (str, optional): Input/output directory override.
-        license_path (str, optional): Path to Aspose.PDF license file.  
-    
-    Returns:
-        None
-    """
+    """Run all signature integrity check examples and report status."""
     set_license(license_path)
-    input_dir, output_dir = initialize_data_dir(data_dir)
+    input_dir, _ = initialize_data_dir(data_dir)
 
     examples = [
         ("Check Signature Coverage", check_signature_coverage),
@@ -44,18 +44,11 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, "signed_input.pdf")
-            output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
-            func(input_file_name, output_file_name)
-
-            print(f"✅ Success: {name}")
+            func(path.join(input_dir, DEFAULT_SIGNED_PDF))
+            print(f"Success: {name}")
         except Exception as e:
-            print(f"❌ Failed: {name} - {str(e)}")
-
-    print("\nAll signature integrity check examples finished.")
+            print(f"Failed: {name} - {e}")
 
 
 if __name__ == "__main__":
-    run_all_examples() 
-
-
+    run_all_examples()
