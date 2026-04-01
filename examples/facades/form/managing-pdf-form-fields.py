@@ -1,14 +1,12 @@
-# Flatten Specific Fields
-# ├── Flatten All Fields
-# └── Rename Form Fields    
-
-from io import FileIO
 import sys
 from os import path
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
 
-sys.path.append(path.join(path.dirname(__file__), ".."))
+# Ensure "examples/config.py" is importable from nested folders like examples/facades/form
+CURRENT_DIR = path.dirname(__file__)
+EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
+if EXAMPLES_DIR not in sys.path:
+    sys.path.insert(0, EXAMPLES_DIR)
 
 from config import set_license, initialize_data_dir
 
