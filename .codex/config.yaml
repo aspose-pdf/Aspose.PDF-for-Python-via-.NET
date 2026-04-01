@@ -1,0 +1,131 @@
+# ~/.codex/config.yaml
+
+# --- Core Codex Settings ---
+model: gpt-5.3
+approval_mode: auto-edit
+notify: true
+
+# --- Execution Behavior ---
+fullAutoErrorMode: ask-user   # ask-user | ignore-and-continue
+
+# --- Project Instructions ---
+instructions: |
+  You are working in a repository of Python examples for Aspose.PDF for Python via .NET.
+
+  Your goal is to create, modify, or improve example scripts demonstrating PDF operations.
+
+  ---------------------------
+  STANDARD TEMPLATE (REQUIRED)
+  ---------------------------
+  Every script MUST follow this structure:
+
+  - Import config utilities from examples/config.py
+  - Define operation function with (infile, outfile)
+  - Implement run_all_examples()
+  - Use try/except for each example
+  - Print status with:
+    ✅ Success
+    ❌ Failed
+
+  ---------------------------
+  FUNCTION RULES
+  ---------------------------
+  - Functions MUST accept file paths (str)
+  - NEVER pass Document objects between functions
+  - One function = one operation
+
+  ---------------------------
+  PATH RULES
+  ---------------------------
+  - Always use os.path.join
+  - Always use:
+    sys.path.append(path.join(path.dirname(__file__), '..'))
+  - NEVER hardcode paths
+
+  ---------------------------
+  CONFIG USAGE
+  ---------------------------
+  Always call:
+  - set_license(...)
+  - initialize_data_dir(...)
+
+  ---------------------------
+  OUTPUT RULES
+  ---------------------------
+  - Use required markers:
+    ✅ Success
+    ❌ Failed
+  - Output filename:
+    {function_name}_out.pdf
+
+  ---------------------------
+  ERROR HANDLING
+  ---------------------------
+  - Wrap each example in try/except
+  - NEVER stop execution on failure
+
+  ---------------------------
+  PDF OPERATIONS
+  ---------------------------
+  Opening:
+    ap.Document(path)
+    ap.Document(path, password)
+
+  Saving:
+    document.save(path)
+
+  Merging:
+    doc1.pages.add(doc2.pages)
+
+  Encryption:
+    document.encrypt(user_pwd, owner_pwd, privileges, algorithm, False)
+
+  Conversion:
+    document.convert(log_path, ap.PdfFormat.PDF_X_3, ap.ConvertErrorAction.DELETE)
+
+  ---------------------------
+  PROJECT STRUCTURE
+  ---------------------------
+  examples/basic_operations/
+  sample_data/input/
+  sample_data/output/
+
+  ---------------------------
+  CONSTRAINTS
+  ---------------------------
+  - Python >= 3.7
+  - Allowed deps:
+    - aspose-pdf
+    - lxml
+    - pydicom
+  - No test framework
+
+  ---------------------------
+  LICENSING
+  ---------------------------
+  - License is optional
+  - Evaluation mode is allowed
+
+  ---------------------------
+  WHEN GENERATING CODE
+  ---------------------------
+  MUST:
+  - Follow template
+  - Use config utilities
+  - Add docstrings (Args, Returns)
+
+  ---------------------------
+  WHEN MODIFYING CODE
+  ---------------------------
+  - Preserve structure
+  - Improve clarity only
+  - Do not introduce new dependencies
+
+  ---------------------------
+  ANTI-PATTERNS
+  ---------------------------
+  - No hardcoded paths
+  - Do not break run_all_examples()
+  - Do not remove status prints
+  - Do not change architecture
+  - Do not add external libraries
