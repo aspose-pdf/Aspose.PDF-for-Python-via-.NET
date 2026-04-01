@@ -8,10 +8,25 @@ from config import initialize_data_dir, set_license
 
 from _pdf_file_signature_helpers import (
     DEFAULT_INPUT_PDF,
+    DEFAULT_CERTIFICATE_PASSWORD,
+    configure_signature_certificate,
+    create_pdf_file_signature,    
     create_doc_mdp_signature,
     create_pdf_file_signature,
     create_signature_rectangle,
 )
+
+def set_certificate_for_signing(infile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        certificate_path = configure_signature_certificate(
+            pdf_signature,
+            certificate_password=DEFAULT_CERTIFICATE_PASSWORD,
+        )
+        print(f"Certificate configured for signing: {certificate_path}")
+    finally:
+        pdf_signature.close()
+
 
 
 def certify_pdf_with_mdp_signature(infile, outfile):
@@ -62,6 +77,7 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
+        ("Set Certificate for Signing", set_certificate_for_signing),
         ("Certify PDF with MDP Signature", certify_pdf_with_mdp_signature),
         ("Apply Document-Level Certification", apply_document_level_certification),
     ]
@@ -72,9 +88,9 @@ def run_all_examples(data_dir=None, license_path=None):
                 path.join(input_dir, DEFAULT_INPUT_PDF),
                 path.join(output_dir, f"{func.__name__}.pdf"),
             )
-            print(f"Success: {name}")
+            print(f"✅ Success: {name}")
         except Exception as e:
-            print(f"Failed: {name} - {e}")
+            print(f"❌ Failed {name} - {e}")
 
 
 if __name__ == "__main__":

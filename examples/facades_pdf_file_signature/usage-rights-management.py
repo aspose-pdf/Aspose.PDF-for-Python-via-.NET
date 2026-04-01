@@ -37,9 +37,9 @@ def run_all_examples(data_dir=None, license_path=None):
                 path.join(input_dir, DEFAULT_SIGNED_PDF),
                 path.join(output_dir, f"{func.__name__}.pdf"),
             )
-            print(f"Success: {name}")
+            print(f"✅ Success: {name}")
         except Exception as e:
-            print(f"Failed: {name} - {e}")
+            print(f"❌ Failed {name} - {e}")
 
 
 if __name__ == "__main__":

@@ -55,9 +55,9 @@ def run_all_examples(data_dir=None, license_path=None):
     for name, func, input_name in examples:
         try:
             func(path.join(input_dir, input_name))
-            print(f"Success: {name}")
+            print(f"✅ Success: {name}")
         except Exception as e:
-            print(f"Failed: {name} - {e}")
+            print(f"❌ Failed {name} - {e}")
 
 
 if __name__ == "__main__":

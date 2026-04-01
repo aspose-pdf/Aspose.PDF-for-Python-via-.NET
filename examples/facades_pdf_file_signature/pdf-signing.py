@@ -96,13 +96,19 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func in examples:
         try:
-            func(
-                path.join(input_dir, DEFAULT_INPUT_PDF),
-                path.join(output_dir, f"{func.__name__}.pdf"),
-            )
-            print(f"Success: {name}")
+            if (func.__name__ == "sign_pdf_with_named_signature"):
+                func(
+                    path.join(input_dir, "sample_field.pdf"),
+                    path.join(output_dir, f"{func.__name__}.pdf"),
+                )            
+            else:
+                func(
+                    path.join(input_dir, DEFAULT_INPUT_PDF),
+                    path.join(output_dir, f"{func.__name__}.pdf"),
+                )
+            print(f"✅ Success: {name}")
         except Exception as e:
-            print(f"Failed: {name} - {e}")
+            print(f"❌ Failed {name} - {e}")
 
 
 if __name__ == "__main__":

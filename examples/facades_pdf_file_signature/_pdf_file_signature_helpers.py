@@ -7,7 +7,7 @@ import aspose.pydrawing as apd
 
 
 DEFAULT_CERTIFICATE_FILENAME = "certificate.pfx"
-DEFAULT_CERTIFICATE_PASSWORD = "password"
+DEFAULT_CERTIFICATE_PASSWORD = "Aspose2021"
 DEFAULT_INPUT_PDF = "sample.pdf"
 DEFAULT_SIGNED_PDF = "signed.pdf"
 DEFAULT_CERTIFIED_PDF = "certified.pdf"
