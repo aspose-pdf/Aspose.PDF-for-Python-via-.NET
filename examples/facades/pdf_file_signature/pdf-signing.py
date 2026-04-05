@@ -13,12 +13,24 @@ from config import initialize_data_dir, set_license
 from _pdf_file_signature_helpers import (
     DEFAULT_INPUT_PDF,
     DEFAULT_SIGNATURE_NAME,
+    DEFAULT_CERTIFICATE_PASSWORD,
     configure_signature_certificate,
     create_custom_signature_appearance,
     create_pdf_file_signature,
     create_pkcs7_signature,
     create_signature_rectangle,
 )
+
+def set_certificate_for_signing(infile):
+    pdf_signature = create_pdf_file_signature(infile)
+    try:
+        certificate_path = configure_signature_certificate(
+            pdf_signature,
+            certificate_password=DEFAULT_CERTIFICATE_PASSWORD,
+        )
+        print(f"Certificate configured for signing: {certificate_path}")
+    finally:
+        pdf_signature.close()
 
 
 def sign_pdf_with_basic_parameters(infile, outfile):
