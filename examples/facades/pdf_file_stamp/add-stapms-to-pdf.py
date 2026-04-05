@@ -1,10 +1,8 @@
 import aspose.pdf.facades as pdf_facades
-import sys
-from os import path
 
 from examples.config import initialize_data_dir, set_license
 
-def add_image_stamp(infile, image_file, outfile):
+def add_stamp_to_pdf(infile, image_file, outfile):
     pdf_stamper = pdf_facades.PdfFileStamp()
     try:
         pdf_stamper.bind_pdf(infile)
@@ -23,7 +21,7 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Add Image Stamp", add_image_stamp),
+        ("Add Stamp to PDF", add_stamp_to_pdf),
     ]
 
     for name, func in examples:
@@ -36,4 +34,4 @@ def run_all_examples(data_dir=None, license_path=None):
 
 
 if __name__ == "__main__":
-    run_all_examples()
+    run_all_examples()                                                     
