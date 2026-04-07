@@ -13,7 +13,7 @@ from config import initialize_data_dir, set_license
 
 
 def resolve_sample_image_path(input_dir: str) -> str:
-    """Resolve an image for header examples from local or shared sample data."""
+    """Resolve an image for stamp examples from local or shared sample data."""
     local_image = path.join(input_dir, "sample_form_image.jpg")
     if path.exists(local_image):
         return local_image
@@ -33,57 +33,33 @@ def resolve_sample_image_path(input_dir: str) -> str:
     )
 
 
-def add_text_header(infile: str, outfile: str) -> None:
-    """Add a text header with a top margin."""
+def add_stamp_to_pdf(infile: str, image_file: str, outfile: str) -> None:
+    """Add an image stamp to a PDF file."""
     pdf_stamper = pdf_facades.PdfFileStamp()
     try:
         pdf_stamper.bind_pdf(infile)
-        pdf_stamper.add_header("Sample Header", 20)
-        pdf_stamper.save(outfile)
-    finally:
-        pdf_stamper.close()
 
+        stamp = pdf_facades.Stamp()
+        stamp.bind_image(image_file)
 
-def add_image_header(infile: str, image_file: str, outfile: str) -> None:
-    """Add an image header with a top margin."""
-    pdf_stamper = pdf_facades.PdfFileStamp()
-    try:
-        pdf_stamper.bind_pdf(infile)
-        pdf_stamper.add_header(image_file, 20)
-        pdf_stamper.save(outfile)
-    finally:
-        pdf_stamper.close()
-
-
-def add_header_with_margins(infile: str, outfile: str) -> None:
-    """Add a text header with top, left, and right margins."""
-    pdf_stamper = pdf_facades.PdfFileStamp()
-    try:
-        pdf_stamper.bind_pdf(infile)
-        pdf_stamper.add_header("Custom Header", 20, 20, 20)
+        pdf_stamper.add_stamp(stamp)
         pdf_stamper.save(outfile)
     finally:
         pdf_stamper.close()
 
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run all header examples and report status."""
+    """Run all stamp examples and report status."""
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
     input_file = path.join(input_dir, "sample.pdf")
     image_file = resolve_sample_image_path(input_dir)
 
     examples = [
-        ("Add Text Header", add_text_header, (input_file, path.join(output_dir, "add_text_header.pdf"))),
         (
-            "Add Image Header",
-            add_image_header,
-            (input_file, image_file, path.join(output_dir, "add_image_header.pdf")),
-        ),
-        (
-            "Add Header with Margins",
-            add_header_with_margins,
-            (input_file, path.join(output_dir, "add_header_with_margins.pdf")),
+            "Add Stamp to PDF",
+            add_stamp_to_pdf,
+            (input_file, image_file, path.join(output_dir, "add_stamp_to_pdf.pdf")),
         ),
     ]
 
