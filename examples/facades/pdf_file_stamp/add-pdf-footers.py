@@ -12,33 +12,13 @@ if EXAMPLES_DIR not in sys.path:
 from config import initialize_data_dir, set_license
 
 
-def resolve_sample_image_path(input_dir: str) -> str:
-    """Resolve an image for footer examples from local or shared sample data."""
-    local_image = path.join(input_dir, "sample_form_image.jpg")
-    if path.exists(local_image):
-        return local_image
-
-    return path.abspath(
-        path.join(
-            CURRENT_DIR,
-            "..",
-            "..",
-            "..",
-            "sample_data",
-            "facades",
-            "form",
-            "input",
-            "sample_form_image.jpg",
-        )
-    )
-
-
 def add_text_footer(infile: str, outfile: str) -> None:
     """Add a text footer with a bottom margin."""
     pdf_stamper = pdf_facades.PdfFileStamp()
     try:
         pdf_stamper.bind_pdf(infile)
-        pdf_stamper.add_footer("Sample Footer", 20)
+        text = pdf_facades.FormattedText("Sample Footer")
+        pdf_stamper.add_footer(text, 20)
         pdf_stamper.save(outfile)
     finally:
         pdf_stamper.close()
@@ -60,7 +40,8 @@ def add_footer_with_margins(infile: str, outfile: str) -> None:
     pdf_stamper = pdf_facades.PdfFileStamp()
     try:
         pdf_stamper.bind_pdf(infile)
-        pdf_stamper.add_footer("Custom Footer", 20, 20, 20)
+        text = pdf_facades.FormattedText("This footer has margins on all sides.")
+        pdf_stamper.add_footer(text, 20, 20, 20)
         pdf_stamper.save(outfile)
     finally:
         pdf_stamper.close()
@@ -71,10 +52,14 @@ def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
     input_file = path.join(input_dir, "sample.pdf")
-    image_file = resolve_sample_image_path(input_dir)
+    image_file = path.join(input_dir, "sample_image.png")
 
     examples = [
-        ("Add Text Footer", add_text_footer, (input_file, path.join(output_dir, "add_text_footer.pdf"))),
+        (
+            "Add Text Footer",
+            add_text_footer,
+            (input_file, path.join(output_dir, "add_text_footer.pdf")),
+        ),
         (
             "Add Image Footer",
             add_image_footer,
