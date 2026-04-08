@@ -1,6 +1,7 @@
 import sys
 from os import path
 
+import aspose.pydrawing as ap_pydrawing
 import aspose.pdf.facades as pdf_facades
 
 
@@ -12,33 +13,13 @@ if EXAMPLES_DIR not in sys.path:
 from config import initialize_data_dir, set_license
 
 
-def resolve_sample_image_path(input_dir: str) -> str:
-    """Resolve an image for header examples from local or shared sample data."""
-    local_image = path.join(input_dir, "sample_form_image.jpg")
-    if path.exists(local_image):
-        return local_image
-
-    return path.abspath(
-        path.join(
-            CURRENT_DIR,
-            "..",
-            "..",
-            "..",
-            "sample_data",
-            "facades",
-            "form",
-            "input",
-            "sample_form_image.jpg",
-        )
-    )
-
-
 def add_text_header(infile: str, outfile: str) -> None:
     """Add a text header with a top margin."""
     pdf_stamper = pdf_facades.PdfFileStamp()
     try:
         pdf_stamper.bind_pdf(infile)
-        pdf_stamper.add_header("Sample Header", 20)
+        text = pdf_facades.FormattedText("Sample Header")
+        pdf_stamper.add_header(text, 20)
         pdf_stamper.save(outfile)
     finally:
         pdf_stamper.close()
@@ -60,7 +41,15 @@ def add_header_with_margins(infile: str, outfile: str) -> None:
     pdf_stamper = pdf_facades.PdfFileStamp()
     try:
         pdf_stamper.bind_pdf(infile)
-        pdf_stamper.add_header("Custom Header", 20, 20, 20)
+        text = pdf_facades.FormattedText(
+            text="Sample Header",
+            text_color=ap_pydrawing.Color.blue,
+            font_name="Arial",
+            text_encoding=pdf_facades.EncodingType.WINANSI,
+            embedded=True,
+            font_size=12.0,
+        )
+        pdf_stamper.add_header(text, 20, 20, 20)
         pdf_stamper.save(outfile)
     finally:
         pdf_stamper.close()
@@ -71,10 +60,14 @@ def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
     input_file = path.join(input_dir, "sample.pdf")
-    image_file = resolve_sample_image_path(input_dir)
+    image_file = path.join(input_dir, "sample_image.png")
 
     examples = [
-        ("Add Text Header", add_text_header, (input_file, path.join(output_dir, "add_text_header.pdf"))),
+        (
+            "Add Text Header",
+            add_text_header,
+            (input_file, path.join(output_dir, "add_text_header.pdf")),
+        ),
         (
             "Add Image Header",
             add_image_header,

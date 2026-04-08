@@ -12,27 +12,6 @@ if EXAMPLES_DIR not in sys.path:
 from config import initialize_data_dir, set_license
 
 
-def resolve_sample_image_path(input_dir: str) -> str:
-    """Resolve an image for stamp examples from local or shared sample data."""
-    local_image = path.join(input_dir, "sample_form_image.jpg")
-    if path.exists(local_image):
-        return local_image
-
-    return path.abspath(
-        path.join(
-            CURRENT_DIR,
-            "..",
-            "..",
-            "..",
-            "sample_data",
-            "facades",
-            "form",
-            "input",
-            "sample_form_image.jpg",
-        )
-    )
-
-
 def add_stamp_to_pdf(infile: str, image_file: str, outfile: str) -> None:
     """Add an image stamp to a PDF file."""
     pdf_stamper = pdf_facades.PdfFileStamp()
@@ -53,7 +32,7 @@ def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
     input_file = path.join(input_dir, "sample.pdf")
-    image_file = resolve_sample_image_path(input_dir)
+    image_file = path.join(input_dir, "sample_image.png")
 
     examples = [
         (
