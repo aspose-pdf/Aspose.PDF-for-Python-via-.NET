@@ -44,7 +44,7 @@ def delete_all_image(infile, outfile):
     content_editor.save(outfile)
 
 
-def run_examples(data_dir=None, license_path=None):
+def run_all_examples(data_dir=None, license_path=None):
     """Run all form field modification examples and report status."""
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
@@ -73,4 +73,4 @@ def run_examples(data_dir=None, license_path=None):
             print(f"❌ Failed: {name} - {str(e)}")
 
 if __name__ == "__main__":
-    run_examples()
+    run_all_examples()
