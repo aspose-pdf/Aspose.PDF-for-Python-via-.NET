@@ -12,13 +12,13 @@ Directory | Description
   <a title="Download Examples ZIP" href="https://github.com/aspose-pdf/Aspose.PDF-for-Python-via-.NET/archive/master.zip">
 	<img src="https://raw.github.com/AsposeExamples/java-examples-dashboard/master/images/downloadZip-Button-Large.png" />
   </a>
-</p> 
+</p>
 
 
 ## General PDF Features
 
 - Supports most established PDF standards and PDF specifications.
-- Ability to read & export PDFs in multiple image formats including BMP, GIF, JPEG & PNG.  
+- Ability to read & export PDFs in multiple image formats including BMP, GIF, JPEG & PNG.
 - Set basic information (e.g. author, creator) of the PDF document.
 - Configure PDF Page properties (e.g. width, height, cropbox, bleedbox etc.).
 - Set page numbering, bookmark level, page sizes etc.
@@ -75,7 +75,7 @@ Below code snippet follows these steps:
 
 1. Create an instance of the HtmlLoadOptions object.
 1. Initialize Document object.
-1. Save output PDF document by calling Document.Save() method.
+1. Save output PDF document by calling Document.save() method.
 
 ```python
 import aspose.pdf as ap

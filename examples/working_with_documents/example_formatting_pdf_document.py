@@ -129,7 +129,7 @@ def run_all_examples(data_dir=None, license_path=None):
         ("Configure document window settings", set_document_window),
         ("Embed fonts in existing PDF", embedded_fonts),
         ("Embed fonts in new PDF", embedded_fonts_in_new_document),
-        ("Set default font", set_default_font),
+        ("Set default font", set_default_font), 
         ("List document fonts", get_all_fonts),
         ("Improve font embedding", improve_fonts_embedding),
         ("Set initial zoom factor", set_zoom_factor),
