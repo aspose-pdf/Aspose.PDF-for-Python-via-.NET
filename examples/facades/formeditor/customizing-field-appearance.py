@@ -134,7 +134,8 @@ def get_field_appearance(infile, outfile):
     appearance = form_editor.get_field_appearance("Last Name")
     print("Field Appearance: " + str(appearance))
 
-
+    # Save a copy of the processed document so the provided output path is used
+    doc.save(outfile)
 def run_all_examples(data_dir=None, license_path=None):
     """
 
