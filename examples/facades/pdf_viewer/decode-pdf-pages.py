@@ -68,12 +68,12 @@ def run_all_examples(data_dir=None, license_path=None) -> None:
     examples = [
         ("Decode All Pages", lambda: decode_all_pages(infile, output_dir)),
         (
-            "Decode pecific Page",
+            "Decode Specific Page",
             lambda: decode_specific_page(
                 infile, path.join(output_dir, "decode_specific_page.png")
             ),
         ),
-        ("Inspect PDF Metadata", lambda: inspect_pdf_metadata),
+        ("Inspect PDF Metadata", lambda: inspect_pdf_metadata(infile)),
     ]
 
     for name, func in examples:
