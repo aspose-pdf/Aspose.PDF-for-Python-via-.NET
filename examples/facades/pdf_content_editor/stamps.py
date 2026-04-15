@@ -122,10 +122,9 @@ def move_stamp_by_index(infile, outfile):
 		"Draft stamp for ID-based operations",
 		apd.Color.orange,
 	)
-	content_editor.save(outfile)
 
-	# Move first stamp on page 1 by index
-	# content_editor.move_stamp(1, 1, 10, 10)
+	# Move first stamp on page 2 by index
+	content_editor.move_stamp(2, 1, 10, 10)
 	# Save updated document
 	content_editor.save(outfile)
 
