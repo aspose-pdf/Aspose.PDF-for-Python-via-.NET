@@ -154,7 +154,6 @@ def run_all_examples(data_dir=None, license_path=None):
         ("Set Field Alignment", set_field_alignment),
         ("Set Field Alignment Vertical", set_field_alignment_vertical),
         ("Set Field Appearance", set_field_appearance),
-        ("Set Field Attribute", set_field_attribute),
         ("Set Field Comb Number", set_field_comb_number),
         ("Set Field Limit", set_field_limit),
         ("Get Field Appearance", get_field_appearance),
