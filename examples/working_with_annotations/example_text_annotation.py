@@ -624,6 +624,162 @@ def delete_text_underline_annotation(infile, outfile):
 
     document.save(outfile)       
 
+def add_underline_with_quad_points(infile, outfile):
+    """
+    Add an underline annotation with quad points to the first page of a PDF document.
+
+    Args:
+        infile (str): The name of the input PDF file.
+        outfile (str): The name of the output PDF file.
+
+    Returns:
+        None
+
+    Example:
+        >>> add_underline_with_quad_points("sample.pdf", "output.pdf")
+
+    Note:
+        Sets quad_points to define the annotation area.
+    """
+    document = ap.Document(infile)
+
+    rect = ap.Rectangle(299.988, 713.664, 308.708, 720.769, True)
+
+    underlineAnnotation = ap.annotations.UnderlineAnnotation(document.pages[1], rect)
+
+    underlineAnnotation.title = "Aspose User"
+    underlineAnnotation.subject = "Inserted Underline with Quad Points"
+    underlineAnnotation.flags = ap.annotations.AnnotationFlags.PRINT
+    underlineAnnotation.color = ap.Color.blue
+
+    # Set quad points
+    underlineAnnotation.quad_points = [
+        ap.Point(rect.llx, rect.lly),
+        ap.Point(rect.urx, rect.lly),
+        ap.Point(rect.urx, rect.ury),
+        ap.Point(rect.llx, rect.ury)
+    ]
+
+    document.pages[1].annotations.append(underlineAnnotation)
+    document.save(outfile)
+
+def get_underline_marked_text(infile, outfile):
+    """
+    Get marked text from underline annotations on the first page.
+
+    Args:
+        infile (str): The name of the input PDF file.
+        outfile (str): Not used.
+
+    Returns:
+        None
+
+    Example:
+        >>> get_underline_marked_text("sample.pdf", "output.pdf")
+
+    Note:
+        Prints the marked text for each underline annotation.
+    """
+    document = ap.Document(infile)
+
+    underlineAnnotations = [
+        a for a in document.pages[1].annotations
+        if a.annotation_type == ap.annotations.AnnotationType.UNDERLINE
+    ]
+
+    for ua in underlineAnnotations:
+        marked_text = ua.get_marked_text()
+        print(f"Marked text: {marked_text}")
+
+def get_underline_marked_text_fragments(infile, outfile):
+    """
+    Get marked text fragments from underline annotations on the first page.
+
+    Args:
+        infile (str): The name of the input PDF file.
+        outfile (str): Not used.
+
+    Returns:
+        None
+
+    Example:
+        >>> get_underline_marked_text_fragments("sample.pdf", "output.pdf")
+
+    Note:
+        Prints the text of each fragment for each underline annotation.
+    """
+    document = ap.Document(infile)
+
+    underlineAnnotations = [
+        a for a in document.pages[1].annotations
+        if a.annotation_type == ap.annotations.AnnotationType.UNDERLINE
+    ]
+
+    for ua in underlineAnnotations:
+        fragments = ua.get_marked_text_fragments()
+        for frag in fragments:
+            print(f"Fragment text: {frag.text}")
+
+def delete_underline_by_title(infile, outfile):
+    """
+    Delete underline annotations with a specific title from the first page of a PDF document.
+
+    Args:
+        infile (str): The name of the input PDF file.
+        outfile (str): The name of the output PDF file.
+
+    Returns:
+        None
+
+    Example:
+        >>> delete_underline_by_title("sample.pdf", "output.pdf")
+
+    Note:
+        This function removes underline annotations with title "Aspose User" from the first page and saves the modified PDF.
+    """
+    document = ap.Document(infile)
+    underlineAnnotations = [
+        a for a in document.pages[1].annotations
+        if a.annotation_type == ap.annotations.AnnotationType.UNDERLINE and a.title == "Aspose User"
+    ]
+
+    for ua in underlineAnnotations:
+        document.pages[1].annotations.delete(ua)
+
+    document.save(outfile)
+
+def add_underline_and_flatten(infile, outfile):
+    """
+    Add an underline annotation to the first page and flatten it into the page content.
+
+    Args:
+        infile (str): The name of the input PDF file.
+        outfile (str): The name of the output PDF file.
+
+    Returns:
+        None
+
+    Example:
+        >>> add_underline_and_flatten("sample.pdf", "output.pdf")
+
+    Note:
+        The underline annotation is added and then flattened, making it part of the page content rather than an annotation.
+    """
+    document = ap.Document(infile)
+
+    underlineAnnotation = ap.annotations.UnderlineAnnotation(
+        document.pages[1], ap.Rectangle(299.988, 713.664, 308.708, 720.769, True)
+    )
+    underlineAnnotation.title = "Aspose User"
+    underlineAnnotation.subject = "Inserted Underline to Flatten"
+    underlineAnnotation.flags = ap.annotations.AnnotationFlags.PRINT
+    underlineAnnotation.color = ap.Color.blue
+
+    document.pages[1].annotations.append(underlineAnnotation)
+    underlineAnnotation.flatten()  # Flatten the annotation into the page content
+
+    document.save(outfile)
+
 def run_all_examples(data_dir=None, license_path=None):
     """Run adding text annotations examples and report status.
 
@@ -643,21 +799,26 @@ def run_all_examples(data_dir=None, license_path=None):
         ("free_text_annotation_add", free_text_annotation_add),
         ("free_text_annotation_get", free_text_annotation_get),
         ("free_text_annotation_delete", free_text_annotation_delete),
-        ("add_text_strikeout_annotation", add_text_strikeout_annotation),
-        ("get_text_strikeout_annotation", get_text_strikeout_annotation),
-        ("delete_text_strikeout_annotation", delete_text_strikeout_annotation),
-        ("add_text_highlight_annotation", add_text_highlight_annotation),
-        ("add_text_strikeout_annotation", add_text_strikeout_annotation),
-        ("add_text_squiggly_annotation", add_text_squiggly_annotation),
-        ("add_text_underline_annotation", add_text_underline_annotation),
-        ("get_text_highlight_annotation", get_text_highlight_annotation),
-        ("get_text_strikeout_annotation", get_text_strikeout_annotation),
-        ("get_text_squiggly_annotation", get_text_squiggly_annotation),
-        ("get_text_underline_annotation", get_text_underline_annotation),
-        ("delete_text_highlight_annotation", delete_text_highlight_annotation),
-        ("delete_text_strikeout_annotation", delete_text_strikeout_annotation),
-        ("delete_text_squiggly_annotation", delete_text_squiggly_annotation),
-        ("delete_text_underline_annotation", delete_text_underline_annotation),
+        ("text_strikeout_annotation_add", add_text_strikeout_annotation),
+        ("text_strikeout_annotation_get", get_text_strikeout_annotation),
+        ("text_strikeout_annotation_delete", delete_text_strikeout_annotation),
+        ("text_highlight_annotation_add", add_text_highlight_annotation),
+        ("text_strikeout_annotation_add", add_text_strikeout_annotation),
+        ("text_squiggly_annotation_add", add_text_squiggly_annotation),
+        ("text_underline_annotation_add", add_text_underline_annotation),
+        ("text_highlight_annotation_get", get_text_highlight_annotation),
+        ("text_strikeout_annotation_get", get_text_strikeout_annotation),
+        ("text_squiggly_annotation_get", get_text_squiggly_annotation),
+        ("text_underline_annotation_get", get_text_underline_annotation),
+        ("text_highlight_annotation_delete", delete_text_highlight_annotation),
+        ("text_strikeout_annotation_delete", delete_text_strikeout_annotation),
+        ("text_squiggly_annotation_delete", delete_text_squiggly_annotation),
+        ("text_underline_annotation_delete", delete_text_underline_annotation),
+        ("text_underline_annotation_add", add_underline_with_quad_points),
+        ("text_underline_annotation_get", get_underline_marked_text),
+        ("text_underline_annotation_get", get_underline_marked_text_fragments),
+        ("text_underline_annotation_delete", delete_underline_by_title),
+        ("text_underline_annotation_add", add_underline_and_flatten),
     ]
 
     for name, func in examples:

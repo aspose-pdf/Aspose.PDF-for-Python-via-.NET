@@ -108,93 +108,7 @@ def watermark_delete(infile, outfile):
         document.pages[1].annotations.delete(ta)
 
     document.save(outfile)        
-
-def annotation_3d_add():
-    # The path to the documents directory
-    data_dir = "path/to/your/data/"
-
-    # Create PDF document
-    document = ap.Document()
-
-    # Load 3D content
-    pdf3d_content = ann.PDF3DContent(data_dir + "Ring.u3d")
-
-    # Create 3D artwork
-    pdf3d_artwork = ann.PDF3DArtwork(document, pdf3d_content)
-    pdf3d_artwork.lighting_scheme = ann.PDF3DLightingScheme(ann.LightingSchemeType.cad)
-    pdf3d_artwork.render_mode = ann.PDF3DRenderMode(ann.RenderModeType.solid)
-
-    # Define matrices for different views
-    top_matrix = ann.Matrix3D(
-        1, 0, 0,
-        0, -1, 0,
-        0, 0, -1,
-        0.10271, 0.08184, 0.273836
-    )
-
-    front_matrix = ann.Matrix3D(
-        0, -1, 0,
-        0, 0, 1,
-        -1, 0, 0,
-        0.332652, 0.08184, 0.085273
-    )
-
-    # Add views to the 3D artwork
-    pdf3d_artwork.view_array.append(
-        ann.PDF3DView(document, top_matrix, 0.188563, "Top")
-    )
-    pdf3d_artwork.view_array.append(
-        ann.PDF3DView(document, front_matrix, 0.188563, "Left")
-    )
-
-    # Add page
-    page = document.pages.add()
-
-    # Create 3D annotation
-    pdf3d_annotation = ann.PDF3DAnnotation(
-        page,
-        ap.Rectangle(100, 500, 300, 700),
-        pdf3d_artwork
-    )
-
-    # Set properties
-    pdf3d_annotation.border = ann.Border(pdf3d_annotation)
-    pdf3d_annotation.set_default_view_index(1)
-    pdf3d_annotation.flags = ann.AnnotationFlags.no_zoom
-    pdf3d_annotation.name = "Ring.u3d"
-
-    # Optional preview image
-    # pdf3d_annotation.set_image_preview(data_dir + "sample_3d.png")
-
-    # Add annotation to the page
-    page.annotations.append(pdf3d_annotation)
-
-    # Save PDF document
-    document.save(data_dir + "Add3dAnnotation_out.pdf")
-
-
-def add_screen_annotation_with_media():
-    # The path to the documents directory
-    data_dir = "path/to/your/data/"
-
-    # Open PDF document
-    document = ap.Document(data_dir + "sample.pdf")
-
-    # Path to the media file (e.g., SWF)
-    media_file = data_dir + "input.swf"
-
-    # Create Screen Annotation
-    screen_annotation = ann.ScreenAnnotation(
-        document.pages[1],
-        ap.Rectangle(170, 190, 470, 380),
-        media_file
-    )
-
-    # Add the annotation to the page
-    document.pages[1].annotations.append(screen_annotation)
-
-    # Save PDF document
-    document.save(data_dir + "AddScreenAnnotationWithMedia_out.pdf")    
+ 
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run adding extra annotations examples and report status.
@@ -211,10 +125,7 @@ def run_all_examples(data_dir=None, license_path=None):
     examples = [
         ("Add Watermark Annotation", watermark_add, ["sample.pdf", "output_watermark_add.pdf"]),
         ("Get Watermark Annotation", watermark_get, ["sample.pdf", "output_watermark_get.pdf"]),
-        ("Delete Watermark Annotation", watermark_delete, ["sample.pdf", "output_watermark_delete.pdf"]),
-        ("Add 3D Annotation", add_3d_annotation, ["sample.pdf", "output_3d_add.pdf"]),
-        ("Add Screen Annotation with Media", add_screen_annotation_with_media, ["sample.pdf", "output_screen_annotation.pdf"])
-
+        ("Delete Watermark Annotation", watermark_delete, ["sample.pdf", "output_watermark_delete.pdf"])
 
     ]
 

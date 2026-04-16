@@ -495,9 +495,9 @@ def run_all_examples(data_dir=None, license_path=None):
         ("polyline_annotation_delete", polyline_annotation_delete),
         ("circle_annotation_delete", circle_annotation_delete),
         ("square_annotation_delete", square_annotation_delete),
-        ("add_line_annotation", add_line_annotation),
-        ("read_line_annotations", read_line_annotations),
-        ("delete_line_annotations", delete_line_annotations),
+        ("line_annotation_add", add_line_annotation),
+        ("line_annotations_get", read_line_annotations),
+        ("line_annotations_delete", delete_line_annotations),
     ]
 
     for name, func in examples:

@@ -260,9 +260,9 @@ def run_all_examples(data_dir=None, license_path=None):
         ("link_add", link_add),
         ("link_get", link_get),
         ("link_delete", link_delete),
-        ("add_line_annotation", add_line_annotation),
-        ("add_navigation_buttons", add_navigation_buttons),
-        ("add_print_button", add_print_button),
+        ("line_annotation_add", add_line_annotation),
+        ("navigation_buttons_add", add_navigation_buttons),
+        ("print_button_add", add_print_button)
 
     ]
 
