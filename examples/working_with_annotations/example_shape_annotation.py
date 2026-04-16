@@ -1,98 +1,57 @@
-from os import path
-import aspose.pdf as ap
 import sys
+from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+import aspose.pdf as ap
+from aspose.pycore import cast
+
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
+
 def square_annotation_add(infile, outfile):
-    """
-    Add a square annotation to the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file.
-
-    Returns:
-        None
-
-    Example:
-        >>> square_annotation_add("sample.pdf", "output.pdf")
-
-    Note:
-        The square annotation is positioned at coordinates (60, 600, 250, 450) with blue color,
-        blue-violet interior color, and 25% opacity.
-    """
+    """Add a square annotation to page 1."""
     document = ap.Document(infile)
 
-    squareAnnotation = ap.annotations.SquareAnnotation(document.pages[1], ap.Rectangle(60, 600, 250, 450, True))
-    squareAnnotation.title = "John Smith"
-    squareAnnotation.color = ap.Color.blue
-    squareAnnotation.interior_color = ap.Color.blue_violet
-    squareAnnotation.opacity = 0.25
+    square_annotation = ap.annotations.SquareAnnotation(
+        document.pages[1],
+        ap.Rectangle(60, 600, 250, 450, True),
+    )
+    square_annotation.title = "John Smith"
+    square_annotation.color = ap.Color.blue
+    square_annotation.interior_color = ap.Color.blue_violet
+    square_annotation.opacity = 0.25
 
-    document.pages[1].annotations.append(squareAnnotation)
-
+    document.pages[1].annotations.append(square_annotation)
     document.save(outfile)
-    
+
 
 def circle_annotation_add(infile, outfile):
-    """
-    Add a circle annotation to the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file.
-
-    Returns:
-        None
-
-    Example:
-        >>> circle_annotation_add("sample.pdf", "output.pdf")
-
-    Note:
-        The circle annotation is positioned at coordinates (270, 160, 483, 383) with red color,
-        misty rose interior color, and 50% opacity. Includes a popup annotation.
-    """
+    """Add a circle annotation to page 1."""
     document = ap.Document(infile)
 
-    circleAnnotation = ap.annotations.CircleAnnotation(
-        document.pages[1], ap.Rectangle(270, 160, 483, 383, True)
+    circle_annotation = ap.annotations.CircleAnnotation(
+        document.pages[1],
+        ap.Rectangle(270, 160, 483, 383, True),
     )
-    circleAnnotation.title = "John Smith"
-    circleAnnotation.color = ap.Color.red
-    circleAnnotation.interior_color = ap.Color.misty_rose
-    circleAnnotation.opacity = 0.5
-    circleAnnotation.popup = ap.annotations.PopupAnnotation(
-        document.pages[1], ap.Rectangle(842, 316, 1021, 459, True)
+    circle_annotation.title = "John Smith"
+    circle_annotation.color = ap.Color.red
+    circle_annotation.interior_color = ap.Color.misty_rose
+    circle_annotation.opacity = 0.5
+    circle_annotation.popup = ap.annotations.PopupAnnotation(
+        document.pages[1],
+        ap.Rectangle(842, 316, 1021, 459, True),
     )
 
-    document.pages[1].annotations.append(circleAnnotation)
+    document.pages[1].annotations.append(circle_annotation)
     document.save(outfile)
 
 
 def polygon_annotation_add(infile, outfile):
-    """
-    Add a polygon annotation to the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file.
-
-    Returns:
-        None
-
-    Example:
-        >>> polygon_annotation_add("sample.pdf", "output.pdf")
-
-    Note:
-        The polygon annotation is defined by 5 points with blue color,
-        blue-violet interior color, and 25% opacity.
-    """
+    """Add a polygon annotation to page 1."""
     document = ap.Document(infile)
 
-    polygonAnnotation = ap.annotations.PolygonAnnotation(
+    polygon_annotation = ap.annotations.PolygonAnnotation(
         document.pages[1],
         ap.Rectangle(200, 300, 400, 400, True),
         [
@@ -103,36 +62,20 @@ def polygon_annotation_add(infile, outfile):
             ap.Point(300, 400),
         ],
     )
-    polygonAnnotation.title = "John Smith"
-    polygonAnnotation.color = ap.Color.blue
-    polygonAnnotation.interior_color = ap.Color.blue_violet
-    polygonAnnotation.opacity = 0.25
+    polygon_annotation.title = "John Smith"
+    polygon_annotation.color = ap.Color.blue
+    polygon_annotation.interior_color = ap.Color.blue_violet
+    polygon_annotation.opacity = 0.25
 
-    document.pages[1].annotations.append(polygonAnnotation)
+    document.pages[1].annotations.append(polygon_annotation)
     document.save(outfile)
- 
+
 
 def polyline_annotation_add(infile, outfile):
-    """
-    Add a polyline annotation to the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file.
-
-    Returns:
-        None
-
-    Example:
-        >>> polyline_annotation_add("sample.pdf", "output.pdf")
-
-    Note:
-        The polyline annotation is defined by 5 points with red color.
-        Includes a popup annotation.
-    """
+    """Add a polyline annotation to page 1."""
     document = ap.Document(infile)
 
-    polylineAnnotation = ap.annotations.PolylineAnnotation(
+    polyline_annotation = ap.annotations.PolylineAnnotation(
         document.pages[1],
         ap.Rectangle(270, 193, 571, 383, True),
         [
@@ -143,371 +86,224 @@ def polyline_annotation_add(infile, outfile):
             ap.Point(626, 111),
         ],
     )
-    polylineAnnotation.title = "John Smith"
-    polylineAnnotation.color = ap.Color.red
-    polylineAnnotation.popup = ap.annotations.PopupAnnotation(
-        document.pages[1], ap.Rectangle(842, 196, 1021, 338, True)
+    polyline_annotation.title = "John Smith"
+    polyline_annotation.color = ap.Color.red
+    polyline_annotation.popup = ap.annotations.PopupAnnotation(
+        document.pages[1],
+        ap.Rectangle(842, 196, 1021, 338, True),
     )
 
-    document.pages[1].annotations.append(polylineAnnotation)
+    document.pages[1].annotations.append(polyline_annotation)
     document.save(outfile)
 
 
 def square_annotation_get(infile, outfile):
-    """
-    Retrieve and print the rectangle coordinates of all square annotations on the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file (not used in this function).
-
-    Returns:
-        None
-
-    Example:
-        >>> square_annotation_get("sample.pdf", "output.pdf")
-
-    Note:
-        This function prints the rectangle coordinates of all square annotations found on the first page.
-    """
+    """Print square annotation rectangles on page 1."""
     document = ap.Document(infile)
-    squareAnnotations = [
-        a
-        for a in document.pages[1].annotations
-        if (a.annotation_type == ap.annotations.AnnotationType.SQUARE)
+    square_annotations = [
+        annotation
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.SQUARE
     ]
 
-    for pa in squareAnnotations:
-        print(pa.rect)
+    for annotation in square_annotations:
+        print(annotation.rect)
 
 
 def circle_annotation_get(infile, outfile):
-    """
-    Retrieve and print the rectangle coordinates of all circle annotations on the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file (not used in this function).
-
-    Returns:
-        None
-
-    Example:
-        >>> circle_annotation_get("sample.pdf", "output.pdf")
-
-    Note:
-        This function prints the rectangle coordinates of all circle annotations found on the first page.
-    """
+    """Print circle annotation rectangles on page 1."""
     document = ap.Document(infile)
-    circleAnnotations = [
-        a
-        for a in document.pages[1].annotations
-        if (a.annotation_type == ap.annotations.AnnotationType.CIRCLE)
+    circle_annotations = [
+        annotation
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.CIRCLE
     ]
 
-    for ca in circleAnnotations:
-        print(ca.rect)
+    for annotation in circle_annotations:
+        print(annotation.rect)
 
 
 def polygon_annotation_get(infile, outfile):
-    """
-    Retrieve and print the rectangle coordinates of all polygon annotations on the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file (not used in this function).
-
-    Returns:
-        None
-
-    Example:
-        >>> polygon_annotation_get("sample.pdf", "output.pdf")
-
-    Note:
-        This function prints the rectangle coordinates of all polygon annotations found on the first page.
-    """
+    """Print polygon annotation rectangles on page 1."""
     document = ap.Document(infile)
-    polygonAnnotations = [
-        a
-        for a in document.pages[1].annotations
-        if (a.annotation_type == ap.annotations.AnnotationType.POLYGON)
+    polygon_annotations = [
+        annotation
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.POLYGON
     ]
 
-    for pa in polygonAnnotations:
-        print(pa.rect)
- 
+    for annotation in polygon_annotations:
+        print(annotation.rect)
+
 
 def polyline_annotation_get(infile, outfile):
-    """
-    Retrieve and print the rectangle coordinates of all polyline annotations on the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file (not used in this function).
-
-    Returns:
-        None
-
-    Example:
-        >>> polyline_annotation_get("sample.pdf", "output.pdf")
-
-    Note:
-        This function prints the rectangle coordinates of all polyline annotations found on the first page.
-    """
+    """Print polyline annotation rectangles on page 1."""
     document = ap.Document(infile)
-    polylineAnnotations = [
-        a
-        for a in document.pages[1].annotations
-        if (a.annotation_type == ap.annotations.AnnotationType.POLY_LINE)
+    polyline_annotations = [
+        annotation
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.POLY_LINE
     ]
 
-    for pa in polylineAnnotations:
-        print(pa.rect)
+    for annotation in polyline_annotations:
+        print(annotation.rect)
 
 
 def square_annotation_delete(infile, outfile):
-    """
-    Delete all square annotations from the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file.
-
-    Returns:
-        None
-
-    Example:
-        >>> square_annotation_delete("sample.pdf", "output.pdf")
-
-    Note:
-        This function removes all square annotations from the first page and saves the modified PDF.
-    """
+    """Delete square annotations from page 1."""
     document = ap.Document(infile)
-    squareAnnotations = [
-        a
-        for a in document.pages[1].annotations
-        if (a.annotation_type == ap.annotations.AnnotationType.SQUARE)
+    square_annotations = [
+        annotation
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.SQUARE
     ]
 
-    for pa in squareAnnotations:
-        document.pages[1].annotations.delete(pa)
+    for annotation in square_annotations:
+        document.pages[1].annotations.delete(annotation)
 
     document.save(outfile)
 
 
 def circle_annotation_delete(infile, outfile):
-    """
-    Delete all circle annotations from the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file.
-
-    Returns:
-        None
-
-    Example:
-        >>> circle_annotation_delete("sample.pdf", "output.pdf")
-
-    Note:
-        This function removes all circle annotations from the first page and saves the modified PDF.
-    """
+    """Delete circle annotations from page 1."""
     document = ap.Document(infile)
-    circleAnnotations = [
-        a
-        for a in document.pages[1].annotations
-        if (a.annotation_type == ap.annotations.AnnotationType.CIRCLE)
+    circle_annotations = [
+        annotation
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.CIRCLE
     ]
 
-    for ca in circleAnnotations:
-        document.pages[1].annotations.delete(ca)
+    for annotation in circle_annotations:
+        document.pages[1].annotations.delete(annotation)
 
     document.save(outfile)
 
 
 def polygon_annotation_delete(infile, outfile):
-    """
-    Delete all polygon annotations from the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file.
-
-    Returns:
-        None
-
-    Example:
-        >>> polygon_annotation_delete("sample.pdf", "output.pdf")
-
-    Note:
-        This function removes all polygon annotations from the first page and saves the modified PDF.
-    """
+    """Delete polygon annotations from page 1."""
     document = ap.Document(infile)
-    polygonAnnotations = [
-        a
-        for a in document.pages[1].annotations
-        if (a.annotation_type == ap.annotations.AnnotationType.POLYGON)
+    polygon_annotations = [
+        annotation
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.POLYGON
     ]
 
-    for pa in polygonAnnotations:
-        document.pages[1].annotations.delete(pa)
+    for annotation in polygon_annotations:
+        document.pages[1].annotations.delete(annotation)
 
     document.save(outfile)
- 
+
 
 def polyline_annotation_delete(infile, outfile):
-    """
-    Delete all polyline annotations from the first page of a PDF document.
-
-    Args:
-        infile (str): The name of the input PDF file.
-        outfile (str): The name of the output PDF file.
-
-    Returns:
-        None
-
-    Example:
-        >>> polyline_annotation_delete("sample.pdf", "output.pdf")
-
-    Note:
-        This function removes all polyline annotations from the first page and saves the modified PDF.
-    """
+    """Delete polyline annotations from page 1."""
     document = ap.Document(infile)
-    polylineAnnotations = [
-        a
-        for a in document.pages[1].annotations
-        if (a.annotation_type == ap.annotations.AnnotationType.POLY_LINE)
+    polyline_annotations = [
+        annotation
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.POLY_LINE
     ]
 
-    for pa in polylineAnnotations:
-        document.pages[1].annotations.delete(pa)
+    for annotation in polyline_annotations:
+        document.pages[1].annotations.delete(annotation)
 
-    document.save(outfile)   
+    document.save(outfile)
 
 
-def add_line_annotation():
-    # The path to the documents directory
-    data_dir = "path/to/your/data/"
+def line_annotation_add(infile, outfile):
+    """Add a line annotation to page 1."""
+    document = ap.Document(infile)
 
-    # Open PDF document
-    document = ap.Document(data_dir + "Appartments.pdf")
-
-    # Create Line Annotation
     line_annotation = ap.annotations.LineAnnotation(
         document.pages[1],
-        ap.Rectangle(550, 93, 562, 439),
+        ap.Rectangle(550, 93, 562, 439, True),
         ap.Point(556, 99),
-        ap.Point(556, 443)
+        ap.Point(556, 443),
     )
 
-    # Set annotation properties
     line_annotation.title = "John Smith"
     line_annotation.color = ap.Color.red
     line_annotation.width = 3
-    line_annotation.starting_style = ap.annotations.LineEnding.open_arrow
-    line_annotation.ending_style = ap.annotations.LineEnding.open_arrow
+    line_annotation.starting_style = ap.annotations.LineEnding.OPEN_ARROW
+    line_annotation.ending_style = ap.annotations.LineEnding.OPEN_ARROW
 
-    # Create and assign popup annotation
     popup = ap.annotations.PopupAnnotation(
         document.pages[1],
-        ap.Rectangle(842, 124, 1021, 266)
+        ap.Rectangle(842, 124, 1021, 266, True),
     )
     line_annotation.popup = popup
 
-    # Add annotation to the page
     document.pages[1].annotations.append(line_annotation)
-
-    # Save PDF document
-    document.save(data_dir + "AddLineAnnotation_out.pdf")   
-
-    import aspose.pdf as ap
+    document.save(outfile)
 
 
-def read_line_annotations():
-    # The path to the documents directory
-    data_dir = "path/to/your/data/"
+def line_annotations_get(infile, outfile):
+    """Print start/end points for line annotations on page 1."""
+    document = ap.Document(infile)
 
-    # Open PDF document
-    document = ap.Document(data_dir + "Appartments_mod.pdf")
-
-    # Iterate through annotations on the first page
-    for annotation in document.pages[1].annotations:
-        # Filter only Line annotations
-        if annotation.annotation_type == ap.annotations.AnnotationType.LINE:
-            # Cast to LineAnnotation (Python doesn't require explicit casting,
-            # but we can treat it as such)
-            line_annotation = annotation
-
-            # Print coordinates
-            print(f"[{line_annotation.starting.x},{line_annotation.starting.y}]"
-                  f"-[{line_annotation.ending.x},{line_annotation.ending.y}]")
-
-
-def delete_line_annotations():
-    # The path to the documents directory
-    data_dir = "path/to/your/data/"
-
-    # Open PDF document
-    document = ap.Document(data_dir + "Appartments_mod.pdf")
-
-    page = document.pages[1]
-
-    # Collect line annotations first (avoid modifying collection while iterating)
-    line_annotations = [
-        annot for annot in page.annotations
-        if annot.annotation_type == ap.annotations.AnnotationType.LINE
+    line_annotation = [
+        cast(ap.annotations.LineAnnotation, annotation)
+        for annotation in document.pages[1].annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.LINE
     ]
 
-    # Delete each line annotation
-    for annot in line_annotations:
-        page.annotations.delete(annot)
+    for annotation in line_annotation:
+        print(
+            f"[{annotation.starting.x},{annotation.starting.y}]"
+            f"-[{annotation.ending.x},{annotation.ending.y}]"
+        )
 
-    # Save PDF document
-    document.save(data_dir + "DeleteLineAnnotations_out.pdf")
 
+def line_annotations_delete(infile, outfile):
+    """Delete line annotations from page 1."""
+    document = ap.Document(infile)
+    page = document.pages[1]
 
-if __name__ == "__main__":
-    delete_line_annotations()
+    line_annotations = [
+        annotation
+        for annotation in page.annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.LINE
+    ]
+
+    for annotation in line_annotations:
+        page.annotations.delete(annotation)
+
+    document.save(outfile)
 
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run adding figures annotations examples and report status.
-
-    Args:
-        data_dir (str, optional): Input/output directory override.
-        license_path (str, optional): Path to Aspose.PDF license file.
-    Returns:
-        None
-    """
+    """Run shape annotation examples and report status."""
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
+        ("line_annotation_add", line_annotation_add),
+        ("line_annotations_get", line_annotations_get),
+        ("line_annotations_delete", line_annotations_delete),
         ("polygon_annotation_add", polygon_annotation_add),
-        ("polyline_annotation_add", polyline_annotation_add),
-        ("circle_annotation_add", circle_annotation_add),
-        ("square_annotation_add", square_annotation_add),
         ("polygon_annotation_get", polygon_annotation_get),
-        ("polyline_annotation_get", polyline_annotation_get),
-        ("circle_annotation_get", circle_annotation_get),
-        ("square_annotation_get", square_annotation_get),
         ("polygon_annotation_delete", polygon_annotation_delete),
+        ("polyline_annotation_add", polyline_annotation_add),
+        ("polyline_annotation_get", polyline_annotation_get),
         ("polyline_annotation_delete", polyline_annotation_delete),
+        ("circle_annotation_add", circle_annotation_add),
+        ("circle_annotation_get", circle_annotation_get),
         ("circle_annotation_delete", circle_annotation_delete),
+        ("square_annotation_add", square_annotation_add),
+        ("square_annotation_get", square_annotation_get),
         ("square_annotation_delete", square_annotation_delete),
-        ("line_annotation_add", add_line_annotation),
-        ("line_annotations_get", read_line_annotations),
-        ("line_annotations_delete", delete_line_annotations),
     ]
 
     for name, func in examples:
         input_file_name = path.join(input_dir, "Annotations.pdf")
         output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
         try:
+            if "add" in func.__name__:
+                input_file_name = path.join(input_dir, "sample.pdf")
             func(input_file_name, output_file_name)
             print(f"✅ Success: {name}")
         except Exception as e:
-            print(f"❌ Failed: {name} - {str(e)}")
+            print(f"❌ Failed: {name} - {e}")
+
 
 if __name__ == "__main__":
     run_all_examples()
