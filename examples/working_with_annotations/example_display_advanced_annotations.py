@@ -109,7 +109,7 @@ def watermark_delete(infile, outfile):
 
     document.save(outfile)        
 
-def add_3d_annotation():
+def annotation_3d_add():
     # The path to the documents directory
     data_dir = "path/to/your/data/"
 
