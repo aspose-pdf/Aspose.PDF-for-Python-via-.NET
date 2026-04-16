@@ -382,7 +382,92 @@ def polyline_annotation_delete(infile, outfile):
     for pa in polylineAnnotations:
         document.pages[1].annotations.delete(pa)
 
-    document.save(outfile)        
+    document.save(outfile)   
+
+
+def add_line_annotation():
+    # The path to the documents directory
+    data_dir = "path/to/your/data/"
+
+    # Open PDF document
+    document = ap.Document(data_dir + "Appartments.pdf")
+
+    # Create Line Annotation
+    line_annotation = ap.annotations.LineAnnotation(
+        document.pages[1],
+        ap.Rectangle(550, 93, 562, 439),
+        ap.Point(556, 99),
+        ap.Point(556, 443)
+    )
+
+    # Set annotation properties
+    line_annotation.title = "John Smith"
+    line_annotation.color = ap.Color.red
+    line_annotation.width = 3
+    line_annotation.starting_style = ap.annotations.LineEnding.open_arrow
+    line_annotation.ending_style = ap.annotations.LineEnding.open_arrow
+
+    # Create and assign popup annotation
+    popup = ap.annotations.PopupAnnotation(
+        document.pages[1],
+        ap.Rectangle(842, 124, 1021, 266)
+    )
+    line_annotation.popup = popup
+
+    # Add annotation to the page
+    document.pages[1].annotations.append(line_annotation)
+
+    # Save PDF document
+    document.save(data_dir + "AddLineAnnotation_out.pdf")   
+
+    import aspose.pdf as ap
+
+
+def read_line_annotations():
+    # The path to the documents directory
+    data_dir = "path/to/your/data/"
+
+    # Open PDF document
+    document = ap.Document(data_dir + "Appartments_mod.pdf")
+
+    # Iterate through annotations on the first page
+    for annotation in document.pages[1].annotations:
+        # Filter only Line annotations
+        if annotation.annotation_type == ap.annotations.AnnotationType.LINE:
+            # Cast to LineAnnotation (Python doesn't require explicit casting,
+            # but we can treat it as such)
+            line_annotation = annotation
+
+            # Print coordinates
+            print(f"[{line_annotation.starting.x},{line_annotation.starting.y}]"
+                  f"-[{line_annotation.ending.x},{line_annotation.ending.y}]")
+
+
+def delete_line_annotations():
+    # The path to the documents directory
+    data_dir = "path/to/your/data/"
+
+    # Open PDF document
+    document = ap.Document(data_dir + "Appartments_mod.pdf")
+
+    page = document.pages[1]
+
+    # Collect line annotations first (avoid modifying collection while iterating)
+    line_annotations = [
+        annot for annot in page.annotations
+        if annot.annotation_type == ap.annotations.AnnotationType.LINE
+    ]
+
+    # Delete each line annotation
+    for annot in line_annotations:
+        page.annotations.delete(annot)
+
+    # Save PDF document
+    document.save(data_dir + "DeleteLineAnnotations_out.pdf")
+
+
+if __name__ == "__main__":
+    delete_line_annotations()
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -410,6 +495,9 @@ def run_all_examples(data_dir=None, license_path=None):
         ("polyline_annotation_delete", polyline_annotation_delete),
         ("circle_annotation_delete", circle_annotation_delete),
         ("square_annotation_delete", square_annotation_delete),
+        ("add_line_annotation", add_line_annotation),
+        ("read_line_annotations", read_line_annotations),
+        ("delete_line_annotations", delete_line_annotations),
     ]
 
     for name, func in examples:
