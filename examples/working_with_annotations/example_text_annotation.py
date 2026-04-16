@@ -9,61 +9,6 @@ sys.path.append(path.join(path.dirname(__file__), '..'))
 from config import set_license, initialize_data_dir
 
 
-def text_annotation_add(infile, outfile):
-    """Add a text annotation to page 1."""
-    document = ap.Document(infile)
-
-    text_annotation = ap.annotations.TextAnnotation(
-        document.pages[1],
-        ap.Rectangle(299.988, 613.664, 428.708, 680.769, True),
-    )
-    text_annotation.title = "Aspose User"
-    text_annotation.subject = "Sticky Note"
-    text_annotation.contents = "This is a text annotation added by Aspose.PDF for Python via .NET"
-    text_annotation.flags = ap.annotations.AnnotationFlags.PRINT
-    text_annotation.color = ap.Color.blue
-    text_annotation.icon = ap.annotations.TextIcon.HELP
-    popup = ap.annotations.PopupAnnotation(
-        document.pages[1],
-        ap.Rectangle(428.708, 613.664, 528.708, 713.664, True),        
-    )
-    popup.open = True
-
-    text_annotation.popup = popup
-        
-
-    document.pages[1].annotations.add(text_annotation, consider_rotation=False)
-    document.save(outfile)
-
-
-def text_annotation_get(infile, outfile):
-    """Print text annotation rectangles on page 1."""
-    document = ap.Document(infile)
-    text_annotations = [
-        annotation
-        for annotation in document.pages[1].annotations
-        if annotation.annotation_type == ap.annotations.AnnotationType.TEXT
-    ]
-
-    for annotation in text_annotations:
-        print(annotation.rect)
-
-
-def text_annotation_delete(infile, outfile):
-    """Delete text annotations from page 1."""
-    document = ap.Document(infile)
-    text_annotations = [
-        annotation
-        for annotation in document.pages[1].annotations
-        if annotation.annotation_type == ap.annotations.AnnotationType.TEXT
-    ]
-
-    for annotation in text_annotations:
-        document.pages[1].annotations.delete(annotation)
-
-    document.save(outfile)
-
-
 def free_text_annotation_add(infile, outfile):
     """Add a free-text annotation to page 1."""
     document = ap.Document(infile)
@@ -377,9 +322,6 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Add Text Annotation", text_annotation_add),
-        ("Get Text Annotation", text_annotation_get),
-        ("Delete Text Annotation", text_annotation_delete),
         ("Add Free Text Annotation", free_text_annotation_add),
         ("Get Free Text Annotation", free_text_annotation_get),
         ("Delete Free Text Annotation", free_text_annotation_delete),
