@@ -2,8 +2,6 @@ from os import path
 import aspose.pdf as ap
 import sys
 
-from examples.working_with_annotations.example_display_advanced_annotations import add_3d_annotation
-
 sys.path.append(path.join(path.dirname(__file__), '..'))
 
 from config import set_license, initialize_data_dir
