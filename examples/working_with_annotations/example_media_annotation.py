@@ -31,17 +31,17 @@ def rich_media_annotations_add(infile, outfile):
     )
 
     # Set custom player and media assets
-    player_path = os.path.join(path_to_adobe_app, "Players", "Videoplayer.swf")
+    player_path = path.join(path_to_adobe_app, "Players", "Videoplayer.swf")
     rich_media_annotation.custom_player = open(player_path, "rb")
     rich_media_annotation.custom_flash_variables = f"source={video_name}&skin={skin_name}"
 
-    skin_path = os.path.join(path_to_adobe_app, skin_name)
+    skin_path = path.join(path_to_adobe_app, skin_name)
     rich_media_annotation.add_custom_data(skin_name, open(skin_path, "rb"))
 
-    poster_path = os.path.join(media_dir, poster_name)
+    poster_path = path.join(media_dir, poster_name)
     rich_media_annotation.set_poster(open(poster_path, "rb"))
 
-    video_path = os.path.join(media_dir, video_name)
+    video_path = path.join(media_dir, video_name)
     with open(video_path, "rb") as video_file:
         rich_media_annotation.set_content(video_name, video_file)
 
@@ -97,8 +97,8 @@ def annotation_3d_add(infile, outfile):
 
     pdf3d_content = ann.PDF3DContent(model_file)
     pdf3d_artwork = ann.PDF3DArtwork(document, pdf3d_content)
-    pdf3d_artwork.lighting_scheme = ann.PDF3DLightingScheme(type_name = "CAD")
-    pdf3d_artwork.render_mode = ann.PDF3DRenderMode(type_name = "Solid")
+    pdf3d_artwork.lighting_scheme = ann.PDF3DLightingScheme(ann.LightingSchemeType.CAD)
+    pdf3d_artwork.render_mode = ann.PDF3DRenderMode(ann.RenderModeType.SOLID)
 
     top_matrix = ap.Matrix3D(
         1,
