@@ -1,10 +1,10 @@
-import sys
 from os import path
+import sys
 
 import aspose.pdf as ap
 from aspose.pycore import cast
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -291,7 +291,7 @@ def text_underline_by_title_delete(infile, outfile):
     ]
 
     for annotation in underline_annotations:
-        if annotation.title.startswith("a"):
+        if annotation.title == "Aspose User":
             document.pages[1].annotations.delete(annotation)
 
     document.save(outfile)

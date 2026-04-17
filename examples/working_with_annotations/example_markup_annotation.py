@@ -1,12 +1,13 @@
-import sys
 from os import path
+import sys
 
 import aspose.pdf as ap
 from aspose.pycore import cast
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def text_annotation_add(infile, outfile):
     """Add a text annotation to page 1."""
@@ -61,6 +62,7 @@ def text_annotation_delete(infile, outfile):
         document.pages[1].annotations.delete(annotation)
 
     document.save(outfile)
+
 
 def caret_annotations_add(infile, outfile):
     """Add a caret annotation to the first page."""

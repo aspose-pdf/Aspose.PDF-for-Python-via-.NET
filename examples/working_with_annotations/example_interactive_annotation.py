@@ -1,10 +1,9 @@
-import sys
 from os import path
+import sys
 
 import aspose.pdf as ap
-from aspose.pdf.forms import ButtonField
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -136,6 +135,7 @@ def line_annotation_add(infile, outfile):
 
 
 def navigation_buttons_add(infile, outfile):
+    """Add next/previous navigation buttons to each page."""
     button_config = [        
         ("Previous Page", 120.0, ap.annotations.PredefinedAction.PREV_PAGE ),
         ("Next Page", 230.0, ap.annotations.PredefinedAction.NEXT_PAGE ),        
@@ -159,6 +159,7 @@ def navigation_buttons_add(infile, outfile):
             document.form.add(button)
 
     document.save(outfile)
+
 
 def print_button_add(infile, outfile):
     """Create a one-page PDF and add a print button."""
@@ -226,6 +227,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
+
 
 if __name__ == "__main__":
     run_all_examples()

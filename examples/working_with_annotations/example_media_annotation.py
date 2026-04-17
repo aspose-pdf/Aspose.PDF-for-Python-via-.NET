@@ -1,6 +1,5 @@
-import os
-import sys
 from os import path
+import sys
 
 import aspose.pdf as ap
 
