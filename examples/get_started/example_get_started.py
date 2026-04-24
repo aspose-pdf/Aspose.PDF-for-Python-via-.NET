@@ -15,33 +15,32 @@ def simple_example(outfile):
     # Add page
     page = document.pages.add()
     # Add text to new page
-    textFragment = ap.text.TextFragment("Hello, world!")
-    textFragment.position = ap.text.Position(100, 600)
+    text_fragment = ap.text.TextFragment("Hello, world!")
+    text_fragment.position = ap.text.Position(100, 600)
 
-    textFragment.text_state.font_size = 12
-    textFragment.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
-    textFragment.text_state.background_color = ap.Color.blue
-    textFragment.text_state.foreground_color = ap.Color.yellow
+    text_fragment.text_state.font_size = 12
+    text_fragment.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+    text_fragment.text_state.background_color = ap.Color.blue
+    text_fragment.text_state.foreground_color = ap.Color.yellow
 
     # Create TextBuilder object
-    textBuilder = ap.text.TextBuilder(page)
+    text_builder = ap.text.TextBuilder(page)
 
     # Append the text fragment to the PDF page
-    textBuilder.append_text(textFragment)
+    text_builder.append_text(text_fragment)
 
     document.save(outfile)
 
 
 def complex_example(outfile):
-
     # Initialize document object
     document = ap.Document()
     # Add page
     page = document.pages.add()
 
     # Add image
-    imageFileName =  path.join(DATA_DIR, "logo.png")
-    page.add_image(imageFileName, ap.Rectangle(20, 730, 120, 830, True))
+    image_file_name = path.join(DATA_DIR, "logo.png")
+    page.add_image(image_file_name, ap.Rectangle(20, 730, 120, 830, True))
 
     # Add Header
     header = ap.text.TextFragment("New ferry routes in Fall 2029")
@@ -52,9 +51,12 @@ def complex_example(outfile):
     page.paragraphs.add(header)
 
     # Add description
-    descriptionText = "Visitors must buy tickets online and tickets are limited to 5,000 per day. \
-    Ferry service is operating at half capacity and on a reduced schedule. Expect lineups."
-    description = ap.text.TextFragment(descriptionText)
+    description_text = (
+        "Visitors must buy tickets online and tickets are limited to 5,000 per day. "
+        "Ferry service is operating at half capacity and on a reduced schedule. "
+        "Expect lineups."
+    )
+    description = ap.text.TextFragment(description_text)
     description.text_state.font = ap.text.FontRepository.find_font("Times New Roman")
     description.text_state.font_size = 14
     description.horizontal_alignment = ap.HorizontalAlignment.LEFT
@@ -70,28 +72,24 @@ def complex_example(outfile):
     table.margin.bottom = 10
     table.default_cell_text_state.font = ap.text.FontRepository.find_font("Helvetica")
 
-    headerRow = table.rows.add()
-    headerRow.cells.add("Departs City")
-    headerRow.cells.add("Departs Island")
+    header_row = table.rows.add()
+    header_row.cells.add("Departs City")
+    header_row.cells.add("Departs Island")
 
-    i = 0
-    while i < headerRow.cells.count:
-        headerRow.cells[i].background_color = ap.Color.gray
-        headerRow.cells[i].default_cell_text_state.foreground_color = (
+    for i in range(header_row.cells.count):
+        header_row.cells[i].background_color = ap.Color.gray
+        header_row.cells[i].default_cell_text_state.foreground_color = (
             ap.Color.white_smoke
         )
-        i += 1
 
     time = timedelta(hours=6, minutes=0)
-    incTime = timedelta(hours=0, minutes=30)
+    inc_time = timedelta(hours=0, minutes=30)
 
-    i = 0
-    while i < 10:
-        dataRow = table.rows.add()
-        dataRow.cells.add(str(time))
-        time = time.__add__(incTime)
-        dataRow.cells.add(str(time))
-        i += 1
+    for _ in range(10):
+        data_row = table.rows.add()
+        data_row.cells.add(str(time))
+        time += inc_time
+        data_row.cells.add(str(time))
 
     page.paragraphs.add(table)
 
@@ -99,7 +97,6 @@ def complex_example(outfile):
 
 
 def run_all_examples(data_dir=None, license_path=None):
-
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
@@ -112,8 +109,8 @@ def run_all_examples(data_dir=None, license_path=None):
     DATA_DIR = input_dir
 
     for name, func in examples:
-        try:            
-            output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")            
+        try:
+            output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
             func(output_file_name)
             print(f"✅ Success: {name}")
         except Exception as e:

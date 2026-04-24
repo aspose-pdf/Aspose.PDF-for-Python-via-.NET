@@ -14,19 +14,19 @@ def example_create(outfile):
     # Add page
     page = document.pages.add()
     # Add text to new page
-    textFragment = ap.text.TextFragment("Hello, world!")
-    textFragment.position = ap.text.Position(100, 600)
+    text_fragment = ap.text.TextFragment("Hello, world!")
+    text_fragment.position = ap.text.Position(100, 600)
 
-    textFragment.text_state.font_size = 12
-    textFragment.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
-    textFragment.text_state.background_color = ap.Color.blue
-    textFragment.text_state.foreground_color = ap.Color.yellow
+    text_fragment.text_state.font_size = 12
+    text_fragment.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+    text_fragment.text_state.background_color = ap.Color.blue
+    text_fragment.text_state.foreground_color = ap.Color.yellow
 
     # Create TextBuilder object
-    textBuilder = ap.text.TextBuilder(page)
+    text_builder = ap.text.TextBuilder(page)
 
     # Append the text fragment to the PDF page
-    textBuilder.append_text(textFragment)
+    text_builder.append_text(textFragment)
 
     document.save(outfile)
 
