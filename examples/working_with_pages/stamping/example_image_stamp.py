@@ -35,8 +35,7 @@ def add_image_stamp_with_quality_control(infile, input_image_file, outfile):
 def add_image_as_background_in_floating_box(infile, input_image_file, outfile):
 
     document = ap.Document(infile)
-    # Add page to PDF document
-    page = document.pages.add()
+    page = document.pages[1]
     # Create FloatingBox object
     box = ap.FloatingBox(200.0, 100.0)
     # Set left position for FloatingBox

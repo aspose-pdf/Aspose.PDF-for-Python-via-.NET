@@ -377,7 +377,7 @@ def run_all_examples(data_dir=None, license_path=None):
     ]
 
     for name, func in examples:
-        input_file_name = path.join(input_dir, "sample.pdf")
+        input_file_name = path.join(input_dir, "sample4pages.pdf")
         output_file_name = path.join(output_dir, f"{name}_out.pdf")
 
         try:
