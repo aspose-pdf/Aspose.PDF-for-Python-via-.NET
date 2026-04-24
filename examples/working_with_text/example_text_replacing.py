@@ -526,7 +526,9 @@ def remove_all_text_using_absorber3(infile, outfile):
     """
     with ap.Document(infile) as document:
         absorber = ap.text.TextFragmentAbsorber()
-        absorber.remove_all_text(document.pages[1], ap.Rectangle(10, 200, 120, 600))
+        absorber.remove_all_text(
+            document.pages[1], ap.Rectangle(10, 200, 120, 600, True)
+        )
         document.save(outfile)
 
 
