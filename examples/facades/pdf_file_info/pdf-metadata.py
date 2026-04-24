@@ -1,6 +1,4 @@
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
-from io import FileIO
 
 import sys
 from os import path
@@ -11,15 +9,16 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 # PDF Metadata
 #  ├─ Get PDF Metadata
 #  ├─ Set PDF Metadata
 #  ├─ Clear PDF Metadata
 #  └─ Save Metadata with XMP
 
+
 def get_pdf_metadata(infile):
-    
+
     # Get and display PDF information
     pdf_info = pdf_facades.PdfFileInfo(infile)
     print(f"Subject: {pdf_info.subject}")
@@ -40,8 +39,9 @@ def get_pdf_metadata(infile):
     reviewer = pdf_info.get_meta_info("Reviewer")
     print(f"Reviewer: {reviewer if reviewer else 'No Reviewer metadata found.'}")
 
+
 def set_pdf_metadata(infile, outfile):
-    
+
     # Get PDF information
     pdf_info = pdf_facades.PdfFileInfo(infile)
 
@@ -59,8 +59,9 @@ def set_pdf_metadata(infile, outfile):
     # Save updated metadata
     pdf_info.save(outfile)
 
+
 def clear_pdf_metadata(infile, outfile):
-    
+
     # Get PDF information
     pdf_info = pdf_facades.PdfFileInfo(infile)
 
@@ -70,8 +71,9 @@ def clear_pdf_metadata(infile, outfile):
     # Save updated metadata
     pdf_info.save(outfile)
 
+
 def save_info_with_xmp(infile, outfile):
-    
+
     # Get PDF information
     pdf_info = pdf_facades.PdfFileInfo(infile)
 
@@ -83,7 +85,7 @@ def save_info_with_xmp(infile, outfile):
 
     # Save updated metadata
     pdf_info.save_new_info_with_xmp(outfile)
-    
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all PDF metadata examples and report status.
@@ -103,7 +105,7 @@ def run_all_examples(data_dir=None, license_path=None):
         ("Get PDF Metadata", get_pdf_metadata),
         ("Set PDF Metadata", set_pdf_metadata),
         ("Clear PDF Metadata", clear_pdf_metadata),
-        ("Save Metadata with XMP", save_info_with_xmp)
+        ("Save Metadata with XMP", save_info_with_xmp),
     ]
 
     for name, func in examples:
@@ -112,7 +114,7 @@ def run_all_examples(data_dir=None, license_path=None):
             output_file_name = path.join(output_dir, func.__name__ + ".pdf")
             if func.__name__ == "get_pdf_metadata":
                 func(input_file_name)
-            else:            
+            else:
                 func(input_file_name, output_file_name)
             print(f"✅ Success: {name}")
         except Exception as e:
@@ -120,5 +122,6 @@ def run_all_examples(data_dir=None, license_path=None):
 
     print("\nAll PDF metadata examples finished.\n")
 
+
 if __name__ == "__main__":
-    run_all_examples()  
+    run_all_examples()

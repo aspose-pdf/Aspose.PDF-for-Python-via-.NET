@@ -26,7 +26,7 @@ def example_create(outfile):
     text_builder = ap.text.TextBuilder(page)
 
     # Append the text fragment to the PDF page
-    text_builder.append_text(textFragment)
+    text_builder.append_text(text_fragment)
 
     document.save(outfile)
 

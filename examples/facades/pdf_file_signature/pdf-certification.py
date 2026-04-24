@@ -8,15 +8,15 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import initialize_data_dir, set_license
+from config import initialize_data_dir, set_license  # noqa: E402
 
-from _pdf_file_signature_helpers import (
+from _pdf_file_signature_helpers import (  # noqa: E402
     DEFAULT_INPUT_PDF,
-    create_pdf_file_signature,    
     create_doc_mdp_signature,
     create_pdf_file_signature,
     create_signature_rectangle,
 )
+
 
 def certify_pdf_with_mdp_signature(infile, outfile):
     pdf_signature = create_pdf_file_signature(infile)
@@ -66,7 +66,6 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Set Certificate for Signing", set_certificate_for_signing),
         ("Certify PDF with MDP Signature", certify_pdf_with_mdp_signature),
         ("Apply Document-Level Certification", apply_document_level_certification),
     ]

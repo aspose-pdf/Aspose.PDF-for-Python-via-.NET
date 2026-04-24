@@ -78,9 +78,9 @@ def complex_example(outfile):
 
     for i in range(header_row.cells.count):
         header_row.cells[i].background_color = ap.Color.gray
-        header_row.cells[i].default_cell_text_state.foreground_color = (
-            ap.Color.white_smoke
-        )
+        header_row.cells[
+            i
+        ].default_cell_text_state.foreground_color = ap.Color.white_smoke
 
     time = timedelta(hours=6, minutes=0)
     inc_time = timedelta(hours=0, minutes=30)

@@ -9,7 +9,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import initialize_data_dir, set_license
+from config import initialize_data_dir, set_license  # noqa: E402
 
 
 def _create_bound_viewer(infile: str) -> pdf_facades.PdfViewer:
@@ -97,7 +97,10 @@ def run_all_examples(data_dir=None, license_path=None) -> None:
         ("Print Document with Default Settings", print_document_with_default_settings),
         ("Print Document with Printer Setup", print_document_with_printer_setup),
         ("Print Document with Printer Settings", print_document_with_printer_settings),
-        ("Print Document with Page and Printer Settings", print_document_with_page_and_printer_settings),
+        (
+            "Print Document with Page and Printer Settings",
+            print_document_with_page_and_printer_settings,
+        ),
         ("Inspect Bound Viewer Settings", inspect_bound_viewer_settings),
     ]
 

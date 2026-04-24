@@ -2,11 +2,12 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
-#region Replace existing text
+# region Replace existing text
+
 
 def replace_text_on_all_pages(infile, outfile):
     """
@@ -44,6 +45,7 @@ def replace_text_on_all_pages(infile, outfile):
             fragment.text = replace_phrase
 
         document.save(outfile)
+
 
 def replace_text_in_particular_page_region(infile, outfile):
     """
@@ -84,6 +86,7 @@ def replace_text_in_particular_page_region(infile, outfile):
 
         document.save(outfile)
 
+
 def replace_text_and_resize_and_shift_without_changing_font_size(infile, outfile):
     """
     Resize and shift text without changing the font size.
@@ -120,10 +123,11 @@ def replace_text_and_resize_and_shift_without_changing_font_size(infile, outfile
         rect.urx -= 50
         fragment.replace_options.rectangle = rect
         fragment.replace_options.replace_adjustment_action = (
-             ap.text.TextReplaceOptions.ReplaceAdjustment.ADJUST_SPACE_WIDTH
+            ap.text.TextReplaceOptions.ReplaceAdjustment.ADJUST_SPACE_WIDTH
         )
         fragment.text = f"{text} {text}"
         document.save(outfile)
+
 
 def replace_text_and_resize_and_shift_paragraph(infile, outfile):
     """
@@ -162,10 +166,11 @@ def replace_text_and_resize_and_shift_paragraph(infile, outfile):
         rect.ury -= 20
         fragment.replace_options.rectangle = rect
         fragment.replace_options.replace_adjustment_action = (
-             ap.text.TextReplaceOptions.ReplaceAdjustment.ADJUST_SPACE_WIDTH
+            ap.text.TextReplaceOptions.ReplaceAdjustment.ADJUST_SPACE_WIDTH
         )
         fragment.text = f"{text} {text}"
         document.save(outfile)
+
 
 def replace_text_and_resize_and_expand_font(infile, outfile):
     """
@@ -200,13 +205,14 @@ def replace_text_and_resize_and_expand_font(infile, outfile):
         text = fragment.text
         fragment.replace_options.rectangle = ap.Rectangle(100, 300, 512, 692, True)
         fragment.replace_options.replace_adjustment_action = (
-             ap.text.TextReplaceOptions.ReplaceAdjustment.ADJUST_SPACE_WIDTH
+            ap.text.TextReplaceOptions.ReplaceAdjustment.ADJUST_SPACE_WIDTH
         )
         fragment.replace_options.font_size_adjustment_action = (
             ap.text.TextReplaceOptions.FontSizeAdjustment.SCALE_TO_FILL
         )
         fragment.text = f"{text} {text}"
         document.save(outfile)
+
 
 def replace_text_and_fit_text_into_rectangle(infile, outfile):
     """
@@ -245,10 +251,10 @@ def replace_text_and_fit_text_into_rectangle(infile, outfile):
         )
         fragment.replace_options.replace_adjustment_action = (
             ap.text.TextReplaceOptions.ReplaceAdjustment.ADJUST_SPACE_WIDTH
-
         )
         fragment.text = f"{text} {text}"
         document.save(outfile)
+
 
 def replace_text_based_on_regex(infile, outfile):
     """
@@ -289,6 +295,7 @@ def replace_text_based_on_regex(infile, outfile):
             fragment.text_state.background_color = ap.Color.light_green
 
         document.save(outfile)
+
 
 def automatically_rearrange_page_contents(input_file, output_file):
     """
@@ -331,9 +338,11 @@ def automatically_rearrange_page_contents(input_file, output_file):
     # Save PDF document
     document.save(output_file)
 
-#endregion
 
-#region Replace fonts or remove unused fonts
+# endregion
+
+
+# region Replace fonts or remove unused fonts
 def replace_fonts(infile, outfile):
     """
     Replace specific fonts in a PDF document.
@@ -402,7 +411,9 @@ def remove_unused_fonts(input_file, output_file):
     document = ap.Document(input_file)
 
     # Initialize text edit options to remove unused fonts
-    options = ap.text.TextEditOptions(ap.text.TextEditOptions.FontReplace.REMOVE_UNUSED_FONTS)
+    options = ap.text.TextEditOptions(
+        ap.text.TextEditOptions.FontReplace.REMOVE_UNUSED_FONTS
+    )
 
     # Create a TextFragmentAbsorber with the specified options
     absorber = ap.text.TextFragmentAbsorber(options)
@@ -410,13 +421,18 @@ def remove_unused_fonts(input_file, output_file):
 
     # Iterate through all TextFragments
     for text_fragment in absorber.text_fragments:
-        text_fragment.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
 
     # Save the updated PDF document
     document.save(output_file)
-#endregion
 
-#region Remove all text
+
+# endregion
+
+# region Remove all text
+
 
 def remove_all_text_using_absorber1(infile, outfile):
     """
@@ -449,6 +465,7 @@ def remove_all_text_using_absorber1(infile, outfile):
         absorber.remove_all_text(document)
         document.save(outfile)
 
+
 def remove_all_text_using_absorber2(infile, outfile):
     """
     Remove all text from page using TextFragmentAbsorber.
@@ -479,6 +496,7 @@ def remove_all_text_using_absorber2(infile, outfile):
         absorber = ap.text.TextFragmentAbsorber()
         absorber.remove_all_text(document.pages[1])
         document.save(outfile)
+
 
 def remove_all_text_using_absorber3(infile, outfile):
     """
@@ -511,6 +529,7 @@ def remove_all_text_using_absorber3(infile, outfile):
         absorber.remove_all_text(document.pages[1], ap.Rectangle(10, 200, 120, 600))
         document.save(outfile)
 
+
 def remove_hidden_text(infile, outfile):
     """
     Remove all hidden (invisible) text from a PDF document.
@@ -541,7 +560,9 @@ def remove_hidden_text(infile, outfile):
     with ap.Document(infile) as document:
         text_absorber = ap.text.TextFragmentAbsorber()
         # This option can be used to prevent other text fragments from moving after hidden text replacement
-        text_absorber.text_replace_options = ap.text.TextReplaceOptions(ap.text.TextReplaceOptions.ReplaceAdjustment.NONE)
+        text_absorber.text_replace_options = ap.text.TextReplaceOptions(
+            ap.text.TextReplaceOptions.ReplaceAdjustment.NONE
+        )
         document.pages.accept(text_absorber)
         # Remove hidden text
         for fragment in text_absorber.text_fragments:
@@ -549,6 +570,7 @@ def remove_hidden_text(infile, outfile):
                 fragment.text = ""
         # Save PDF document
         document.save(outfile)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """
@@ -589,13 +611,31 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Replace Text On All Pages", replace_text_on_all_pages),
-        ("Replace TextIn Particular Page Region", replace_text_in_particular_page_region),
-        ("Replace Text And Resize And Shift Without Changing FontSize", replace_text_and_resize_and_shift_without_changing_font_size),
-        ("Replace Text And Resize And Shift Paragraph", replace_text_and_resize_and_shift_paragraph),
-        ("Replace Text And Resize And Expand Font", replace_text_and_resize_and_expand_font),
-        ("Replace Text And Fit Text Into Rectangle", replace_text_and_fit_text_into_rectangle),
+        (
+            "Replace TextIn Particular Page Region",
+            replace_text_in_particular_page_region,
+        ),
+        (
+            "Replace Text And Resize And Shift Without Changing FontSize",
+            replace_text_and_resize_and_shift_without_changing_font_size,
+        ),
+        (
+            "Replace Text And Resize And Shift Paragraph",
+            replace_text_and_resize_and_shift_paragraph,
+        ),
+        (
+            "Replace Text And Resize And Expand Font",
+            replace_text_and_resize_and_expand_font,
+        ),
+        (
+            "Replace Text And Fit Text Into Rectangle",
+            replace_text_and_fit_text_into_rectangle,
+        ),
         ("Replace Text Based On Regex", replace_text_based_on_regex),
-        ("Automatically Rearrange Page Contents", automatically_rearrange_page_contents),
+        (
+            "Automatically Rearrange Page Contents",
+            automatically_rearrange_page_contents,
+        ),
         ("Replace Fonts", replace_fonts),
         ("Remove Unused Fonts", remove_unused_fonts),
         ("Remove All Text Using Absorber 1", remove_all_text_using_absorber1),
@@ -618,5 +658,4 @@ def run_all_examples(data_dir=None, license_path=None):
 
 # Main execution
 if __name__ == "__main__":
-
     run_all_examples()

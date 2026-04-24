@@ -2,9 +2,10 @@ from os import path, remove
 import aspose.pdf as ap
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import initialize_data_dir, set_license
+
 
 def convert_OFD_to_PDF(infile, outfile):
     load_options = ap.OfdLoadOptions()
@@ -137,6 +138,7 @@ def transform_xml_to_html(xml_file, xslt_file, html_file):
 
 def convert_XML_to_PDF(template, infile, outfile):
     import tempfile
+
     path_temp_file = path.join(tempfile.gettempdir(), "temp.html")
 
     load_options = ap.HtmlLoadOptions()
@@ -207,12 +209,15 @@ def run_all_examples(data_dir=None, license_path=None):
                 func(input_path, output_path)
             else:
                 input_paths = [path.join(input_dir, f) for f in i]
-                func(input_paths[0],input_paths[1], output_path)
+                func(input_paths[0], input_paths[1], output_path)
             print(f"✅ Success: {name} completed.")
         except Exception as e:
             print(f"❌ Failed: {name} - {e}")
 
-    print(f"\nAll other file to pdf creation examples finished. Check output in {output_dir}")
+    print(
+        f"\nAll other file to pdf creation examples finished. Check output in {output_dir}"
+    )
+
 
 if __name__ == "__main__":
     run_all_examples()

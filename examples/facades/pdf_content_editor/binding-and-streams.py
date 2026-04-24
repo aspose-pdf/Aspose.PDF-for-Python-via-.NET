@@ -10,7 +10,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 def constructor_with_document_and_save_stream(infile, outfile):
@@ -60,7 +60,10 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Constructor With Document And Save Stream", constructor_with_document_and_save_stream),
+        (
+            "Constructor With Document And Save Stream",
+            constructor_with_document_and_save_stream,
+        ),
         ("Bind From Stream And Save Stream", bind_from_stream_and_save_stream),
         ("Bind From Document And Save File", bind_from_document_and_save_file),
     ]

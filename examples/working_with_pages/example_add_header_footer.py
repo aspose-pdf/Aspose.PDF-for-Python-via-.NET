@@ -2,9 +2,10 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def add_header_and_footer_as_text(input_file, output_file):
     """
@@ -61,6 +62,7 @@ def add_header_and_footer_as_text(input_file, output_file):
 
         # Save PDF document
         document.save(output_file)
+
 
 def using_header_and_footer_for_page_numbering(input_file, output_file):
     """
@@ -339,7 +341,9 @@ def add_header_and_footer_as_latex(input_file, output_file):
             h_l_text = ap.TeXFragment(h_latex_text, True)
             # Create footer
             footer = ap.HeaderFooter()
-            f_latex_text = f"\\copyright\\ 2025 My Company -- Page \\thepage\\ is {page_count}"
+            f_latex_text = (
+                f"\\copyright\\ 2025 My Company -- Page \\thepage\\ is {page_count}"
+            )
             f_l_text = ap.TeXFragment(f_latex_text, True)
 
             header.paragraphs.add(h_l_text)
@@ -369,7 +373,7 @@ def run_all_examples(data_dir=None, license_path=None):
         ("add_header_and_footer_as_html", add_header_and_footer_as_html),
         ("add_header_and_footer_as_image", add_header_and_footer_as_image),
         ("add_header_and_footer_as_table", add_header_and_footer_as_table),
-        ("add_header_and_footer_as_latex", add_header_and_footer_as_latex)
+        ("add_header_and_footer_as_latex", add_header_and_footer_as_latex),
     ]
 
     for name, func in examples:

@@ -6,7 +6,6 @@
 from io import FileIO
 import sys
 from os import path
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
 
 # Ensure "examples/config.py" is importable from nested folders like examples/facades/form
@@ -15,7 +14,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 # Add Margins to PDF Pages
@@ -52,7 +51,7 @@ def add_page_breaks_in_pdf(infile, outfile):
         infile,
         outfile,
         [
-            pdf_facades.PdfFileEditor.PageBreak(1, 400),            
+            pdf_facades.PdfFileEditor.PageBreak(1, 400),
         ],
     )
 

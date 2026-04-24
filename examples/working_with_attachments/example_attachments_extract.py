@@ -1,8 +1,7 @@
 from os import path
-from io import FileIO
 import aspose.pdf as ap
 import sys
-from aspose.pycore import cast, is_assignable
+from aspose.pycore import cast
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 

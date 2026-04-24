@@ -94,7 +94,9 @@ def improve_fonts_embedding(input_pdf, output_pdf):
     document = ap.Document(input_pdf)
 
     document.font_utilities.subset_fonts(ap.FontSubsetStrategy.SUBSET_ALL_FONTS)
-    document.font_utilities.subset_fonts(ap.FontSubsetStrategy.SUBSET_EMBEDDED_FONTS_ONLY)
+    document.font_utilities.subset_fonts(
+        ap.FontSubsetStrategy.SUBSET_EMBEDDED_FONTS_ONLY
+    )
 
     document.save(output_pdf)
 
@@ -103,7 +105,9 @@ def set_zoom_factor(input_pdf, output_pdf):
     """Set an initial zoom level via document open action."""
     document = ap.Document(input_pdf)
 
-    action = ap.annotations.GoToAction(ap.annotations.XYZExplicitDestination(1, 0.0, 0.0, 0.5))
+    action = ap.annotations.GoToAction(
+        ap.annotations.XYZExplicitDestination(1, 0.0, 0.0, 0.5)
+    )
     document.open_action = action
     document.save(output_pdf)
 
@@ -129,7 +133,7 @@ def run_all_examples(data_dir=None, license_path=None):
         ("Configure document window settings", set_document_window),
         ("Embed fonts in existing PDF", embedded_fonts),
         ("Embed fonts in new PDF", embedded_fonts_in_new_document),
-        ("Set default font", set_default_font), 
+        ("Set default font", set_default_font),
         ("List document fonts", get_all_fonts),
         ("Improve font embedding", improve_fonts_embedding),
         ("Set initial zoom factor", set_zoom_factor),

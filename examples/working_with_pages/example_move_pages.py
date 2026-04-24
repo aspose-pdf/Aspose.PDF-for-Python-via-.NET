@@ -2,9 +2,10 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def moving_page_from_one_document_to_another(input_file_name, output_file_name):
     """
@@ -19,8 +20,9 @@ def moving_page_from_one_document_to_another(input_file_name, output_file_name):
     another_document = ap.Document()
     another_document.pages.add(page)
     document.pages.delete(2)
-    document.save(input_file_name.replace(".pdf","_new.pdf"))
+    document.save(input_file_name.replace(".pdf", "_new.pdf"))
     another_document.save(output_file_name)
+
 
 def moving_bunch_pages_from_one_document_to_another(input_file_name, output_file_name):
     """
@@ -39,7 +41,8 @@ def moving_bunch_pages_from_one_document_to_another(input_file_name, output_file
     # Save output files
     dst_document.save(output_file_name)
     src_document.pages.delete(pages)
-    src_document.save(input_file_name.replace(".pdf","_new.pdf"))
+    src_document.save(input_file_name.replace(".pdf", "_new.pdf"))
+
 
 def moving_page_in_new_location_in_same_document(input_file_name, output_file_name):
     """
@@ -71,9 +74,18 @@ def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
     examples = [
-        ("Moving page from one document to another", moving_page_from_one_document_to_another),
-        ("Moving bunch_pages_from_one_document to another", moving_bunch_pages_from_one_document_to_another),
-        ("Moving page in new location in same document", moving_page_in_new_location_in_same_document )
+        (
+            "Moving page from one document to another",
+            moving_page_from_one_document_to_another,
+        ),
+        (
+            "Moving bunch_pages_from_one_document to another",
+            moving_bunch_pages_from_one_document_to_another,
+        ),
+        (
+            "Moving page in new location in same document",
+            moving_page_in_new_location_in_same_document,
+        ),
     ]
 
     input_file_name = path.join(input_dir, "sample_move.pdf")
@@ -91,5 +103,4 @@ def run_all_examples(data_dir=None, license_path=None):
 
 # Main execution
 if __name__ == "__main__":
-
     run_all_examples()

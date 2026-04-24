@@ -2,9 +2,10 @@ from os import path
 import aspose.pdf as ap
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def link_add(infile, outfile):
     """
@@ -34,7 +35,9 @@ def link_add(infile, outfile):
     phoneNumberFragment = textFragmentAbsorber.text_fragments[1]
 
     # Create Link Annotation and set the action to call a phone number
-    linkAnnotation = ap.annotations.LinkAnnotation(document.pages[1], phoneNumberFragment.rectangle)
+    linkAnnotation = ap.annotations.LinkAnnotation(
+        document.pages[1], phoneNumberFragment.rectangle
+    )
     linkAnnotation.action = ap.annotations.GoToURIAction("www.aspose.com")
 
     # Add annotation to page
@@ -67,7 +70,7 @@ def link_get(infile, outfile):
     ]
 
     for la in linkAnnotations:
-        print(la.rect)    
+        print(la.rect)
 
 
 def link_delete(infile, outfile):
@@ -98,7 +101,7 @@ def link_delete(infile, outfile):
         document.pages[1].annotations.delete(hs)
 
     document.save(outfile)
-    
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run adding link annotations examples and report status.
@@ -126,6 +129,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
+
 
 if __name__ == "__main__":
     run_all_examples()

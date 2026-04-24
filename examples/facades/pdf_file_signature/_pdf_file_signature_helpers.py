@@ -40,7 +40,11 @@ def ensure_certificate_file(certificate_path=None):
     return resolved_path
 
 
-def configure_signature_certificate(pdf_signature, certificate_path=None, certificate_password=DEFAULT_CERTIFICATE_PASSWORD):
+def configure_signature_certificate(
+    pdf_signature,
+    certificate_path=None,
+    certificate_password=DEFAULT_CERTIFICATE_PASSWORD,
+):
     resolved_path = ensure_certificate_file(certificate_path)
     pdf_signature.set_certificate(resolved_path, certificate_password)
     return resolved_path

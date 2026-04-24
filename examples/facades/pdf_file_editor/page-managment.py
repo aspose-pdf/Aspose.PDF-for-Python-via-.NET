@@ -1,4 +1,3 @@
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
 
 import sys
@@ -9,7 +8,7 @@ CURRENT_DIR = path.dirname(__file__)
 EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 # Extract Pages from PDF
@@ -52,7 +51,8 @@ def append_pages_to_pdf(infile, sample_file, outfile):
     # Create a PdfFileEditor object
     pdf_editor = pdf_facades.PdfFileEditor()
     # Append pages from the specified PDF document to the end of the source PDF document
-    pdf_editor.append(infile, [sample_file], 1, 2, outfile)    
+    pdf_editor.append(infile, [sample_file], 1, 2, outfile)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all page management examples and report status.

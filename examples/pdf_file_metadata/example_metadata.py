@@ -3,7 +3,7 @@ import datetime
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -63,7 +63,9 @@ def set_prefix_metadata(infile, outfile):
     document.metadata.register_namespace_uri("xmp", "http://ns.adobe.com/xap/1.0/")
 
     # Set the metadata property using the registered prefix
-    document.metadata.add("xmp:ModifyDate", datetime.datetime.now().isoformat())  # ISO 8601 format
+    document.metadata.add(
+        "xmp:ModifyDate", datetime.datetime.now().isoformat()
+    )  # ISO 8601 format
 
     # Save the updated PDF document
     document.save(outfile)
@@ -126,7 +128,7 @@ def set_xmp_metadata(infile, outfile):
     document = ap.Document(infile)
 
     # Set XMP metadata properties
-    document.metadata.add("xmp:CreateDate",datetime.datetime.now().isoformat())
+    document.metadata.add("xmp:CreateDate", datetime.datetime.now().isoformat())
     document.metadata.add("xmp:Nickname", "Nickname")
     document.metadata.add("xmp:CustomProperty", "Custom Value")
 

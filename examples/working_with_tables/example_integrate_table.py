@@ -1,7 +1,7 @@
 from os import path
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 import pandas as pd
 import aspose.pdf as ap
@@ -21,9 +21,7 @@ def create_table_from_dataframe(df: pd.DataFrame, max_rows: int = 20) -> ap.Tabl
 
     # Add header row with column names
     header_row = table.rows.add()
-    header_row.is_row_broken = (
-        False  # Prevent header row from being split across pages
-    )
+    header_row.is_row_broken = False  # Prevent header row from being split across pages
     for column_name in df.columns:
         cell = header_row.cells.add(str(column_name))
         cell.background_color = ap.Color.light_gray
@@ -36,7 +34,10 @@ def create_table_from_dataframe(df: pd.DataFrame, max_rows: int = 20) -> ap.Tabl
 
     return table
 
-def create_pdf_from_dataframe(outfile: str, df: pd.DataFrame, max_rows: int = 20) -> None:
+
+def create_pdf_from_dataframe(
+    outfile: str, df: pd.DataFrame, max_rows: int = 20
+) -> None:
     # Create new PDF document
     document = ap.Document()
     page = document.pages.add()
@@ -46,6 +47,7 @@ def create_pdf_from_dataframe(outfile: str, df: pd.DataFrame, max_rows: int = 20
     # Add table object to first page of input document
     page.paragraphs.add(table)
     document.save(outfile)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)
@@ -57,9 +59,7 @@ def run_all_examples(data_dir=None, license_path=None):
     print(df.head(20))
     df_selected = df[["city", "country", "population", "iso3"]]
 
-    examples = [
-        ("create_pdf_from_dataframe", create_pdf_from_dataframe)
-    ]
+    examples = [("create_pdf_from_dataframe", create_pdf_from_dataframe)]
 
     for name, func in examples:
         try:

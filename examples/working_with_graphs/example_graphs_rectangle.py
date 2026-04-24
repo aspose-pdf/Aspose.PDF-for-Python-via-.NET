@@ -3,9 +3,11 @@ import aspose.pdf.drawing as drawing
 
 import sys
 from os import path
-sys.path.append(path.join(path.dirname(__file__), '..'))
+
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def add_rectangle(outfile: str):
     document = ap.Document()
@@ -105,6 +107,7 @@ def control_z_order_of_rectangle(outfile: str):
     _add_rectangle_to_page(page, 40, 40, 60, 30, ap.Color.green, 0)
 
     document.save(outfile)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)

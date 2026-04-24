@@ -2,9 +2,10 @@ from os import path
 import aspose.pdf as ap
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def text_annotation_add(infile, outfile):
     """
@@ -117,13 +118,15 @@ def free_text_annotation_add(infile, outfile):
     document = ap.Document(infile)
 
     freeTextAnnotation = ap.annotations.FreeTextAnnotation(
-        document.pages[1], ap.Rectangle(299, 713, 308, 720, True), ap.annotations.DefaultAppearance()
+        document.pages[1],
+        ap.Rectangle(299, 713, 308, 720, True),
+        ap.annotations.DefaultAppearance(),
     )
     freeTextAnnotation.title = "Aspose User"
     freeTextAnnotation.color = ap.Color.light_green
 
     document.pages[1].annotations.append(freeTextAnnotation)
-    document.save(outfile)  
+    document.save(outfile)
 
 
 def free_text_annotation_get(infile, outfile):
@@ -151,7 +154,7 @@ def free_text_annotation_get(infile, outfile):
     ]
 
     for fa in freeTextAnnotations:
-        print(fa.rect)  
+        print(fa.rect)
 
 
 def free_text_annotation_delete(infile, outfile):
@@ -181,7 +184,7 @@ def free_text_annotation_delete(infile, outfile):
     for fa in freeTextAnnotations:
         document.pages[1].annotations.delete(fa)
 
-    document.save(outfile)    
+    document.save(outfile)
 
 
 def add_text_strikeout_annotation(infile, outfile):
@@ -272,7 +275,7 @@ def delete_text_strikeout_annotation(infile, outfile):
         document.pages[1].annotations.delete(pa)
 
     document.save(outfile)
-    
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run adding text annotations examples and report status.
@@ -306,6 +309,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
+
 
 if __name__ == "__main__":
     run_all_examples()

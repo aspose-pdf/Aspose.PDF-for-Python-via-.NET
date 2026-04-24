@@ -1,7 +1,5 @@
-from io import FileIO
 import sys
 from os import path
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
 
 # Ensure "examples/config.py" is importable from nested folders like examples/facades/form
@@ -10,7 +8,8 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
+
 
 # Encrypt PDF with User and Owner Password
 def encrypt_pdf_with_user_owner_password(infile, outfile):
@@ -27,10 +26,7 @@ def encrypt_pdf_with_user_owner_password(infile, outfile):
 
     # Encrypt the PDF
     file_security.encrypt_file(
-        "user_password",
-        "owner_password",
-        privilege,
-        pdf_facades.KeySize.X128
+        "user_password", "owner_password", privilege, pdf_facades.KeySize.X128
     )
 
     # Save encrypted PDF
@@ -49,14 +45,11 @@ def encrypt_pdf_with_permissions(infile, outfile):
     # Configure privileges
     privilege = pdf_facades.DocumentPrivilege.allow_all
     privilege.allow_print = False
-    privilege.allow_copy = False    
+    privilege.allow_copy = False
 
     # Encrypt the PDF
     file_security.encrypt_file(
-        "user_password",
-        "owner_password",
-        privilege,
-        pdf_facades.KeySize.X128
+        "user_password", "owner_password", privilege, pdf_facades.KeySize.X128
     )
 
     # Save encrypted PDF
@@ -82,7 +75,7 @@ def encrypt_pdf_with_encryption_algorithm(infile, outfile):
         "owner_password",
         privilege,
         pdf_facades.KeySize.X256,
-        pdf_facades.Algorithm.AES
+        pdf_facades.Algorithm.AES,
     )
 
     # Save encrypted PDF
@@ -103,9 +96,15 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Encrypt PDF with User and Owner Password", encrypt_pdf_with_user_owner_password),
+        (
+            "Encrypt PDF with User and Owner Password",
+            encrypt_pdf_with_user_owner_password,
+        ),
         ("Encrypt PDF with Permissions", encrypt_pdf_with_permissions),
-        ("Encrypt PDF with Encryption Algorithm", encrypt_pdf_with_encryption_algorithm)
+        (
+            "Encrypt PDF with Encryption Algorithm",
+            encrypt_pdf_with_encryption_algorithm,
+        ),
     ]
 
     for name, func in examples:

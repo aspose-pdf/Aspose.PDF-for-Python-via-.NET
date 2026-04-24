@@ -2,7 +2,7 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -67,9 +67,9 @@ def run_all_examples(data_dir=None, license_path=None):
     using the Aspose.PDF library. It processes each example function sequentially and reports
     the success or failure of each operation.
     Args:
-        data_dir (str, optional): The directory path containing input files and where output 
+        data_dir (str, optional): The directory path containing input files and where output
             files will be saved. If None, a default directory will be used.
-        license_path (str, optional): The file path to the Aspose.PDF license file. 
+        license_path (str, optional): The file path to the Aspose.PDF license file.
             If None, the library will run in evaluation mode.
     Examples:
         The function runs the following examples:
@@ -92,7 +92,7 @@ def run_all_examples(data_dir=None, license_path=None):
     examples = [
         ("set_page_size", set_page_size),
         ("get_page_size", get_page_size),
-        ("get_page_size_rotation", get_page_size_rotation)
+        ("get_page_size_rotation", get_page_size_rotation),
     ]
 
     for name, func in examples:

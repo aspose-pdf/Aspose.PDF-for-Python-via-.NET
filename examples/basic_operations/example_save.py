@@ -3,7 +3,7 @@ import io
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -19,7 +19,7 @@ def save_document_to_stream(infile, outfile):
     document = ap.Document(infile)
     # make some manipulation, e.g. add new empty page
     document.pages.add()
-    with io.FileIO(outfile, 'w') as stream:
+    with io.FileIO(outfile, "w") as stream:
         document.save(stream)
 
 

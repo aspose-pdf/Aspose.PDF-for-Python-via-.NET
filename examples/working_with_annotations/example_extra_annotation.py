@@ -4,7 +4,7 @@ from aspose.pycore import cast, is_assignable
 from os import path
 
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -49,6 +49,7 @@ def mark_text_redaction(infile, outfile, searchTerm):
         annot.repeat = True
         textFragment.page.annotations.add(annot, True)
     document.save(outfile)
+
 
 def apply_redaction(infile, outfile):
     """
@@ -121,6 +122,7 @@ def redact_area(infile, outfile):
     page.annotations.add(annot, True)
     document.save(outfile)
 
+
 def run_all_examples(data_dir=None, license_path=None):
     """Run adding extra annotations examples and report status.
     Args:
@@ -134,17 +136,24 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Mark text redaction", mark_text_redaction, ("sample.pdf", "sample_redaction.pdf", "PDF")),
-        ("Apply redaction", apply_redaction, ("sample_redaction.pdf", "sample_redacted.pdf")),
+        (
+            "Mark text redaction",
+            mark_text_redaction,
+            ("sample.pdf", "sample_redaction.pdf", "PDF"),
+        ),
+        (
+            "Apply redaction",
+            apply_redaction,
+            ("sample_redaction.pdf", "sample_redacted.pdf"),
+        ),
         ("Redact area", redact_area, ("sample.pdf", "sample_redact_area.pdf")),
-
     ]
 
     for name, func, args in examples:
         input_file_name = path.join(input_dir, args[0])
         output_file_name = path.join(output_dir, args[1])
         try:
-            if (len(args)>2):
+            if len(args) > 2:
                 func(input_file_name, output_file_name, args[2])
             else:
                 func(input_file_name, output_file_name)

@@ -2,7 +2,7 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -14,12 +14,13 @@ def split_documents(infile, outdir):
             new_document.pages.add(document.pages[page_num])
             new_document.save(path.join(outdir, f"Page_{page_num}.pdf"))
 
+
 def split_documents_into_two_parts(infile, outdir):
     document = ap.Document(infile)
     total_pages = len(document.pages)
     mid_point = total_pages // 2
 
-    # First part    
+    # First part
     with ap.Document(infile) as first_document:
         first_part_range = range(mid_point + 1, total_pages + 1)
         first_document.pages.delete(first_part_range)
@@ -28,7 +29,7 @@ def split_documents_into_two_parts(infile, outdir):
     # Second part
     with ap.Document(infile) as second_document:
         second_part_range = range(1, mid_point + 1)
-        second_document.pages.delete(second_part_range) 
+        second_document.pages.delete(second_part_range)
         second_document.save(path.join(outdir, "Part_2.pdf"))
 
 
@@ -43,7 +44,9 @@ def split_documents_every_n_pages(infile, outdir, pages_per_part=3):
         with ap.Document() as part_document:
             for page_num in range(start_page, end_page + 1):
                 part_document.pages.add(document.pages[page_num])
-            part_document.save(path.join(outdir, f"Every_{pages_per_part}_Part_{part_index}.pdf"))
+            part_document.save(
+                path.join(outdir, f"Every_{pages_per_part}_Part_{part_index}.pdf")
+            )
 
         part_index += 1
 
@@ -65,7 +68,9 @@ def split_documents_by_page_ranges(infile, outdir):
         with ap.Document() as range_document:
             for page_num in range(start_page, effective_end + 1):
                 range_document.pages.add(document.pages[page_num])
-            range_document.save(path.join(outdir, f"Range_{index}_{start_page}_to_{effective_end}.pdf"))
+            range_document.save(
+                path.join(outdir, f"Range_{index}_{start_page}_to_{effective_end}.pdf")
+            )
 
 
 def split_documents_first_page_and_rest(infile, outdir):
@@ -160,7 +165,7 @@ def split_documents_with_stable_filenames(infile, outdir):
 def split_documents_odd_even_pages(infile, outdir):
     document = ap.Document(infile)
     total_pages = len(document.pages)
-    
+
     # Odd pages document
     with ap.Document(infile) as document:
         with ap.Document() as odd_document:
@@ -170,7 +175,7 @@ def split_documents_odd_even_pages(infile, outdir):
 
         with ap.Document() as even_document:
             for page_num in range(2, total_pages + 1, 2):
-                even_document.pages.add(document.pages[page_num])          
+                even_document.pages.add(document.pages[page_num])
             even_document.save(path.join(outdir, "Even_Pages.pdf"))
 
 
@@ -196,8 +201,10 @@ def run_all_examples(data_dir=None, license_path=None):
         ("Split last page and remaining pages", split_documents_last_page_and_rest),
         ("Split documents into three parts", split_documents_into_three_parts),
         ("Split documents by custom page groups", split_documents_custom_page_groups),
-        ("Split documents with stable filenames", split_documents_with_stable_filenames),
-
+        (
+            "Split documents with stable filenames",
+            split_documents_with_stable_filenames,
+        ),
     ]
 
     for name, func in examples:

@@ -2,7 +2,7 @@ import aspose.pdf as ap
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -161,9 +161,15 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("compare_pdf_with_get_difference_method", compare_pdf_with_get_difference_method),
+        (
+            "compare_pdf_with_get_difference_method",
+            compare_pdf_with_get_difference_method,
+        ),
         ("comparing_specific_pages", comparing_specific_pages),
-        ("compare_pdf_with_compare_documents_to_pdf_method", compare_pdf_with_compare_documents_to_pdf_method),
+        (
+            "compare_pdf_with_compare_documents_to_pdf_method",
+            compare_pdf_with_compare_documents_to_pdf_method,
+        ),
         ("comparing_entire_documents", comparing_entire_documents),
     ]
 
@@ -173,11 +179,15 @@ def run_all_examples(data_dir=None, license_path=None):
         outfile = path.join(output_dir, f"{func.__name__}_out.pdf")
         try:
             if func.__name__ == "compare_pdf_with_get_difference_method":
-                compare_pdf_with_get_difference_method(
+                func(
                     infile1,
                     infile2,
-                    path.join(output_dir, "compare_pdf_with_get_difference_method_diff.png"),
-                    path.join(output_dir, "compare_pdf_with_get_difference_method_dest.png"),
+                    path.join(
+                        output_dir, "compare_pdf_with_get_difference_method_diff.png"
+                    ),
+                    path.join(
+                        output_dir, "compare_pdf_with_get_difference_method_dest.png"
+                    ),
                 )
             else:
                 func(infile1, infile2, outfile)

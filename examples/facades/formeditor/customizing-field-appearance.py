@@ -10,7 +10,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 def decorate_field(infile, outfile):
@@ -38,13 +38,15 @@ def set_field_alignment(infile, outfile):
     form_editor = pdf_facades.FormEditor(doc)
 
     # Set field alignment to center
-    if (form_editor.set_field_alignment(
+    if form_editor.set_field_alignment(
         "First Name", pdf_facades.FormFieldFacade.ALIGN_CENTER
-    )):
+    ):
         # Save updated document
         form_editor.save(outfile)
     else:
-        raise Exception("Failed to set field alignment. Field may not support alignment.")
+        raise Exception(
+            "Failed to set field alignment. Field may not support alignment."
+        )
 
 
 def set_field_alignment_vertical(infile, outfile):
@@ -61,7 +63,10 @@ def set_field_alignment_vertical(infile, outfile):
         # Save updated document
         form_editor.save(outfile)
     else:
-        raise Exception("Failed to set field vertical alignment. Field may not support vertical alignment.")
+        raise Exception(
+            "Failed to set field vertical alignment. Field may not support vertical alignment."
+        )
+
 
 def set_field_appearance(infile, outfile):
     # Open document
@@ -71,8 +76,12 @@ def set_field_appearance(infile, outfile):
     form_editor = pdf_facades.FormEditor(doc)
 
     # Set field appearance to invisible
-    if not form_editor.set_field_appearance("First Name", ap.annotations.AnnotationFlags.INVISIBLE):
-        raise Exception("Failed to set field appearance. Field may not support appearance flags.")
+    if not form_editor.set_field_appearance(
+        "First Name", ap.annotations.AnnotationFlags.INVISIBLE
+    ):
+        raise Exception(
+            "Failed to set field appearance. Field may not support appearance flags."
+        )
 
     # Save updated document
     form_editor.save(outfile)
@@ -88,7 +97,7 @@ def set_field_attribute(infile, outfile):
     # # Set field attribute to "ReadOnly"
     # if not form_editor.set_field_attribute("Country",  pdf_facades.PropertyFlags.READ_ONLY):
     #     raise Exception("Failed to set field attribute. Field may not support specified attribute.")
-    
+
     # Save updated document
     # form_editor.save(outfile)
     pass
@@ -103,7 +112,7 @@ def set_field_comb_number(infile, outfile):
 
     # Set field comb number to 5
     form_editor.set_field_comb_number("PIN", 5)
-    
+
     # Save updated document
     form_editor.save(outfile)
 
@@ -117,8 +126,10 @@ def set_field_limit(infile, outfile):
 
     # Set field limit to 10
     if not form_editor.set_field_limit("Last Name", 10):
-        raise Exception("Failed to set field limit. Field may not support specified limit.")
-    
+        raise Exception(
+            "Failed to set field limit. Field may not support specified limit."
+        )
+
     # Save updated document
     form_editor.save(outfile)
 
@@ -136,6 +147,8 @@ def get_field_appearance(infile, outfile):
 
     # Save a copy of the processed document so the provided output path is used
     doc.save(outfile)
+
+
 def run_all_examples(data_dir=None, license_path=None):
     """
 

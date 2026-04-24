@@ -1,4 +1,3 @@
-import aspose.pdf.facades as pdf_facades
 import sys
 from os import path
 
@@ -8,9 +7,9 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import initialize_data_dir, set_license
+from config import initialize_data_dir, set_license  # noqa: E402
 
-from _pdf_file_signature_helpers import (
+from _pdf_file_signature_helpers import (  # noqa: E402
     DEFAULT_INPUT_PDF,
     DEFAULT_SIGNATURE_NAME,
     DEFAULT_CERTIFICATE_PASSWORD,
@@ -20,6 +19,7 @@ from _pdf_file_signature_helpers import (
     create_pkcs7_signature,
     create_signature_rectangle,
 )
+
 
 def set_certificate_for_signing(infile):
     pdf_signature = create_pdf_file_signature(infile)
@@ -112,11 +112,11 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func in examples:
         try:
-            if (func.__name__ == "sign_pdf_with_named_signature"):
+            if func.__name__ == "sign_pdf_with_named_signature":
                 func(
                     path.join(input_dir, "sample_field.pdf"),
                     path.join(output_dir, f"{func.__name__}.pdf"),
-                )            
+                )
             else:
                 func(
                     path.join(input_dir, DEFAULT_INPUT_PDF),

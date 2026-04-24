@@ -3,9 +3,10 @@ from aspose.pycore import cast, is_assignable
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def clear_text_in_form(input_file_name, output_file_name):
     """Clear text in form XObjects on first page.
@@ -21,7 +22,7 @@ def clear_text_in_form(input_file_name, output_file_name):
     forms = document.pages[1].resources.forms
 
     for form in forms:
-        if (form.it == "Typewriter" and form.subtype == "Form"):
+        if form.it == "Typewriter" and form.subtype == "Form":
             absorber = ap.text.TextFragmentAbsorber()
             absorber.visit(form)
 
@@ -73,7 +74,9 @@ def set_form_field_font(input_file_name, output_file_name):
     if is_assignable(document.form[1], ap.forms.TextBoxField):
         textBoxField = cast(ap.forms.TextBoxField, document.form[1])
         font = ap.text.FontRepository.find_font("Calibri")
-        textBoxField.default_appearance = ap.annotations.DefaultAppearance(font, 10, ap.Color.black.to_rgb())
+        textBoxField.default_appearance = ap.annotations.DefaultAppearance(
+            font, 10, ap.Color.black.to_rgb()
+        )
 
     document.save(output_file_name)
 
@@ -90,6 +93,7 @@ def delete_form_field(input_file_name, output_file_name):
     document = ap.Document(input_file_name)
     document.form.delete("First Name")
     document.save(output_file_name)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run acroforms modification examples and report status.
@@ -110,7 +114,7 @@ def run_all_examples(data_dir=None, license_path=None):
         ("set_field_limit", set_field_limit),
         ("get_field_limit", get_field_limit),
         ("set_form_field_font", set_form_field_font),
-        ("delete_form_field", delete_form_field)
+        ("delete_form_field", delete_form_field),
     ]
 
     for name, func in examples:
@@ -124,7 +128,9 @@ def run_all_examples(data_dir=None, license_path=None):
         except Exception as e:
             print(f"❌ Failed: {name} - {e}")
 
-    print(f"\nAll Acroforms modification examples finished. Check output in {output_dir}")
+    print(
+        f"\nAll Acroforms modification examples finished. Check output in {output_dir}"
+    )
 
 
 if __name__ == "__main__":

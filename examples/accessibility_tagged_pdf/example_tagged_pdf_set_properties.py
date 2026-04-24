@@ -2,7 +2,7 @@ import aspose.pdf as ap
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import initialize_data_dir, set_license
 
@@ -582,7 +582,9 @@ def run_all_examples(data_dir=None, license_path=None):
         except Exception as e:
             print(f"❌ Failed: {name} - {e}")
 
-    print(f"\nAll examples of setting Structure Element properties finished. Check output in {output_dir}")
+    print(
+        f"\nAll examples of setting Structure Element properties finished. Check output in {output_dir}"
+    )
 
 
 if __name__ == "__main__":
