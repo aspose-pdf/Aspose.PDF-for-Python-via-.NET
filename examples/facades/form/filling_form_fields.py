@@ -8,7 +8,8 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
+
 
 # Fill Text Fields
 def fill_text_fields(infile, outfile):
@@ -27,6 +28,7 @@ def fill_text_fields(infile, outfile):
     # Save updated PDF
     pdf_form.save(outfile)
 
+
 # Fill Check Box Fields
 def fill_check_box_fields(infile, outfile):
     """Fill check box fields in PDF form."""
@@ -43,6 +45,7 @@ def fill_check_box_fields(infile, outfile):
     # Save updated PDF
     pdf_form.save(outfile)
 
+
 # Fill Radio Button Fields
 def fill_radio_button_fields(infile, outfile):
     """Fill radio button fields in PDF form."""
@@ -53,11 +56,12 @@ def fill_radio_button_fields(infile, outfile):
     pdf_form.bind_pdf(infile)
 
     # Fill radio button fields by name
-    pdf_form.fill_field("gender", 0) # Select male option (index 0)
-    #pdf_form.fill_field("gender", 1) # Select female option (index 1)
+    pdf_form.fill_field("gender", 0)  # Select male option (index 0)
+    # pdf_form.fill_field("gender", 1) # Select female option (index 1)
 
     # Save updated PDF
     pdf_form.save(outfile)
+
 
 # Fill List Box / Multi-Select Fields
 def fill_list_box_fields(infile, outfile):
@@ -70,9 +74,10 @@ def fill_list_box_fields(infile, outfile):
 
     # Fill list box / multi-select fields by name
     pdf_form.fill_field("favorite_colors", "Red")
-    
+
     # Save updated PDF
     pdf_form.save(outfile)
+
 
 # Fill Barcode Fields
 def fill_barcode_fields(infile, outfile):
@@ -89,6 +94,7 @@ def fill_barcode_fields(infile, outfile):
     # Save updated PDF
     pdf_form.save(outfile)
 
+
 # Fill Fields by Name and Value
 def fill_fields_by_name_and_value(infile, outfile):
     """Fill PDF form fields by name and value."""
@@ -102,17 +108,18 @@ def fill_fields_by_name_and_value(infile, outfile):
     fields = {
         "name": "Jane Smith",
         "address": "456 Elm St, Othertown, USA",
-        "email": "jane.smith@example.com"
+        "email": "jane.smith@example.com",
     }
 
     names = list(fields.keys())
     values = list(fields.values())
     output = []
     pdf_form.fill_fields(names, values, output)
-    stream = output[0] # Get filled PDF as stream
-    stream.seek(0) # Reset stream position to beginning
-    with open(outfile, 'wb') as f:
+    stream = output[0]  # Get filled PDF as stream
+    stream.seek(0)  # Reset stream position to beginning
+    with open(outfile, "wb") as f:
         f.write(stream.read())
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all import form data examples and report status.
@@ -134,7 +141,7 @@ def run_all_examples(data_dir=None, license_path=None):
         ("Fill Radio Button Fields", fill_radio_button_fields),
         ("Fill List Box / Multi-Select Fields", fill_list_box_fields),
         ("Fill Barcode Fields", fill_barcode_fields),
-        ("Fill Fields by Name and Value", fill_fields_by_name_and_value)
+        ("Fill Fields by Name and Value", fill_fields_by_name_and_value),
     ]
 
     for name, func in examples:
@@ -151,4 +158,4 @@ def run_all_examples(data_dir=None, license_path=None):
 
 
 if __name__ == "__main__":
-    run_all_examples()  
+    run_all_examples()

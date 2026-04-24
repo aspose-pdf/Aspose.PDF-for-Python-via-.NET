@@ -9,7 +9,8 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
+
 
 def add_field_script(input_file_name, output_file_name):
     # Create FormEditor object
@@ -19,13 +20,18 @@ def add_field_script(input_file_name, output_file_name):
     form_editor.bind_pdf(input_file_name)
 
     # Set JavaScript action for the field
-    form_editor.set_field_script("Script_Demo_Button", "app.alert('Script 1 has been executed');")
+    form_editor.set_field_script(
+        "Script_Demo_Button", "app.alert('Script 1 has been executed');"
+    )
 
     # Add JavaScript action to the field
-    form_editor.add_field_script("Script_Demo_Button", "app.alert('Script 2 has been executed');")
+    form_editor.add_field_script(
+        "Script_Demo_Button", "app.alert('Script 2 has been executed');"
+    )
 
     # Save output PDF file
     form_editor.save(output_file_name)
+
 
 def set_field_script(input_file_name, output_file_name):
     # Create FormEditor object
@@ -35,13 +41,18 @@ def set_field_script(input_file_name, output_file_name):
     form_editor.bind_pdf(input_file_name)
 
     # Add JavaScript action to the field
-    form_editor.add_field_script("Script_Demo_Button", "app.alert('Script 1 has been executed');")
+    form_editor.add_field_script(
+        "Script_Demo_Button", "app.alert('Script 1 has been executed');"
+    )
 
     # Set JavaScript action for the field
-    form_editor.set_field_script("Script_Demo_Button", "app.alert('Script 2 has been executed');")
+    form_editor.set_field_script(
+        "Script_Demo_Button", "app.alert('Script 2 has been executed');"
+    )
 
     # Save output PDF file
     form_editor.save(output_file_name)
+
 
 def remove_field_script(input_file_name, output_file_name):
     # Create FormEditor object
@@ -52,11 +63,12 @@ def remove_field_script(input_file_name, output_file_name):
 
     # Remove JavaScript action from the field
     form_editor.remove_field_action("Script_Demo_Button")
-    
+
     # Save output PDF file
     form_editor.save(output_file_name)
 
-def set_submit_flag(input_file_name, output_file_name):    
+
+def set_submit_flag(input_file_name, output_file_name):
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
 
@@ -68,6 +80,7 @@ def set_submit_flag(input_file_name, output_file_name):
 
     # Save output PDF file
     form_editor.save(output_file_name)
+
 
 def set_submit_url(input_file_name, output_file_name):
     # Create FormEditor object
@@ -83,11 +96,14 @@ def set_submit_url(input_file_name, output_file_name):
     form_editor.bind_pdf(input_file_name)
 
     # Set submit URL for the button
-    if not form_editor.set_submit_url("Script_Demo_Button", "http://www.example.com/submit"):
+    if not form_editor.set_submit_url(
+        "Script_Demo_Button", "http://www.example.com/submit"
+    ):
         raise Exception("Failed to set submit URL")
 
     # Save output PDF file
     form_editor.save(output_file_name)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all examples for adding scripts and submit actions with status reporting.

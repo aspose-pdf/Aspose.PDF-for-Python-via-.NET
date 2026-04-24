@@ -2,19 +2,17 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
 
 def split_documents(infile, outdir):
     document = ap.Document(infile)
-    page_count = 1
-    for page in document.pages:
+    for page_count, page in enumerate(document.pages, start=1):
         with ap.Document(infile) as new_document:
             new_document.pages.add(page)
             new_document.save(path.join(outdir, f"Page_{page_count}.pdf"))
-            page_count += 1
 
 
 def run_all_examples(data_dir=None, license_path=None):

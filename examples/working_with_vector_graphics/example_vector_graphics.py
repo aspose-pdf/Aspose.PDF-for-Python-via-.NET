@@ -2,7 +2,7 @@ import aspose.pdf as ap
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import initialize_data_dir, set_license
 
@@ -191,7 +191,7 @@ def run_all_examples(data_dir=None, license_path=None):
     Returns:
         None
     """
-    
+
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 

@@ -8,7 +8,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 def replace_image(infile, image_file, outfile):
@@ -16,7 +16,7 @@ def replace_image(infile, image_file, outfile):
     content_editor = pdf_facades.PdfContentEditor()
     # Bind document to PdfContentEditor
     content_editor.bind_pdf(infile)
-    # Replace image on page 1    
+    # Replace image on page 1
     content_editor.replace_image(1, 1, image_file)
     # Save updated document
     content_editor.save(outfile)
@@ -71,6 +71,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
+
 
 if __name__ == "__main__":
     run_all_examples()

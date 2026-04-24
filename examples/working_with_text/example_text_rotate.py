@@ -2,9 +2,10 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 # region Rotate Text Inside PDF
 def rotate_text_inside_pdf_1(outfile):
@@ -42,20 +43,26 @@ def rotate_text_inside_pdf_1(outfile):
         text_fragment_1.position = ap.text.Position(100, 600)
         # Set text properties
         text_fragment_1.text_state.font_size = 12
-        text_fragment_1.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_1.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         # Create rotated text fragment
         text_fragment_2 = ap.text.TextFragment("rotated text")
         text_fragment_2.position = ap.text.Position(200, 600)
         # Set text properties
         text_fragment_2.text_state.font_size = 12
-        text_fragment_2.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_2.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         text_fragment_2.text_state.rotation = 45
         # Create rotated text fragment
         text_fragment_3 = ap.text.TextFragment("rotated text")
         text_fragment_3.position = ap.text.Position(300, 600)
         # Set text properties
         text_fragment_3.text_state.font_size = 12
-        text_fragment_3.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_3.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         text_fragment_3.text_state.rotation = 90
         # create TextBuilder object
         builder = ap.text.TextBuilder(page)
@@ -104,19 +111,25 @@ def rotate_text_inside_pdf_2(outfile):
         text_fragment_1 = ap.text.TextFragment("rotated text")
         # Set text properties
         text_fragment_1.text_state.font_size = 12
-        text_fragment_1.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_1.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         # Set rotation
         text_fragment_1.text_state.rotation = 45
         # Create text fragment
         text_fragment_2 = ap.text.TextFragment("main text")
         # Set text properties
         text_fragment_2.text_state.font_size = 12
-        text_fragment_2.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_2.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         # Create text fragment
         text_fragment_3 = ap.text.TextFragment("another rotated text")
         # Set text properties
         text_fragment_3.text_state.font_size = 12
-        text_fragment_3.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_3.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         # Set rotation
         text_fragment_3.text_state.rotation = -45
         # Append the text fragments to the paragraph
@@ -166,19 +179,25 @@ def rotate_text_inside_pdf_3(outfile):
         text_fragment_1 = ap.text.TextFragment("main text")
         # Set text properties
         text_fragment_1.text_state.font_size = 12
-        text_fragment_1.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_1.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         # Create text fragment
         text_fragment_2 = ap.text.TextFragment("rotated text")
         # Set text properties
         text_fragment_2.text_state.font_size = 12
-        text_fragment_2.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_2.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         # Set rotation
         text_fragment_2.text_state.rotation = 315
         # Create text fragment
         text_fragment_3 = ap.text.TextFragment("rotated text")
         # Set text properties
         text_fragment_3.text_state.font_size = 12
-        text_fragment_3.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+        text_fragment_3.text_state.font = ap.text.FontRepository.find_font(
+            "TimesNewRoman"
+        )
         # Set rotation
         text_fragment_3.text_state.rotation = 270
         page.paragraphs.add(text_fragment_1)
@@ -229,21 +248,27 @@ def rotate_text_inside_pdf_4(outfile):
             text_fragment_1 = ap.text.TextFragment("Paragraph Text")
             # Create text fragment
             text_fragment_1.text_state.font_size = 12
-            text_fragment_1.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+            text_fragment_1.text_state.font = ap.text.FontRepository.find_font(
+                "TimesNewRoman"
+            )
             text_fragment_1.text_state.background_color = ap.Color.light_gray
             text_fragment_1.text_state.foreground_color = ap.Color.blue
             # Create text fragment
             text_fragment_2 = ap.text.TextFragment("Second line of text")
             # Set text properties
             text_fragment_2.text_state.font_size = 12
-            text_fragment_2.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+            text_fragment_2.text_state.font = ap.text.FontRepository.find_font(
+                "TimesNewRoman"
+            )
             text_fragment_2.text_state.background_color = ap.Color.light_gray
             text_fragment_2.text_state.foreground_color = ap.Color.blue
             # Create text fragment
             text_fragment_3 = ap.text.TextFragment("And some more text...")
             # Set text properties
             text_fragment_3.text_state.font_size = 12
-            text_fragment_3.text_state.font = ap.text.FontRepository.find_font("TimesNewRoman")
+            text_fragment_3.text_state.font = ap.text.FontRepository.find_font(
+                "TimesNewRoman"
+            )
             text_fragment_3.text_state.background_color = ap.Color.light_gray
             text_fragment_3.text_state.foreground_color = ap.Color.blue
             text_fragment_3.text_state.underline = True
@@ -257,7 +282,10 @@ def rotate_text_inside_pdf_4(outfile):
 
         # Save the document
         document.save(outfile)
+
+
 # endregion
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run text rotate examples and report status.
@@ -272,10 +300,10 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-    ("rotate_text_inside_pdf_1", rotate_text_inside_pdf_1),
-    ("rotate_text_inside_pdf_2", rotate_text_inside_pdf_2),
-    ("rotate_text_inside_pdf_3", rotate_text_inside_pdf_3),
-    ("rotate_text_inside_pdf_4", rotate_text_inside_pdf_4),
+        ("rotate_text_inside_pdf_1", rotate_text_inside_pdf_1),
+        ("rotate_text_inside_pdf_2", rotate_text_inside_pdf_2),
+        ("rotate_text_inside_pdf_3", rotate_text_inside_pdf_3),
+        ("rotate_text_inside_pdf_4", rotate_text_inside_pdf_4),
     ]
 
     for name, func in examples:

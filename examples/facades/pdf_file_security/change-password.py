@@ -3,10 +3,8 @@
 # ├── Change Password and Reset Security
 # └── Try Change Password Without Exception
 
-from io import FileIO
 import sys
 from os import path
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
 
 # Ensure "examples/config.py" is importable from nested folders like examples/facades/form
@@ -15,7 +13,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 # Change User and Owner Password
@@ -29,9 +27,7 @@ def change_user_and_owner_password(infile, outfile):
 
     # Change passwords
     file_security.change_password(
-        "owner_password",
-        "new_user_password",
-        "new_owner_password"
+        "owner_password", "new_user_password", "new_owner_password"
     )
 
     # Save updated PDF
@@ -57,7 +53,7 @@ def change_password_and_reset_security(infile, outfile):
         "new_user_password",
         "new_owner_password",
         privilege,
-        pdf_facades.KeySize.X128
+        pdf_facades.KeySize.X128,
     )
 
     # Save updated PDF
@@ -75,9 +71,7 @@ def try_change_password_without_exception(infile, outfile):
 
     # Attempt to change passwords
     result = file_security.try_change_password(
-        "owner_password",
-        "new_user_password",
-        "new_owner_password"
+        "owner_password", "new_user_password", "new_owner_password"
     )
 
     # Save only if operation succeeded
@@ -103,7 +97,10 @@ def run_all_examples(data_dir=None, license_path=None):
     examples = [
         ("Change User and Owner Password", change_user_and_owner_password),
         ("Change Password and Reset Security", change_password_and_reset_security),
-        ("Try Change Password Without Exception", try_change_password_without_exception)
+        (
+            "Try Change Password Without Exception",
+            try_change_password_without_exception,
+        ),
     ]
 
     for name, func in examples:

@@ -3,7 +3,7 @@ from os import path
 
 import aspose.pdf as ap
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 from config import set_license, initialize_data_dir
 
 
@@ -62,7 +62,10 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("add_bates_n_artifact", (add_bates_n_artifact, False, False)),
-        ("add_bates_n_artifact_pagination", (add_bates_n_artifact_pagination, False, False)),
+        (
+            "add_bates_n_artifact_pagination",
+            (add_bates_n_artifact_pagination, False, False),
+        ),
         ("delete_bates_numbering", (delete_bates_numbering, False, False)),
     ]
 

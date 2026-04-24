@@ -2,7 +2,7 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '../..'))
+sys.path.append(path.join(path.dirname(__file__), "../.."))
 
 from config import set_license, initialize_data_dir
 

@@ -12,7 +12,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 def add_web_link(infile, outfile):
@@ -129,7 +129,7 @@ def extract_links(infile):
             annotation = cast(ap.annotations.LinkAnnotation, link)
             if is_assignable(annotation.action, ap.annotations.GoToURIAction):
                 action = cast(ap.annotations.GoToURIAction, annotation.action)
-                print(f"  URI: {action.uri}")                
+                print(f"  URI: {action.uri}")
 
     if count == 0:
         print("No links found")
@@ -153,14 +153,18 @@ def run_all_examples(data_dir=None, license_path=None):
     for name, func in examples:
         try:
             if func.__name__ == "add_pdf_document_link":
-                func(path.join(input_dir, "sample.pdf"),
-                     path.join(input_dir, "linked_document.pdf"),
-                     path.join(output_dir, f"{func.__name__}.pdf"))
+                func(
+                    path.join(input_dir, "sample.pdf"),
+                    path.join(input_dir, "linked_document.pdf"),
+                    path.join(output_dir, f"{func.__name__}.pdf"),
+                )
             elif func.__name__ == "extract_links":
                 func(path.join(input_dir, "sample_links.pdf"))
             else:
-                func(path.join(input_dir, "sample.pdf"),
-                     path.join(output_dir, f"{func.__name__}.pdf"))
+                func(
+                    path.join(input_dir, "sample.pdf"),
+                    path.join(output_dir, f"{func.__name__}.pdf"),
+                )
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")

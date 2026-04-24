@@ -9,7 +9,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 def replace_text_simple(infile, outfile):
@@ -17,34 +17,43 @@ def replace_text_simple(infile, outfile):
     content_editor = pdf_facades.PdfContentEditor()
     # Bind document to PdfContentEditor
     content_editor.bind_pdf(infile)
-    # Replace text in the whole document    
-    content_editor.replace_text_strategy.replace_scope = pdf_facades.ReplaceTextStrategy.Scope.REPLACE_ALL
+    # Replace text in the whole document
+    content_editor.replace_text_strategy.replace_scope = (
+        pdf_facades.ReplaceTextStrategy.Scope.REPLACE_ALL
+    )
     content_editor.replace_text("33", "XXXIII ")
     # Save updated document
     content_editor.save(outfile)
+
 
 def replace_text_regex(infile, outfile):
     # Create PdfContentEditor object
     content_editor = pdf_facades.PdfContentEditor()
     # Bind document to PdfContentEditor
     content_editor.bind_pdf(infile)
-    # Replace text in the whole document        
-    content_editor.replace_text_strategy.replace_scope = pdf_facades.ReplaceTextStrategy.Scope.REPLACE_ALL
+    # Replace text in the whole document
+    content_editor.replace_text_strategy.replace_scope = (
+        pdf_facades.ReplaceTextStrategy.Scope.REPLACE_ALL
+    )
     content_editor.replace_text_strategy.is_regular_expression_used = True
     content_editor.replace_text(r"\d{4}", "[NUMBER]")
     # Save updated document
     content_editor.save(outfile)
+
 
 def replace_text_on_page(infile, outfile):
     # Create PdfContentEditor object
     content_editor = pdf_facades.PdfContentEditor()
     # Bind document to PdfContentEditor
     content_editor.bind_pdf(infile)
-    # Replace text on page 1    
-    content_editor.replace_text_strategy.replace_scope = pdf_facades.ReplaceTextStrategy.Scope.REPLACE_FIRST
+    # Replace text on page 1
+    content_editor.replace_text_strategy.replace_scope = (
+        pdf_facades.ReplaceTextStrategy.Scope.REPLACE_FIRST
+    )
     content_editor.replace_text("PDF", "Page 1 Replaced Text", 14)
     # Save updated document
     content_editor.save(outfile)
+
 
 def replace_text_with_state(infile, outfile):
     # Create PdfContentEditor object
@@ -57,7 +66,9 @@ def replace_text_with_state(infile, outfile):
     text_state.font_size = 14
 
     # Replace text with explicit text formatting
-    content_editor.replace_text_strategy.replace_scope = pdf_facades.ReplaceTextStrategy.Scope.REPLACE_ALL
+    content_editor.replace_text_strategy.replace_scope = (
+        pdf_facades.ReplaceTextStrategy.Scope.REPLACE_ALL
+    )
     content_editor.replace_text("software", "SOFTWARE", text_state)
     # Save updated document
     content_editor.save(outfile)
@@ -74,7 +85,9 @@ def replace_text_on_page_with_state(infile, outfile):
     text_state.font_size = 12
 
     # Replace text on a specific page with explicit text formatting
-    content_editor.replace_text_strategy.replace_scope = pdf_facades.ReplaceTextStrategy.Scope.REPLACE_ALL
+    content_editor.replace_text_strategy.replace_scope = (
+        pdf_facades.ReplaceTextStrategy.Scope.REPLACE_ALL
+    )
     content_editor.replace_text("software", 1, "SOFTWARE PAGE 1", text_state)
     # Save updated document
     content_editor.save(outfile)
@@ -101,8 +114,10 @@ def run_all_examples(data_dir=None, license_path=None):
                     path.join(output_dir, f"{func.__name__}.pdf"),
                 )
             else:
-                func(path.join(input_dir, f"{func.__name__}.pdf"),
-                     path.join(output_dir, f"{func.__name__}.pdf"))
+                func(
+                    path.join(input_dir, f"{func.__name__}.pdf"),
+                    path.join(output_dir, f"{func.__name__}.pdf"),
+                )
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")

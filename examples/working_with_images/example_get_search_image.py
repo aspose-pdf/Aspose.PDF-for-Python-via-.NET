@@ -5,7 +5,7 @@ from aspose.pycore import cast, is_assignable
 import aspose.pydrawing as drawing
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -258,7 +258,7 @@ def run_all_examples(data_dir=None, license_path=None):
     Returns:
         None
     """
-    
+
     set_license(license_path)
     input_dir, _ = initialize_data_dir(data_dir)
 

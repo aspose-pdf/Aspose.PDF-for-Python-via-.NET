@@ -4,9 +4,10 @@ import sys
 from os import path
 import aspose.pdf as ap
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def import_data_from_xml(input_file_name, data_file_name, output_file_name):
     """Import form data from XML file.
@@ -183,13 +184,44 @@ def run_all_examples(data_dir=None, license_path=None):
     xfdf_file = path.join(output_dir, "StudentInfoFormElectronic.xfdf")
     examples = [
         ("export_xml", lambda: export_data_to_xml(base_file, xml_file)),
-        ("import_xml", lambda: import_data_from_xml(base_file, xml_file, path.join(output_dir, "StudentInfoFormElectronic_xml.pdf"))),
+        (
+            "import_xml",
+            lambda: import_data_from_xml(
+                base_file,
+                xml_file,
+                path.join(output_dir, "StudentInfoFormElectronic_xml.pdf"),
+            ),
+        ),
         ("export_fdf", lambda: export_data_to_fdf(base_file, fdf_file)),
-        ("import_fdf", lambda: import_data_from_fdf(base_file, fdf_file, path.join(output_dir, "StudentInfoFormElectronic_fdf.pdf"))),
+        (
+            "import_fdf",
+            lambda: import_data_from_fdf(
+                base_file,
+                fdf_file,
+                path.join(output_dir, "StudentInfoFormElectronic_fdf.pdf"),
+            ),
+        ),
         ("export_xfdf", lambda: export_data_to_xfdf(base_file, xfdf_file)),
-        ("import_xfdf", lambda: import_data_from_xfdf(base_file, xfdf_file, path.join(output_dir, "StudentInfoFormElectronic_xfdf.pdf"))),
-        ("extract_json", lambda: extract_form_fields_to_json(base_file, path.join(output_dir, "StudentInfoFormElectronic1.json"))),
-        ("extract_json_doc", lambda: extract_form_fields_to_json_doc(base_file, path.join(output_dir, "StudentInfoFormElectronic2.json"))),
+        (
+            "import_xfdf",
+            lambda: import_data_from_xfdf(
+                base_file,
+                xfdf_file,
+                path.join(output_dir, "StudentInfoFormElectronic_xfdf.pdf"),
+            ),
+        ),
+        (
+            "extract_json",
+            lambda: extract_form_fields_to_json(
+                base_file, path.join(output_dir, "StudentInfoFormElectronic1.json")
+            ),
+        ),
+        (
+            "extract_json_doc",
+            lambda: extract_form_fields_to_json_doc(
+                base_file, path.join(output_dir, "StudentInfoFormElectronic2.json")
+            ),
+        ),
     ]
 
     for name, func in examples:
@@ -199,7 +231,9 @@ def run_all_examples(data_dir=None, license_path=None):
         except Exception as e:
             print(f"❌ Failed: {name} - {e}")
 
-    print(f"\nAll Acroforms import/export examples finished. Check output in {output_dir}")
+    print(
+        f"\nAll Acroforms import/export examples finished. Check output in {output_dir}"
+    )
 
 
 if __name__ == "__main__":

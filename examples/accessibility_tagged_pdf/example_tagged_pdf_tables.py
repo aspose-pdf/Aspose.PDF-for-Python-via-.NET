@@ -2,7 +2,7 @@ import aspose.pdf as ap
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import initialize_data_dir, set_license
 
@@ -58,7 +58,9 @@ def create_table(outfile):
                 if column_index == 1 and row_index == 1:
                     col_span = 2
                     row_span = 2
-                elif (row_index == 1 and column_index == 2) or (row_index == 2 and column_index in (1, 2)):
+                elif (row_index == 1 and column_index == 2) or (
+                    row_index == 2 and column_index in (1, 2)
+                ):
                     continue
 
                 td_element = tr_element.create_td()
@@ -291,7 +293,9 @@ def style_table_cell(outfile):
                 if col_index == 1 and row_index == 1:
                     col_span = 2
                     row_span = 2
-                elif (row_index == 1 and col_index == 2) or (row_index == 2 and col_index in (1, 2)):
+                elif (row_index == 1 and col_index == 2) or (
+                    row_index == 2 and col_index in (1, 2)
+                ):
                     continue
 
                 td_element = tr_element.create_td()
@@ -327,6 +331,7 @@ def style_table_cell(outfile):
 
         # Save Tagged PDF Document
         document.save(outfile)
+
 
 def adjust_table_position(outfile):
 
@@ -389,7 +394,9 @@ def adjust_table_position(outfile):
                 if col_index == 1 and row_index == 1:
                     col_span = 2
                     row_span = 2
-                elif (row_index == 1 and col_index == 2) or (row_index == 2 and col_index in (1, 2)):
+                elif (row_index == 1 and col_index == 2) or (
+                    row_index == 2 and col_index in (1, 2)
+                ):
                     continue
 
                 td_element = tr_element.create_td()

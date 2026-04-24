@@ -2,7 +2,7 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -72,7 +72,9 @@ def merge_multiple_documents(input_files, outfile):
 
     for input_file in input_files:
         source_document = ap.Document(input_file)
-        _append_page_range(source_document, output_document, 1, len(source_document.pages))
+        _append_page_range(
+            source_document, output_document, 1, len(source_document.pages)
+        )
 
     output_document.save(outfile)
 
@@ -120,7 +122,9 @@ def merge_insert_document_at_position(infile1, infile2, insert_after_page, outfi
 
     _append_page_range(base_document, output_document, 1, insert_index)
     _append_page_range(insert_document, output_document, 1, len(insert_document.pages))
-    _append_page_range(base_document, output_document, insert_index + 1, base_total_pages)
+    _append_page_range(
+        base_document, output_document, insert_index + 1, base_total_pages
+    )
 
     output_document.save(outfile)
 
@@ -176,7 +180,9 @@ def merge_with_section_separators_and_bookmarks(input_files, outfile):
 
         separator_page = output_document.pages.add()
         separator_page.paragraphs.add(
-            ap.text.TextFragment(f"Section {section_index}: {path.basename(input_file)}")
+            ap.text.TextFragment(
+                f"Section {section_index}: {path.basename(input_file)}"
+            )
         )
 
         section_bookmark = ap.OutlineItemCollection(output_document.outlines)
@@ -187,7 +193,9 @@ def merge_with_section_separators_and_bookmarks(input_files, outfile):
         first_content_page_number = len(output_document.pages) + 1
         _append_page_range(source_document, output_document, 1, source_page_count)
 
-        if source_page_count > 0 and first_content_page_number <= len(output_document.pages):
+        if source_page_count > 0 and first_content_page_number <= len(
+            output_document.pages
+        ):
             content_bookmark = ap.OutlineItemCollection(output_document.outlines)
             content_bookmark.title = f"Section {section_index} Content"
             content_bookmark.action = ap.annotations.GoToAction(
@@ -212,10 +220,26 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Merge two documents", merge_two_documents, "sample_merge_two_documents.pdf"),
-        ("Merge multiple documents", merge_multiple_documents, "sample_merge_multiple_documents.pdf"),
-        ("Merge selected page ranges", merge_selected_page_ranges, "sample_merge_selected_ranges.pdf"),
-        ("Merge with inserted document", merge_insert_document_at_position, "sample_merge_insert_position.pdf"),
-        ("Merge alternating pages", merge_alternating_pages, "sample_merge_alternating_pages.pdf"),
+        (
+            "Merge multiple documents",
+            merge_multiple_documents,
+            "sample_merge_multiple_documents.pdf",
+        ),
+        (
+            "Merge selected page ranges",
+            merge_selected_page_ranges,
+            "sample_merge_selected_ranges.pdf",
+        ),
+        (
+            "Merge with inserted document",
+            merge_insert_document_at_position,
+            "sample_merge_insert_position.pdf",
+        ),
+        (
+            "Merge alternating pages",
+            merge_alternating_pages,
+            "sample_merge_alternating_pages.pdf",
+        ),
         (
             "Merge with section separators and bookmarks",
             merge_with_section_separators_and_bookmarks,
@@ -231,9 +255,15 @@ def run_all_examples(data_dir=None, license_path=None):
             output_file_name = path.join(output_dir, output_file)
 
             if func is merge_multiple_documents:
-                func([input_file_name1, input_file_name2, input_file_name3], output_file_name)
+                func(
+                    [input_file_name1, input_file_name2, input_file_name3],
+                    output_file_name,
+                )
             elif func is merge_with_section_separators_and_bookmarks:
-                func([input_file_name1, input_file_name2, input_file_name3], output_file_name)
+                func(
+                    [input_file_name1, input_file_name2, input_file_name3],
+                    output_file_name,
+                )
             elif func is merge_insert_document_at_position:
                 func(input_file_name1, input_file_name2, 2, output_file_name)
             else:

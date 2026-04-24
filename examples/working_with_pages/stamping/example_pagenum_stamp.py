@@ -2,7 +2,7 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '../..'))
+sys.path.append(path.join(path.dirname(__file__), "../.."))
 
 from config import set_license, initialize_data_dir
 
@@ -22,7 +22,9 @@ def add_page_num_stamp(input_file_name, output_file_name):
     # Set text properties
     page_number_stamp.text_state.font = ap.text.FontRepository.find_font("Arial")
     page_number_stamp.text_state.font_size = 14.0
-    page_number_stamp.text_state.font_style = ap.text.FontStyles.BOLD | ap.text.FontStyles.ITALIC
+    page_number_stamp.text_state.font_style = (
+        ap.text.FontStyles.BOLD | ap.text.FontStyles.ITALIC
+    )
     page_number_stamp.text_state.foreground_color = ap.Color.blue_violet
 
     # Add stamp to particular page
@@ -59,7 +61,6 @@ def add_page_num_stamp_roman(input_file_name, output_file_name):
     document.save(output_file_name)
 
 
-
 def run_all_examples(data_dir=None, license_path=None):
     """Run pagenum stamps examples and report status.
     Args:
@@ -74,7 +75,7 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("add_page_num_stamp", add_page_num_stamp),
-        ("add_page_num_stamp_roman", add_page_num_stamp_roman)
+        ("add_page_num_stamp_roman", add_page_num_stamp_roman),
     ]
 
     input_file_name = path.join(input_dir, "sample.pdf")

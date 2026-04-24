@@ -8,7 +8,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 # Get field values
@@ -70,8 +70,9 @@ def resolve_full_field_names(infile):
 
     # Resolve full field names
     for field in pdf_form.field_names:
-        name= pdf_form.get_full_field_name(field)
+        name = pdf_form.get_full_field_name(field)
         print(f"Full field name: {name}")
+
 
 # Get required field names
 def get_required_field_names(infile):
@@ -87,7 +88,8 @@ def get_required_field_names(infile):
         if pdf_form.is_required_field(field):
             print(f"Required field: {field}")
 
-#get field facades 
+
+# get field facades
 def get_field_facades(infile):
     """Get field facades from a PDF document."""
     # Create Form object
@@ -101,7 +103,6 @@ def get_field_facades(infile):
         facade = pdf_form.get_field_facade(field)
         print(f"Field facade for '{field}': {facade.box.location}, {facade.box.size}")
         print(f"Field facade for '{field}': {facade.font.name}, {facade.font_size}")
-
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -123,7 +124,7 @@ def run_all_examples(data_dir=None, license_path=None):
         ("Get Radio Button Options", get_radio_button_options),
         ("Resolve Full Field Names", resolve_full_field_names),
         ("Get Required Field Names", get_required_field_names),
-        ("Get Field Facades", get_field_facades)
+        ("Get Field Facades", get_field_facades),
     ]
 
     for name, func in examples:

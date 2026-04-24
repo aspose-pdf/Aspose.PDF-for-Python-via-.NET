@@ -2,9 +2,10 @@ from os import path
 import aspose.pdf as ap
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def watermark_add(infile, outfile):
     """
@@ -39,13 +40,13 @@ def watermark_add(infile, outfile):
     ts = ap.text.TextState()
     ts.foreground_color = ap.Color.blue
     ts.font_size = 25
-    ts.font = ap.text.FontRepository.find_font("Arial");
+    ts.font = ap.text.FontRepository.find_font("Arial")
 
     # Set opacity level of Annotation Text
     wa.opacity = 0.5
 
     # Add Text in Annotation
-    wa.set_text_and_state([ "HELLO", "Line 1", "Line 2" ], ts)
+    wa.set_text_and_state(["HELLO", "Line 1", "Line 2"], ts)
 
     document.save(outfile)
 
@@ -75,7 +76,7 @@ def watermark_get(infile, outfile):
     ]
 
     for ta in watermarkAnnotations:
-        print(ta.rect)    
+        print(ta.rect)
 
 
 def watermark_delete(infile, outfile):
@@ -105,7 +106,7 @@ def watermark_delete(infile, outfile):
     for ta in watermarkAnnotations:
         document.pages[1].annotations.delete(ta)
 
-    document.save(outfile)        
+    document.save(outfile)
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -134,6 +135,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
+
 
 if __name__ == "__main__":
     run_all_examples()

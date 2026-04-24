@@ -2,9 +2,10 @@ from os import path
 import aspose.pdf as ap
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def add_text_highlight_annotation(infile, outfile):
     """
@@ -85,14 +86,16 @@ def add_text_squiggly_annotation(infile, outfile):
     """
     document = ap.Document(infile)
     page = document.pages[1]
-    squigglyAnnotation = ap.annotations.SquigglyAnnotation(page, ap.Rectangle(67, 317, 261, 459, True))
+    squigglyAnnotation = ap.annotations.SquigglyAnnotation(
+        page, ap.Rectangle(67, 317, 261, 459, True)
+    )
     squigglyAnnotation.title = "John Smith"
     squigglyAnnotation.color = ap.Color.blue
 
     page.annotations.append(squigglyAnnotation)
 
     document.save(outfile)
-    
+
 
 def add_text_underline_annotation(infile, outfile):
     """
@@ -235,7 +238,7 @@ def get_text_underline_annotation(infile, outfile):
     ]
 
     for ta in UnderlineAnnotations:
-        print(ta.rect)   
+        print(ta.rect)
 
 
 def delete_text_highlight_annotation(infile, outfile):
@@ -355,7 +358,8 @@ def delete_text_underline_annotation(infile, outfile):
     for ta in underlineAnnotations:
         document.pages[1].annotations.delete(ta)
 
-    document.save(outfile)         
+    document.save(outfile)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run adding highlights annotations examples and report status.
@@ -392,6 +396,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
+
 
 if __name__ == "__main__":
     run_all_examples()

@@ -29,12 +29,19 @@ def extract_image(infile, outfile):
     with FileIO(outfile, "wb") as output_image:
         xImage.save(output_image)
 
+
 def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Extract Image", extract_image, "sample-image.pdf", "extracted-image.jpg", None),
+        (
+            "Extract Image",
+            extract_image,
+            "sample-image.pdf",
+            "extracted-image.jpg",
+            None,
+        ),
     ]
 
     for name, func, input_file, output_file, page_num in examples:

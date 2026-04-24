@@ -164,12 +164,7 @@ def run_all_examples(data_dir=None, license_path=None):
             "sample3.pdf",
             "sample_protected.pdf",
         ),
-        (
-            "Encrypt PDF file",
-            encrypt_pdf_file,
-            "sample3.pdf",
-            "sample_protected.pdf"
-        ),
+        ("Encrypt PDF file", encrypt_pdf_file, "sample3.pdf", "sample_protected.pdf"),
         (
             "Change password",
             change_password,

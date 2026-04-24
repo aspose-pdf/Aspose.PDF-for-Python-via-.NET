@@ -8,7 +8,8 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
+
 
 # Flatten specific fields
 def flatten_specific_fields(infile, outfile):
@@ -27,6 +28,7 @@ def flatten_specific_fields(infile, outfile):
     # Save updated PDF
     pdf_form.save(outfile)
 
+
 # Flatten all fields
 def flatten_all_fields(infile, outfile):
     """Flatten all fields in a PDF document."""
@@ -42,6 +44,7 @@ def flatten_all_fields(infile, outfile):
     # Save updated PDF
     pdf_form.save(outfile)
 
+
 # Rename form fields
 def rename_form_fields(infile, outfile):
     """Rename form fields in a PDF document."""
@@ -52,15 +55,13 @@ def rename_form_fields(infile, outfile):
     pdf_form.bind_pdf(infile)
 
     # Rename form fields by providing a mapping of old names to new names
-    field_renaming_map = [
-        ("First Name", "NewFirstName"),
-        ("Last Name", "NewLastName")
-    ]
+    field_renaming_map = [("First Name", "NewFirstName"), ("Last Name", "NewLastName")]
     for old_name, new_name in field_renaming_map:
         pdf_form.rename_field(old_name, new_name)
 
     # Save updated PDF
     pdf_form.save(outfile)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all import form data examples and report status.
@@ -78,7 +79,7 @@ def run_all_examples(data_dir=None, license_path=None):
     examples = [
         ("Flatten Specific Fields", flatten_specific_fields),
         ("Flatten All Fields", flatten_all_fields),
-        ("Rename Form Fields", rename_form_fields)
+        ("Rename Form Fields", rename_form_fields),
     ]
 
     for name, func in examples:
@@ -95,4 +96,4 @@ def run_all_examples(data_dir=None, license_path=None):
 
 
 if __name__ == "__main__":
-    run_all_examples()    
+    run_all_examples()

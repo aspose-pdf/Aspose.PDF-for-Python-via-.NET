@@ -3,13 +3,14 @@ from io import FileIO
 from os import path
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import initialize_data_dir, set_license
 
 """
 Conversion examples demonstrating how to convert PDF files to various image formats.
 """
+
 
 def convert_PDF_to_BMP(infile, outfile):
     """
@@ -41,6 +42,7 @@ def convert_PDF_to_BMP(infile, outfile):
 
     print(infile + " converted into " + outfile)
 
+
 def convert_PDF_to_EMF(infile, outfile):
     """
     Converts a PDF file to EMF (Enhanced Metafile) format.
@@ -69,6 +71,7 @@ def convert_PDF_to_EMF(infile, outfile):
         page_count = page_count + 1
 
     print(infile + " converted into " + outfile)
+
 
 def convert_PDF_to_GIF(infile, outfile):
     """
@@ -99,6 +102,7 @@ def convert_PDF_to_GIF(infile, outfile):
 
     print(infile + " converted into " + outfile)
 
+
 def convert_PDF_to_JPEG(infile, outfile):
     """
     Converts a PDF file to JPEG image format.
@@ -128,6 +132,7 @@ def convert_PDF_to_JPEG(infile, outfile):
         page_count = page_count + 1
 
     print(infile + " converted into " + outfile)
+
 
 def convert_PDF_to_PNG(infile, outfile):
     """
@@ -192,6 +197,7 @@ def convert_PDF_to_PNG_with_default_font(infile, outfile):
         image_stream.close()
         page_count = page_count + 1
 
+
 def convert_PDF_to_SVG(infile, outfile):
     """
     Converts a PDF file to SVG (Scalable Vector Graphics) format.
@@ -216,6 +222,7 @@ def convert_PDF_to_SVG(infile, outfile):
     save_options.treat_target_file_name_as_directory = True
 
     document.save(f"{outfile}.svg", save_options)
+
 
 def convert_PDF_to_TIFF(infile, outfile):
     """
@@ -247,6 +254,7 @@ def convert_PDF_to_TIFF(infile, outfile):
 
     print(infile + " converted into " + outfile)
 
+
 def run_all_examples(data_dir=None, license_path=None):
     """Run PDF to Images examples and report status.
     Args:
@@ -255,7 +263,7 @@ def run_all_examples(data_dir=None, license_path=None):
     Returns:
         None
     """
-    
+
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
@@ -278,6 +286,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {e}")
+
 
 if __name__ == "__main__":
     run_all_examples()

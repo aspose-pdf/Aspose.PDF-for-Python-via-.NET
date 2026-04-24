@@ -2,9 +2,10 @@ from os import path
 import aspose.pdf as ap
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def square_annotation_add(infile, outfile):
     """
@@ -26,7 +27,9 @@ def square_annotation_add(infile, outfile):
     """
     document = ap.Document(infile)
 
-    squareAnnotation = ap.annotations.SquareAnnotation(document.pages[1], ap.Rectangle(60, 600, 250, 450, True))
+    squareAnnotation = ap.annotations.SquareAnnotation(
+        document.pages[1], ap.Rectangle(60, 600, 250, 450, True)
+    )
     squareAnnotation.title = "John Smith"
     squareAnnotation.color = ap.Color.blue
     squareAnnotation.interior_color = ap.Color.blue_violet
@@ -35,7 +38,7 @@ def square_annotation_add(infile, outfile):
     document.pages[1].annotations.append(squareAnnotation)
 
     document.save(outfile)
-    
+
 
 def circle_annotation_add(infile, outfile):
     """
@@ -110,7 +113,7 @@ def polygon_annotation_add(infile, outfile):
 
     document.pages[1].annotations.append(polygonAnnotation)
     document.save(outfile)
- 
+
 
 def polyline_annotation_add(infile, outfile):
     """
@@ -235,7 +238,7 @@ def polygon_annotation_get(infile, outfile):
 
     for pa in polygonAnnotations:
         print(pa.rect)
- 
+
 
 def polyline_annotation_get(infile, outfile):
     """
@@ -353,7 +356,7 @@ def polygon_annotation_delete(infile, outfile):
         document.pages[1].annotations.delete(pa)
 
     document.save(outfile)
- 
+
 
 def polyline_annotation_delete(infile, outfile):
     """
@@ -382,7 +385,7 @@ def polyline_annotation_delete(infile, outfile):
     for pa in polylineAnnotations:
         document.pages[1].annotations.delete(pa)
 
-    document.save(outfile)        
+    document.save(outfile)
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -420,6 +423,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
+
 
 if __name__ == "__main__":
     run_all_examples()

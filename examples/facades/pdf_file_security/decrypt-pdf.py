@@ -1,7 +1,5 @@
-from io import FileIO
 import sys
 from os import path
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
 
 # Ensure "examples/config.py" is importable from nested folders like examples/facades/form
@@ -10,7 +8,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 # Decrypt PDF with Owner Password
@@ -63,7 +61,7 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Decrypt PDF with Owner Password", decrypt_pdf_with_owner_password),
-        ("Try Decrypt PDF Without Exception", try_decrypt_pdf_without_exception)
+        ("Try Decrypt PDF Without Exception", try_decrypt_pdf_without_exception),
     ]
 
     for name, func in examples:

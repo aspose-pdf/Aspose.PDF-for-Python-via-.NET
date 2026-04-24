@@ -2,9 +2,10 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def crop_page(input_file_name, output_file_name):
     """
@@ -65,6 +66,7 @@ def crop_page_by_content(input_file_name, output_file_name):
         print("No images found on the first page")
     document.save(output_file_name)
 
+
 def run_all_examples(data_dir=None, license_path=None):
     """Run page cropping examples and report status.
     Args:
@@ -79,7 +81,7 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("crop_page", crop_page),
-        ("crop_page_by_content", crop_page_by_content)
+        ("crop_page_by_content", crop_page_by_content),
     ]
 
     for name, func in examples:

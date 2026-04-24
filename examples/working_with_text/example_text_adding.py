@@ -3,12 +3,12 @@ import sys
 import os
 import aspose.pdf as ap
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
 
-#region Basic text insertion
+# region Basic text insertion
 def add_text_simple_case(output_file_name):
     """
     Add simple text to a PDF document.
@@ -34,7 +34,10 @@ def add_text_simple_case(output_file_name):
     page.paragraphs.add(text_fragment)
     document.save(output_file_name)
 
+
 LOREM_PATH = ""
+
+
 def add_paragraph(output_file_name):
     """
     Add formatted text paragraph with indentation and wrapping to a PDF document.
@@ -89,6 +92,7 @@ def add_paragraph(output_file_name):
 
     document.save(output_file_name)
 
+
 def add_paragraphs_indents(output_file_name):
     """Add text with indents to a PDF document.
     Creates a PDF document with two text paragraphs demonstrating different
@@ -142,6 +146,7 @@ def add_paragraphs_indents(output_file_name):
     builder.append_paragraph(paragraph2)
     document.save(output_file_name)
 
+
 def add_new_line(output_file):
     """Add a new line of text to a PDF document."""
     # Create PDF document
@@ -175,6 +180,7 @@ def add_new_line(output_file):
     # Save PDF document
     document.save(output_file)
 
+
 def determine_line_break(output_file):
     """Create a PDF document with multiple text fragments and log notifications."""
     # Create PDF document
@@ -204,6 +210,7 @@ def determine_line_break(output_file):
     notifications = document.pages[1].get_notifications()
     print(notifications)
 
+
 def get_text_width_dynamically(output_file):
 
     font = ap.text.FontRepository.find_font("Arial")
@@ -228,6 +235,7 @@ def get_text_width_dynamically(output_file):
             print("Font and state string measuring doesn't match!")
 
         c_code += 1
+
 
 def add_text_with_hyperlink(output_file_name):
     """
@@ -257,9 +265,7 @@ def add_text_with_hyperlink(output_file_name):
     document = ap.Document()
     page = document.pages.add()
 
-    fragment = ap.text.TextFragment(
-        "Sample Text Fragment"
-    )
+    fragment = ap.text.TextFragment("Sample Text Fragment")
 
     segment = ap.text.TextSegment(" ... Text Segment 1...")
     fragment.segments.append(segment)
@@ -275,6 +281,7 @@ def add_text_with_hyperlink(output_file_name):
 
     page.paragraphs.add(fragment)
     document.save(output_file_name)
+
 
 def add_text_with_rtl_text(output_file_name):
     """
@@ -315,9 +322,11 @@ def add_text_with_rtl_text(output_file_name):
     page.paragraphs.add(text_fragment)
     document.save(output_file_name)
 
-#endregion
 
-#region Text styling (font, color, visibility, effects)
+# endregion
+
+
+# region Text styling (font, color, visibility, effects)
 def add_text_with_font_styling(output_file_name):
     """
     Add styled text fragments to a PDF document.
@@ -382,6 +391,7 @@ def add_text_with_font_styling(output_file_name):
     page.paragraphs.add(formula)
     document.save(output_file_name)
 
+
 def add_underline_text(outfile):
     # Create PDF document
     with ap.Document() as document:
@@ -402,6 +412,7 @@ def add_underline_text(outfile):
         tb.append_text(fragment)
         # Save the document
         document.save(outfile)
+
 
 def add_text_transparent(output_file_name):
     """
@@ -454,6 +465,7 @@ def add_text_transparent(output_file_name):
 
     document.save(output_file_name)
 
+
 def add_text_invisible(output_file_name):
     """
     Creates a PDF document with both visible and invisible text.
@@ -468,16 +480,13 @@ def add_text_invisible(output_file_name):
         add_text_invisible("output.pdf")
     """
 
-
     # Create PDF document
     document = ap.Document()
     page = document.pages.add()
 
     # Add visible text
     text1 = ap.text.TextFragment(
-        "This is the visible text. "
-        "This is the visible text. "
-        "This is the visible text."
+        "This is the visible text. This is the visible text. This is the visible text."
     )
     page.paragraphs.add(text1)
 
@@ -491,6 +500,7 @@ def add_text_invisible(output_file_name):
     page.paragraphs.add(text2)
 
     document.save(output_file_name)
+
 
 def add_text_border(output_file_name):
     """
@@ -544,6 +554,7 @@ def add_text_border(output_file_name):
     # Save PDF document
     document.save(output_file_name)
 
+
 def add_strikeout_text(output_file_name):
     """
     Add text with strikeout (strikethrough) formatting to a PDF document.
@@ -592,9 +603,11 @@ def add_strikeout_text(output_file_name):
     # Save PDF document
     document.save(output_file_name)
 
-#endregion
 
-#region Advanced color effects
+# endregion
+
+
+# region Advanced color effects
 def apply_gradient_axial_shading_to_text(output_file_name):
     """
     Apply axial gradient shading to text in a PDF document.
@@ -638,6 +651,7 @@ def apply_gradient_axial_shading_to_text(output_file_name):
 
     page.paragraphs.add(text_fragment)
     document.save(output_file_name)
+
 
 def apply_gradient_radial_shading_to_text(output_file_name):
     """
@@ -684,9 +698,11 @@ def apply_gradient_radial_shading_to_text(output_file_name):
     page.paragraphs.add(text_fragment)
     document.save(output_file_name)
 
-#endregion
 
-#region HTML / TeX
+# endregion
+
+
+# region HTML / TeX
 def add_text_html_fragment(output_file_name):
     """
     Add HTML fragment with mathematical notation to a PDF document.
@@ -844,10 +860,13 @@ def add_html_fragment_override_text_state(output_file_name):
     page.paragraphs.add(html_fragment)
     document.save(output_file_name)
 
-#endregion
 
-FONT_DIR =""
-#region Custom Fonts
+# endregion
+
+FONT_DIR = ""
+
+
+# region Custom Fonts
 def use_custom_font_from_file(output_file_name):
     """
     Creates a PDF document with text using a custom font loaded from a file.
@@ -925,7 +944,9 @@ def use_custom_font_from_stream(output_file_name):
         page.paragraphs.add(fragment)
         document.save(output_file_name)
 
-#endregion
+
+# endregion
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run text adding examples and report status.
@@ -955,11 +976,17 @@ def run_all_examples(data_dir=None, license_path=None):
         ("add_underline_text", add_underline_text),
         ("add_strikeout_text", add_strikeout_text),
         ("apply_gradient_axial_shading_to_text", apply_gradient_axial_shading_to_text),
-        ("apply_gradient_radial_shading_to_text", apply_gradient_radial_shading_to_text),
+        (
+            "apply_gradient_radial_shading_to_text",
+            apply_gradient_radial_shading_to_text,
+        ),
         ("add_text_html_fragment", add_text_html_fragment),
         ("add_text_latex_fragment", add_text_latex_fragment),
         ("add_html_fragment", add_html_fragment),
-        ("add_html_fragment_override_text_state", add_html_fragment_override_text_state),
+        (
+            "add_html_fragment_override_text_state",
+            add_html_fragment_override_text_state,
+        ),
         ("use_custom_font_from_file", use_custom_font_from_file),
         ("use_custom_font_from_stream", use_custom_font_from_stream),
     ]

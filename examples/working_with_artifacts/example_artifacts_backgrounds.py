@@ -4,6 +4,7 @@ from io import FileIO
 import aspose.pdf as ap
 
 import sys
+
 sys.path.append(path.join(path.dirname(__file__), ".."))
 from config import initialize_data_dir, set_license
 
@@ -59,7 +60,11 @@ def run_all_examples(data_dir=None, license_path=None):
     examples = {
         "add_background_image_to_pdf": (add_background_image_to_pdf, True, False),
         "add_background_color_to_pdf": (add_background_color_to_pdf, False, False),
-        "add_background_image_with_opacity_to_pdf": (add_background_image_with_opacity_to_pdf, True, False),
+        "add_background_image_with_opacity_to_pdf": (
+            add_background_image_with_opacity_to_pdf,
+            True,
+            False,
+        ),
         "remove_background": (remove_background, False, False),
     }
 

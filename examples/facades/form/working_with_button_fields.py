@@ -8,7 +8,8 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
+
 
 # Add image appearance to button fields
 def add_image_appearance_to_button_fields(infile, outfile):
@@ -27,15 +28,17 @@ def add_image_appearance_to_button_fields(infile, outfile):
     # Save updated PDF
     pdf_form.save(outfile)
 
+
 def get_submit_flags(infile, outfile):
     # Create Form object
     pdf_form = pdf_facades.Form()
 
     # Bind PDF document
-    pdf_form.bind_pdf(infile)    
-    flags=pdf_form.get_submit_flags("Submit1_af_submit")
-    
+    pdf_form.bind_pdf(infile)
+    flags = pdf_form.get_submit_flags("Submit1_af_submit")
+
     print(f"Submit flags: {flags}")
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all import form data examples and report status.
@@ -51,8 +54,11 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Add Image Appearance to Button Fields", add_image_appearance_to_button_fields),
-        ("Get Submit Flags", get_submit_flags)
+        (
+            "Add Image Appearance to Button Fields",
+            add_image_appearance_to_button_fields,
+        ),
+        ("Get Submit Flags", get_submit_flags),
     ]
 
     for name, func in examples:
@@ -69,4 +75,4 @@ def run_all_examples(data_dir=None, license_path=None):
 
 
 if __name__ == "__main__":
-    run_all_examples()    
+    run_all_examples()

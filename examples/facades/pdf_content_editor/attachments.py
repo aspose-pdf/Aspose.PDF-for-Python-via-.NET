@@ -10,9 +10,10 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
-def add_attachment(infile, attachment_file ,outfile):
+
+def add_attachment(infile, attachment_file, outfile):
     # Create PdfContentEditor object
     content_editor = pdf_facades.PdfContentEditor()
     # Bind document to PdfContentEditor
@@ -81,6 +82,7 @@ def add_file_attachment_annotation_from_stream(infile, attachment_file, outfile)
     # Save updated document
     content_editor.save(outfile)
 
+
 def remove_attachments(infile, outfile):
     # Create PdfContentEditor object
     content_editor = pdf_facades.PdfContentEditor()
@@ -115,15 +117,17 @@ def run_all_examples(data_dir=None, license_path=None):
     for name, func, needs_attachment in examples:
         try:
             if needs_attachment:
-                func(input_pdf,
-                     attachment_file,
-                     path.join(output_dir, f"{func.__name__}.pdf"))
+                func(
+                    input_pdf,
+                    attachment_file,
+                    path.join(output_dir, f"{func.__name__}.pdf"),
+                )
             else:
-                func(input_pdf,
-                     path.join(output_dir, f"{func.__name__}.pdf"))
+                func(input_pdf, path.join(output_dir, f"{func.__name__}.pdf"))
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")
+
 
 if __name__ == "__main__":
     run_all_examples()
