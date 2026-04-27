@@ -31,9 +31,9 @@ def extract_image(infile, outfile):
         Extracts first image from first page.
     """
     document = ap.Document(infile)
-    xImage = document.pages[1].resources.images[1]
+    x_image = document.pages[1].resources.images[1]
     with FileIO(outfile, "w") as output_image:
-        xImage.save(output_image)
+        x_image.save(output_image)
 
 
 def extract_image_from_specific_region(infile, outfile):
@@ -66,75 +66,7 @@ def extract_image_from_specific_region(infile, outfile):
         if rectangle.contains(point1, True) and rectangle.contains(point2, True):
             with FileIO(outfile.replace("index", str(index)), "w") as output_image:
                 image_placement.image.save(output_image)
-            index = index + 1
-
-
-def extract_image_information(infile, outfile):
-
-    with ap.Document(infile) as document:
-
-        default_resolution = 72
-        graphics_state = []
-
-        image_names = list(document.pages[1].resources.images.names)
-
-        graphics_state.append(
-            drawing.drawing2d.Matrix(
-                float(1), float(0), float(0), float(1), float(0), float(0)
-            )
-        )
-
-        with FileIO(outfile, "w") as output_file:
-            for op in document.pages[1].contents:
-                if is_assignable(op, ap.operators.GSave):
-                    graphics_state.append(
-                        cast(drawing.drawing2d.Matrix, graphics_state[-1]).clone()
-                    )
-
-                elif is_assignable(op, ap.operators.GRestore):
-                graphics_state.pop()
-
-            elif is_assignable(op, ap.operators.ConcatenateMatrix):
-                opCM = cast(ap.operators.ConcatenateMatrix, op)
-                cm = drawing.drawing2d.Matrix(
-                    float(opCM.matrix.a),
-                    float(opCM.matrix.b),
-                    float(opCM.matrix.c),
-                    float(opCM.matrix.d),
-                    float(opCM.matrix.e),
-                    float(opCM.matrix.f),
-                )
-
-                graphics_state[-1].multiply(cm)
-                continue
-
-            elif is_assignable(op, ap.operators.Do):
-                opDo = cast(ap.operators.Do, op)
-                if opDo.name in image_names:
-                    last_ctm = cast(drawing.drawing2d.Matrix, graphics_state[-1])
-                    index = image_names.index(opDo.name) + 1
-                    image = document.pages[1].resources.images[index]
-
-                    scaled_width = math.sqrt(
-                        last_ctm.elements[0] ** 2 + last_ctm.elements[1] ** 2
-                    )
-                    scaled_height = math.sqrt(
-                        last_ctm.elements[2] ** 2 + last_ctm.elements[3] ** 2
-                    )
-
-                    original_width = image.width
-                    original_height = image.height
-
-                    res_horizontal = original_width * default_resolution / scaled_width
-                    res_vertical = original_height * default_resolution / scaled_height
-
-                    info = (
-                        f"{infile} image {opDo.name} "
-                        f"({scaled_width:.2f}:{scaled_height:.2f}): "
-                        f"res {res_horizontal:.2f} x {res_vertical:.2f}\n"
-                    )
-                    print(info.rstrip())
-                    output_file.write(info.encode())
+            index += 1
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -155,11 +87,6 @@ def run_all_examples(data_dir=None, license_path=None):
             "Extract from region",
             extract_image_from_specific_region,
             "extracted_image_index.jpg",
-        ),
-        (
-            "Extract image information",
-            extract_image_information,
-            "extracted_image_information.txt",
         ),
     ]
 
