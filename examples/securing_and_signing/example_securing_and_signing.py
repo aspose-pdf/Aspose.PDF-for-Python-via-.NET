@@ -394,7 +394,7 @@ def run_all_examples(data_dir=None, license_path=None) -> None:
             "Verify with public certificate",
             verify_with_public_key_certificate1,
             (
-                path.join(input_dir, "certificate.bin"),
+                path.join(input_dir, "pub_sec.crt"),
                 path.join(output_dir, "DigitallySign_out.pdf"),
             ),
         ),
