@@ -424,7 +424,7 @@ def run_all_examples(data_dir=None, license_path=None) -> None:
             (
                 path.join(input_dir, "input.pdf"),
                 path.join(output_dir, "SignEcdsa_out.pdf"),
-                path.join(input_dir, "rsa_cert.pfx"),
+                path.join(input_dir, "ecdsa_cert.pfx"),
                 "12345",
             ),
         ),
