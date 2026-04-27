@@ -71,27 +71,27 @@ def extract_image_from_specific_region(infile, outfile):
 
 def extract_image_information(infile, outfile):
 
-    document = ap.Document(infile)
+    with ap.Document(infile) as document:
 
-    default_resolution = 72
-    graphics_state = []
+        default_resolution = 72
+        graphics_state = []
 
-    image_names = list(document.pages[1].resources.images.names)
+        image_names = list(document.pages[1].resources.images.names)
 
-    graphics_state.append(
-        drawing.drawing2d.Matrix(
-            float(1), float(0), float(0), float(1), float(0), float(0)
+        graphics_state.append(
+            drawing.drawing2d.Matrix(
+                float(1), float(0), float(0), float(1), float(0), float(0)
+            )
         )
-    )
 
-    with FileIO(outfile, "w") as output_file:
-        for op in document.pages[1].contents:
-            if is_assignable(op, ap.operators.GSave):
-                graphics_state.append(
-                    cast(drawing.drawing2d.Matrix, graphics_state[-1]).clone()
-                )
+        with FileIO(outfile, "w") as output_file:
+            for op in document.pages[1].contents:
+                if is_assignable(op, ap.operators.GSave):
+                    graphics_state.append(
+                        cast(drawing.drawing2d.Matrix, graphics_state[-1]).clone()
+                    )
 
-            elif is_assignable(op, ap.operators.GRestore):
+                elif is_assignable(op, ap.operators.GRestore):
                 graphics_state.pop()
 
             elif is_assignable(op, ap.operators.ConcatenateMatrix):
