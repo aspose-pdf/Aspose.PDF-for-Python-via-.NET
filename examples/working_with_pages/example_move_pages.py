@@ -7,7 +7,7 @@ sys.path.append(path.join(path.dirname(__file__), ".."))
 from config import set_license, initialize_data_dir
 
 
-def moving_page_from_one_document_to_another(input_file_name, output_file_name):
+def move_page_from_one_document_to_another(input_file_name, output_file_name):
     """
     Move a single page from one PDF document to another.
 
@@ -24,7 +24,7 @@ def moving_page_from_one_document_to_another(input_file_name, output_file_name):
     another_document.save(output_file_name)
 
 
-def moving_bunch_pages_from_one_document_to_another(input_file_name, output_file_name):
+def move_bunch_pages_from_one_document_to_another(input_file_name, output_file_name):
     """
     Move a set of pages from one PDF document to another.
 
@@ -44,7 +44,7 @@ def moving_bunch_pages_from_one_document_to_another(input_file_name, output_file
     src_document.save(input_file_name.replace(".pdf", "_new.pdf"))
 
 
-def moving_page_in_new_location_in_same_document(input_file_name, output_file_name):
+def move_page_in_new_location_in_same_document(input_file_name, output_file_name):
     """
     Move a page to a new location within the same PDF document.
 
@@ -76,15 +76,15 @@ def run_all_examples(data_dir=None, license_path=None):
     examples = [
         (
             "Moving page from one document to another",
-            moving_page_from_one_document_to_another,
+            move_page_from_one_document_to_another,
         ),
         (
             "Moving bunch_pages_from_one_document to another",
-            moving_bunch_pages_from_one_document_to_another,
+            move_bunch_pages_from_one_document_to_another,
         ),
         (
             "Moving page in new location in same document",
-            moving_page_in_new_location_in_same_document,
+            move_page_in_new_location_in_same_document,
         ),
     ]
 

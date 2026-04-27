@@ -1,7 +1,8 @@
-from io import FileIO
-import aspose.pdf as ap
 import sys
+from io import FileIO
 from os import path
+
+import aspose.pdf as ap
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 
@@ -27,40 +28,35 @@ def add_layers(outfile):
         - "Green Line" at y=750
         - "Blue Line" at y=800
     """
-    path_outfile = path.join(outfile)
+    document = ap.Document()
+    page = document.pages.add()
 
-    try:
-        document = ap.Document()
-        page = document.pages.add()
+    # Red layer
+    layer = ap.Layer("oc1", "Red Line")
+    layer.contents.append(ap.operators.SetRGBColorStroke(1, 0, 0))
+    layer.contents.append(ap.operators.MoveTo(500, 700))
+    layer.contents.append(ap.operators.LineTo(400, 700))
+    layer.contents.append(ap.operators.Stroke())
+    page.layers.append(layer)
 
-        # Red layer
-        layer = ap.Layer("oc1", "Red Line")
-        layer.contents.append(ap.operators.SetRGBColorStroke(1, 0, 0))
-        layer.contents.append(ap.operators.MoveTo(500, 700))
-        layer.contents.append(ap.operators.LineTo(400, 700))
-        layer.contents.append(ap.operators.Stroke())
-        page.layers.append(layer)
+    # Green layer
+    layer = ap.Layer("oc2", "Green Line")
+    layer.contents.append(ap.operators.SetRGBColorStroke(0, 1, 0))
+    layer.contents.append(ap.operators.MoveTo(500, 750))
+    layer.contents.append(ap.operators.LineTo(400, 750))
+    layer.contents.append(ap.operators.Stroke())
+    page.layers.append(layer)
 
-        # Green layer
-        layer = ap.Layer("oc2", "Green Line")
-        layer.contents.append(ap.operators.SetRGBColorStroke(0, 1, 0))
-        layer.contents.append(ap.operators.MoveTo(500, 750))
-        layer.contents.append(ap.operators.LineTo(400, 750))
-        layer.contents.append(ap.operators.Stroke())
-        page.layers.append(layer)
+    # Blue layer
+    layer = ap.Layer("oc3", "Blue Line")
+    layer.contents.append(ap.operators.SetRGBColorStroke(0, 0, 1))
+    layer.contents.append(ap.operators.MoveTo(500, 800))
+    layer.contents.append(ap.operators.LineTo(400, 800))
+    layer.contents.append(ap.operators.Stroke())
+    page.layers.append(layer)
 
-        # Blue layer
-        layer = ap.Layer("oc3", "Blue Line")
-        layer.contents.append(ap.operators.SetRGBColorStroke(0, 0, 1))
-        layer.contents.append(ap.operators.MoveTo(500, 800))
-        layer.contents.append(ap.operators.LineTo(400, 800))
-        layer.contents.append(ap.operators.Stroke())
-        page.layers.append(layer)
-
-        document.save(outfile)
-        print(f"\nLayers added successfully to PDF file.\nFile saved at {path_outfile}")
-    except Exception as e:
-        print(f"Error adding layers: {e}")
+    document.save(outfile)
+    print(f"Layers added successfully. File saved at {outfile}")
 
 
 def lock_layer(infile, outfile):
@@ -118,9 +114,13 @@ def extract_layers(infile, outfile):
         print("No layers found in the document.")
         return
 
+    output_root, output_ext = path.splitext(outfile)
+    if not output_ext:
+        output_ext = ".pdf"
+
     index = 1
     for layer in layers:
-        output_file = outfile.replace(".pdf", f"{index}.pdf")
+        output_file = f"{output_root}{index}{output_ext}"
         layer.save(output_file)
         print(f"Layer {index} saved to {output_file}")
         index += 1
@@ -245,10 +245,10 @@ def run_all_examples(data_dir=None, license_path=None):
     input_file_name = path.join(input_dir, "sample_layers.pdf")
     for name, func in examples:
         try:
+            output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
             if func.__name__ == "add_layers":
-                func(input_file_name)
+                func(output_file_name)
             else:
-                output_file_name = path.join(output_dir, f"{func.__name__}.pdf")
                 func(input_file_name, output_file_name)
             print(f"✅ Success: {name}")
         except Exception as e:
