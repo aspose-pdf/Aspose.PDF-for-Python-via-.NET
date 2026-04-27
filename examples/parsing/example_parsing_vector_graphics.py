@@ -1,5 +1,6 @@
 import aspose.pdf as ap
-from os import path
+import aspose.pdf.vector as apv
+from os import path, makedirs
 import sys
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
@@ -15,7 +16,7 @@ def extract_graphics_elements(infile, outfile):
     """
     document = ap.Document(infile)
 
-    gr_absorber = ap.vector.GraphicsAbsorber()
+    gr_absorber = apv.GraphicsAbsorber()
     # Visit page 2 (pages collection is 1-indexed; document.pages[1] is the second page)
     gr_absorber.visit(document.pages[1])
 
@@ -53,12 +54,14 @@ def extract_subpaths_to_svgs(infile, output_dir):
         output_dir (str): Directory path where SVG files will be saved.
     """
     document = ap.Document(infile)
-    options = ap.vector.SvgExtractionOptions()
-    options.extract_every_subpath_to_svg = True
+    options = apv.SvgExtractionOptions()
+    options.extract_every_sub_path_to_svg = True
 
     page = document.pages[1]
-    extractor = ap.vector.SvgExtractor(options)
-    extractor.extract(page, output_dir)
+    extractor = apv.SvgExtractor(options)
+    subpaths_dir = path.join(output_dir, "subpaths")
+    makedirs(subpaths_dir, exist_ok=True)
+    extractor.extract(page, subpaths_dir)
 
 
 def extract_list_of_elements_to_single_image(infile, outfile):
@@ -70,9 +73,9 @@ def extract_list_of_elements_to_single_image(infile, outfile):
     """
     document = ap.Document(infile)
     page = document.pages[1]
-    svg_extractor = ap.vector.SvgExtractor()
+    extractor = apv.SvgExtractor()
     elements = []  # Fill this list with specific graphic elements as needed
-    svg_extractor.extract(elements, page, outfile)
+    extractor.extract(elements, page, outfile)
 
 
 def extract_single_vector_element(infile, outfile):
@@ -83,11 +86,11 @@ def extract_single_vector_element(infile, outfile):
         outfile (str): Path to the output SVG file.
     """
     document = ap.Document(infile)
-    graphics_absorber = ap.vector.GraphicsAbsorber()
+    graphics_absorber = apv.GraphicsAbsorber()
     page = document.pages[1]
     graphics_absorber.visit(page)
     xform_placement = graphics_absorber.elements[1]
-    if isinstance(xform_placement, ap.vector.XFormPlacement):
+    if isinstance(xform_placement, apv.XFormPlacement):
         xform_placement.elements[2].save_to_svg(outfile)
 
 
