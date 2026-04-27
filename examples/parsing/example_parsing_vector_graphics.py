@@ -59,8 +59,9 @@ def extract_subpaths_to_svgs(infile, output_dir):
 
     page = document.pages[1]
     extractor = apv.SvgExtractor(options)
-    makedirs(output_dir+"/subpaths", exist_ok=True)    
-    extractor.extract(page, output_dir)
+    subpaths_dir = path.join(output_dir, "subpaths")
+    makedirs(subpaths_dir, exist_ok=True)
+    extractor.extract(page, subpaths_dir)
 
 
 def extract_list_of_elements_to_single_image(infile, outfile):
