@@ -1,7 +1,5 @@
-from io import FileIO
 import sys
 from os import path
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
 
 # Ensure "examples/config.py" is importable from nested folders like examples/facades/form
@@ -10,7 +8,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 # Set PDF Privileges Without Passwords
@@ -48,11 +46,7 @@ def set_pdf_privileges_with_passwords(infile, outfile):
     privilege.allow_copy = False
 
     # Apply privileges with passwords
-    file_security.set_privilege(
-        "user_password",
-        "owner_password",
-        privilege
-    )
+    file_security.set_privilege("user_password", "owner_password", privilege)
 
     # Save updated PDF
     file_security.save(outfile)
@@ -73,9 +67,7 @@ def try_set_pdf_privileges_without_exception(infile, outfile):
 
     # Attempt to apply privileges
     result = file_security.try_set_privilege(
-        "user_password",
-        "owner_password",
-        privilege
+        "user_password", "owner_password", privilege
     )
 
     # Save only if operation succeeded
@@ -100,8 +92,14 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Set PDF Privileges Without Passwords", set_pdf_privileges_without_passwords),
-        ("Set PDF Privileges with User and Owner Passwords", set_pdf_privileges_with_passwords),
-        ("Try Set PDF Privileges Without Exception", try_set_pdf_privileges_without_exception)
+        (
+            "Set PDF Privileges with User and Owner Passwords",
+            set_pdf_privileges_with_passwords,
+        ),
+        (
+            "Try Set PDF Privileges Without Exception",
+            try_set_pdf_privileges_without_exception,
+        ),
     ]
 
     for name, func in examples:

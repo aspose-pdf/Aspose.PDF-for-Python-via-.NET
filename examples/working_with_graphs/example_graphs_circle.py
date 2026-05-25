@@ -3,7 +3,8 @@ import aspose.pdf.drawing as drawing
 
 import sys
 from os import path
-sys.path.append(path.join(path.dirname(__file__), '..'))
+
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -36,6 +37,7 @@ def add_circle_filled(outfile: str):
 
     page.paragraphs.add(graph)
     document.save(outfile)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)

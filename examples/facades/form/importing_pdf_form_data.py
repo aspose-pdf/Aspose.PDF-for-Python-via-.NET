@@ -9,7 +9,8 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
+
 
 # Import data from XML
 def import_xml_to_pdf_fields(infile, datafile, outfile):
@@ -21,12 +22,13 @@ def import_xml_to_pdf_fields(infile, datafile, outfile):
     pdf_form.bind_pdf(infile)
 
     # Open XML file as stream
-    with FileIO(datafile, 'r') as xml_input_stream:
+    with FileIO(datafile, "r") as xml_input_stream:
         # Import data from XML into PDF form fields
         pdf_form.import_xml(xml_input_stream)
 
     # Save updated PDF
     pdf_form.save(outfile)
+
 
 # Import Data from FDF
 def import_fdf_to_pdf_form(infile, datafile, outfile):
@@ -38,11 +40,12 @@ def import_fdf_to_pdf_form(infile, datafile, outfile):
     pdf_form.bind_pdf(infile)
 
     # Open FDF file as stream
-    with open(datafile, 'rb') as fdf_input_stream:
+    with open(datafile, "rb") as fdf_input_stream:
         pdf_form.import_fdf(fdf_input_stream)
 
     # Save updated PDF
     pdf_form.save(outfile)
+
 
 # Import Data from XFDF
 def import_data_from_xfdf(infile, datafile, outfile):
@@ -54,12 +57,13 @@ def import_data_from_xfdf(infile, datafile, outfile):
     pdf_form.bind_pdf(infile)
 
     # Open XFDF file as stream
-    with open(datafile, 'rb') as xfdf_input_stream:
+    with open(datafile, "rb") as xfdf_input_stream:
         # Import data from XFDF into PDF form fields
         pdf_form.import_xfdf(xfdf_input_stream)
 
     # Save updated PDF
     pdf_form.save(outfile)
+
 
 # Import from JSON
 def import_json_to_pdf_form(infile, datafile, outfile):
@@ -71,12 +75,13 @@ def import_json_to_pdf_form(infile, datafile, outfile):
     form.bind_pdf(infile)
 
     # Open JSON file as stream
-    with FileIO(datafile, 'r') as json_stream:
+    with FileIO(datafile, "r") as json_stream:
         # Import data from JSON into PDF form fields
         form.import_json(json_stream)
 
     # Save updated PDF
     form.save(outfile)
+
 
 # Replace from XFA data
 def replace_xfa_data(infile, datafile, outfile):
@@ -88,12 +93,12 @@ def replace_xfa_data(infile, datafile, outfile):
     form.bind_pdf(infile)
 
     # Open XFA file as stream
-    with FileIO(datafile, 'r') as xfa_stream:
+    with FileIO(datafile, "r") as xfa_stream:
         # Import data from XFA into PDF form fields
         form.set_xfa_data(xfa_stream)
 
     # Save updated PDF
-    form.save(outfile)    
+    form.save(outfile)
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -120,7 +125,7 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func, data_file_name in examples:
         try:
-            if (func.__name__ == "replace_xfa_data"):
+            if func.__name__ == "replace_xfa_data":
                 input_file_name = path.join(input_dir, "sample_xfa_form.pdf")
             else:
                 input_file_name = path.join(input_dir, "sample_form_new.pdf")

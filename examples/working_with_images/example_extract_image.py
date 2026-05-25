@@ -1,9 +1,14 @@
+import math
 import sys
+
 import aspose.pdf as ap
+import aspose.pydrawing as drawing
+
+from aspose.pycore import cast, is_assignable
 from io import FileIO
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -26,9 +31,9 @@ def extract_image(infile, outfile):
         Extracts first image from first page.
     """
     document = ap.Document(infile)
-    xImage = document.pages[1].resources.images[1]
+    x_image = document.pages[1].resources.images[1]
     with FileIO(outfile, "w") as output_image:
-        xImage.save(output_image)
+        x_image.save(output_image)
 
 
 def extract_image_from_specific_region(infile, outfile):
@@ -61,7 +66,7 @@ def extract_image_from_specific_region(infile, outfile):
         if rectangle.contains(point1, True) and rectangle.contains(point2, True):
             with FileIO(outfile.replace("index", str(index)), "w") as output_image:
                 image_placement.image.save(output_image)
-            index = index + 1
+            index += 1
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -77,11 +82,7 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        (
-            "Extract image",
-            extract_image,
-            "extracted_image.jpg"
-        ),
+        ("Extract image", extract_image, "extracted_image.jpg"),
         (
             "Extract from region",
             extract_image_from_specific_region,

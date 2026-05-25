@@ -1,4 +1,3 @@
-import aspose.pdf as ap
 import aspose.pdf.facades as pdf_facades
 
 import sys
@@ -10,13 +9,15 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
+
 
 def get_pdf_version(input_file_name):
-    
+
     pdf_metadata = pdf_facades.PdfFileInfo(input_file_name)
     version = pdf_metadata.get_pdf_version()
     print(f"\nPDF Version: {version}")
+
 
 def get_document_privileges(input_file_name):
     pdf_metadata = pdf_facades.PdfFileInfo(input_file_name)
@@ -50,12 +51,12 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Get PDF Version", get_pdf_version),
-        ("Get Document Privileges", get_document_privileges)
+        ("Get Document Privileges", get_document_privileges),
     ]
 
     for name, func in examples:
         try:
-            input_file_name = path.join(input_dir, "sample.pdf")            
+            input_file_name = path.join(input_dir, "sample.pdf")
             func(input_file_name)
             print(f"✅ Success: {name}")
         except Exception as e:
@@ -63,5 +64,6 @@ def run_all_examples(data_dir=None, license_path=None):
 
     print("\nAll PDF metadata examples finished.\n")
 
+
 if __name__ == "__main__":
-    run_all_examples()  
+    run_all_examples()

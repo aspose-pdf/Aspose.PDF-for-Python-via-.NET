@@ -9,7 +9,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
 
 
 def add_list_item(infile, outfile):
@@ -18,7 +18,7 @@ def add_list_item(infile, outfile):
     # Bind document to FormEditor
     form_editor.bind_pdf(infile)
     # Add list item to list box field
-    form_editor.add_list_item("Country", ["New Zealand","New Zealand"])
+    form_editor.add_list_item("Country", ["New Zealand", "New Zealand"])
     # Save updated document
     form_editor.save(outfile)
 
@@ -71,7 +71,7 @@ def single2multiple(infile, outfile):
     # Create FormEditor object
     form_editor = pdf_facades.FormEditor()
     # Bind document to FormEditor
-    form_editor.bind_pdf(infile)    
+    form_editor.bind_pdf(infile)
     # Change a single-lined text field to a multiple-lined one
     form_editor.single_2_multiple("City")
     # Save updated document
@@ -83,11 +83,12 @@ def copy_inner_field(infile, outfile):
     form_editor = pdf_facades.FormEditor()
     # Bind document to FormEditor
     form_editor.bind_pdf(infile)
-    # Copies an existing field to a new position specified by both page number and ordinates. 
-    # A new document will be produced, which contains everything the source document has except for the newly copied field.        
+    # Copies an existing field to a new position specified by both page number and ordinates.
+    # A new document will be produced, which contains everything the source document has except for the newly copied field.
     form_editor.copy_inner_field("First Name", "First Name Copy", 2, 200, 600)
     # Save updated document
     form_editor.save(outfile)
+
 
 def copy_outer_field(infile, outfile):
     # Since copy_outer_field() method needs to copy field from source document to target document, we need to create a new document as target document first.
@@ -99,7 +100,7 @@ def copy_outer_field(infile, outfile):
     form_editor = pdf_facades.FormEditor()
     # Bind document to FormEditor
     form_editor.bind_pdf(outfile)
-    # Copies an existing field to a new position specified by both page number and ordinates. 
+    # Copies an existing field to a new position specified by both page number and ordinates.
     # A new document will be produced, which contains everything the source document has except for the newly copied field.
     form_editor.copy_outer_field(infile, "First Name", 1, 200, 600)
     # Save updated document
@@ -124,8 +125,10 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func in examples:
         try:
-            func(path.join(input_dir, f"{func.__name__}.pdf"),
-                 path.join(output_dir, f"{func.__name__}.pdf"))
+            func(
+                path.join(input_dir, f"{func.__name__}.pdf"),
+                path.join(output_dir, f"{func.__name__}.pdf"),
+            )
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {str(e)}")

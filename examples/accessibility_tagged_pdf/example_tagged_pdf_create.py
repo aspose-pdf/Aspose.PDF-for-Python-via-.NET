@@ -2,7 +2,7 @@ import aspose.pdf as ap
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import initialize_data_dir, set_license
 
@@ -11,7 +11,6 @@ def create_tagged_pdf_document_simple(outfile):
 
     # Create PDF Document
     with ap.Document() as document:
-
         # Get Content for working with TaggedPdf
         tagged_content = document.tagged_content
         root_element = tagged_content.root_element
@@ -57,8 +56,8 @@ def create_tagged_pdf_document_adv(outfile):
 
         # Create Paragraph with Quotes
         paragraph_with_quotes = tagged_content.create_paragraph_element()
-        paragraph_with_quotes.structure_text_state.font = ap.text.FontRepository.find_font(
-            "Arial"
+        paragraph_with_quotes.structure_text_state.font = (
+            ap.text.FontRepository.find_font("Arial")
         )
         position_settings = ap.tagged.PositionSettings()
         position_settings.margin = ap.MarginInfo(10, 5, 10, 5)
@@ -227,7 +226,9 @@ def create_pdf_with_tagged_form_field(outfile):
         tagged_content = document.tagged_content
         root_element = tagged_content.root_element
         # Create a visible signature form field (AcroForm)
-        signature_field = ap.forms.SignatureField(document.pages[1], ap.Rectangle(50, 50, 100, 100, True))
+        signature_field = ap.forms.SignatureField(
+            document.pages[1], ap.Rectangle(50, 50, 100, 100, True)
+        )
         signature_field.partial_name = "Signature1"
         signature_field.alternate_name = "signature 1"
 
@@ -296,7 +297,9 @@ def create_pdf_with_toc_page_advanced(outfile):
         toc_element = content.create_toc_element()
         # Create a header element for the TOC page title
         header_for_toc_page_title = content.create_header_element(1)
-        toc_element.link_toc_page_title_to_header_element(toc_page, header_for_toc_page_title)
+        toc_element.link_toc_page_title_to_header_element(
+            toc_page, header_for_toc_page_title
+        )
         # Add the TOC page title header and TOC element to the document structure tree
         root_element.append_child(header_for_toc_page_title, True)
         root_element.append_child(toc_element, True)
@@ -334,7 +337,8 @@ def create_pdf_with_toc_page_advanced(outfile):
             # Create a paragraph element and set its text and language
             p = content.create_paragraph_element()
             p.set_text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            )
             p.language = "en-US"
             # Add the sub-header and paragraph to the document structure
             root_element.append_child(sub_header, True)
@@ -410,7 +414,9 @@ def run_all_examples(data_dir=None, license_path=None):
             convert_to_pdf_ua_with_automatic_tagging,
             (
                 path.join(input_dir, "BreakfastMenu.pdf"),
-                path.join(output_dir, "convert_to_pdf_ua_with_automatic_tagging_out.pdf"),
+                path.join(
+                    output_dir, "convert_to_pdf_ua_with_automatic_tagging_out.pdf"
+                ),
                 path.join(output_dir, "convert_to_pdf_ua_with_automatic_tagging.xml"),
             ),
         ),
@@ -428,7 +434,7 @@ def run_all_examples(data_dir=None, license_path=None):
             "Create Tagged PDF with table of contents (TOC) page advanced",
             create_pdf_with_toc_page_advanced,
             (path.join(output_dir, "create_pdf_with_toc_page_advanced_out.pdf"),),
-        )
+        ),
     ]
 
     for name, func, args in examples:

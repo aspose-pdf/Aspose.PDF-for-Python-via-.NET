@@ -1,12 +1,11 @@
 import io
 import sys
-import re
 import shutil
 import aspose.pdf as ap
 import aspose.pydrawing as drawing
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -517,7 +516,7 @@ def run_all_examples(data_dir=None, license_path=None):
         >>> run_all_examples("/custom/data/path")
         # Runs examples in custom directory
     """
-    
+
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
@@ -530,10 +529,7 @@ def run_all_examples(data_dir=None, license_path=None):
             "text_fragment_absorber_sequential_search",
             text_fragment_absorber_sequential_search,
         ),
-        (
-            "text_fragment_absorber_search_phrase",
-            text_fragment_absorber_search_phrase
-        ),
+        ("text_fragment_absorber_search_phrase", text_fragment_absorber_search_phrase),
         ("text_fragment_absorber_search_regex", text_fragment_absorber_search_regex),
         (
             "text_fragment_absorber_search_list_of_phrases",

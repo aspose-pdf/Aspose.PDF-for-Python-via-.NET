@@ -3,7 +3,7 @@ import sys
 from os import path
 from aspose.pycore import cast, is_assignable
 
-sys.path.append(path.join(path.dirname(__file__), '../..'))
+sys.path.append(path.join(path.dirname(__file__), "../.."))
 
 from config import set_license, initialize_data_dir
 
@@ -95,7 +95,7 @@ def link_annotation_update_web_destination(infile, outfile):
         link_annotation_update_web_destination("sample.pdf", "sample_web_dest.pdf")
 
     Note:
-        Changes all GoToURIAction links to point to https://www.google.com
+        Changes all GoToURIAction links to point to https://www.aspose.com
     """
 
     document = ap.Document(infile)
@@ -110,7 +110,7 @@ def link_annotation_update_web_destination(infile, outfile):
             annotation = cast(ap.annotations.LinkAnnotation, la)
             if is_assignable(annotation.action, ap.annotations.GoToURIAction):
                 action = cast(ap.annotations.GoToURIAction, annotation.action)
-                action.uri = "https://www.google.com"
+                action.uri = "https://www.aspose.com"
     document.save(outfile)
 
 

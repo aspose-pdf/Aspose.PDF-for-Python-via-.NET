@@ -32,6 +32,7 @@ def extract_text_reduce_font(infile, outfile, reduce_ratio=0.7):
     with open(outfile, "w", encoding="utf-8") as tw:
         tw.write(extracted_text)
 
+
 def extract_text_scale_factor(infile, outfile, scale_factor=0.5):
     """
     Extract text from a PDF with multi-column layout using scale factor.
@@ -42,7 +43,9 @@ def extract_text_scale_factor(infile, outfile, scale_factor=0.5):
     """
     doc = ap.Document(infile)
     text_absorber = ap.text.TextAbsorber()
-    ext_opts = ap.text.TextExtractionOptions(ap.text.TextExtractionOptions.TextFormattingMode.PURE)
+    ext_opts = ap.text.TextExtractionOptions(
+        ap.text.TextExtractionOptions.TextFormattingMode.PURE
+    )
     ext_opts.scale_factor = scale_factor
     text_absorber.extraction_options = ext_opts
     doc.pages.accept(text_absorber)
@@ -50,15 +53,25 @@ def extract_text_scale_factor(infile, outfile, scale_factor=0.5):
     with open(outfile, "w", encoding="utf-8") as tw:
         tw.write(extracted_text)
 
+
 def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("Extract text with reducing font", extract_text_reduce_font, "sample-column.pdf", "extract_text_reduce_font.txt"),
-        ("Extract text with scale factor", extract_text_scale_factor, "sample-column.pdf", "extract_text_scale_factor.txt"),
+        (
+            "Extract text with reducing font",
+            extract_text_reduce_font,
+            "sample-column.pdf",
+            "extract_text_reduce_font.txt",
+        ),
+        (
+            "Extract text with scale factor",
+            extract_text_scale_factor,
+            "sample-column.pdf",
+            "extract_text_scale_factor.txt",
+        ),
     ]
-
 
     for name, func, input_file, output_file in examples:
         try:

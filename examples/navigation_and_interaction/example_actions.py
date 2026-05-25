@@ -22,11 +22,16 @@ import aspose.pdf as ap
 from aspose.pycore import is_assignable
 from aspose.pdf import Rectangle
 from aspose.pdf.forms import ButtonField, CheckboxField
-from aspose.pdf.annotations import NamedAction, PredefinedAction, HideAction, SubmitFormAction
+from aspose.pdf.annotations import (
+    NamedAction,
+    PredefinedAction,
+    HideAction,
+    SubmitFormAction,
+)
 from os import path
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -298,6 +303,7 @@ def add_page_actions(infile, outfile):
     )
 
     document.save(outfile)
+
 
 def remove_page_actions(infile, outfile):
     """Remove all actions from the third page.

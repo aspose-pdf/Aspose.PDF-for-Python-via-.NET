@@ -9,7 +9,8 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import set_license, initialize_data_dir
+from config import set_license, initialize_data_dir  # noqa: E402
+
 
 # Export Data to XML
 def export_pdf_form_data_to_xml(infile, datafile):
@@ -21,9 +22,10 @@ def export_pdf_form_data_to_xml(infile, datafile):
     pdf_form.bind_pdf(infile)
 
     # Open XML file as stream
-    with FileIO(datafile, 'w') as xml_output_stream:
+    with FileIO(datafile, "w") as xml_output_stream:
         # Export data from PDF form fields to XML
         pdf_form.export_xml(xml_output_stream)
+
 
 # Export Data to FDF
 def export_form_data_to_fdf(infile, outfile):
@@ -35,9 +37,10 @@ def export_form_data_to_fdf(infile, outfile):
     pdf_form.bind_pdf(infile)
 
     # Create FDF file stream
-    with open(outfile, 'wb') as fdf_output_stream:
+    with open(outfile, "wb") as fdf_output_stream:
         # Export form data to FDF file
         pdf_form.export_fdf(fdf_output_stream)
+
 
 # Export Data to XFDF
 def export_pdf_form_to_xfdf(infile, outfile):
@@ -53,6 +56,7 @@ def export_pdf_form_to_xfdf(infile, outfile):
         # Export form data to XFDF file
         pdf_form.export_xfdf(xfdf_output_stream)
 
+
 # Export Data to JSON
 def export_form_to_json(infile, outfile):
     """Export PDF form field values to JSON file."""
@@ -63,9 +67,10 @@ def export_form_to_json(infile, outfile):
     form.bind_pdf(infile)
 
     # Create JSON file stream
-    with FileIO(outfile, 'w') as json_stream:
+    with FileIO(outfile, "w") as json_stream:
         # Export form field values to JSON
         form.export_json(json_stream, indented=True)
+
 
 # Extract XFA Data
 def export_xfa_data(infile, outfile):
@@ -75,10 +80,11 @@ def export_xfa_data(infile, outfile):
 
     # Bind PDF document
     form.bind_pdf(infile)
-    
-    with FileIO(outfile, 'w') as stream:
+
+    with FileIO(outfile, "w") as stream:
         # Export form field values to JSON
         form.extract_xfa_data(stream)
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run all import/export form data examples and report status.
@@ -104,7 +110,7 @@ def run_all_examples(data_dir=None, license_path=None):
 
     for name, func, data_file_name in examples:
         try:
-            if (func.__name__ == "export_xfa_data"):
+            if func.__name__ == "export_xfa_data":
                 input_file_name = path.join(input_dir, "sample_xfa_form.pdf")
             else:
                 input_file_name = path.join(input_dir, "sample_form.pdf")

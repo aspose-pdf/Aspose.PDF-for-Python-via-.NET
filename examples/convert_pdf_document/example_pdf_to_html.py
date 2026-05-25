@@ -2,7 +2,7 @@ import aspose.pdf as ap
 from os import path
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import initialize_data_dir, set_license
 
@@ -159,9 +159,7 @@ def convert_PDF_to_HTML_PNG_background(infile, outfile):
 
     document = ap.Document(infile)
     save_options = ap.HtmlSaveOptions()
-    save_options.raster_images_saving_mode = (
-        ap.HtmlSaveOptions.RasterImagesSavingModes.AS_EMBEDDED_PARTS_OF_PNG_PAGE_BACKGROUND
-    )
+    save_options.raster_images_saving_mode = ap.HtmlSaveOptions.RasterImagesSavingModes.AS_EMBEDDED_PARTS_OF_PNG_PAGE_BACKGROUND
     document.save(outfile, save_options)
 
     print(infile + " converted into " + outfile)
@@ -270,9 +268,7 @@ def run_all_examples(data_dir=None, license_path=None):
             convert_PDF_to_HTML_multi_page,
             "sample_multipage.html",
         ),
-        ("PDF to HTML storing SVG",
-         convert_PDF_to_HTML_storing_svg,
-         "sample_svg.html"),
+        ("PDF to HTML storing SVG", convert_PDF_to_HTML_storing_svg, "sample_svg.html"),
         (
             "PDF to HTML compress SVG",
             convert_PDF_to_HTML_compress_svg,
@@ -309,6 +305,6 @@ def run_all_examples(data_dir=None, license_path=None):
         except Exception as e:
             print(f"❌ Failed: {name} - {e}")
 
+
 if __name__ == "__main__":
-    
     run_all_examples()

@@ -9,15 +9,15 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import initialize_data_dir, set_license
+from config import initialize_data_dir, set_license  # noqa: E402
 
 
 def _create_viewer(infile: str) -> pdf_facades.PdfViewer:
     """Create a PdfViewer configured and bound to a PDF file.
-    
+
     Args:
         infile (str): Path to the PDF file to bind.
-    
+
     Returns:
         pdf_facades.PdfViewer: Configured and bound viewer with optimal settings for large files.
     """
@@ -37,7 +37,7 @@ def _create_viewer(infile: str) -> pdf_facades.PdfViewer:
 
 def print_large_pdf_with_default_settings(infile: str) -> None:
     """Print a large PDF file with default viewer settings.
-    
+
     Args:
         infile (str): Path to the PDF file to print.
     """
@@ -51,7 +51,7 @@ def print_large_pdf_with_default_settings(infile: str) -> None:
 
 def print_large_pdf_with_printer_settings(infile: str) -> None:
     """Print a large PDF file with explicit printer settings.
-    
+
     Args:
         infile (str): Path to the PDF file to print.
     """
@@ -66,7 +66,7 @@ def print_large_pdf_with_printer_settings(infile: str) -> None:
 
 def print_large_pdf_with_page_and_printer_settings(infile: str) -> None:
     """Print a large PDF file with explicit page and printer settings.
-    
+
     Args:
         infile (str): Path to the PDF file to print.
     """
@@ -83,7 +83,7 @@ def print_large_pdf_with_page_and_printer_settings(infile: str) -> None:
 
 def print_large_pdf_from_stream(infile: str) -> None:
     """Print a large PDF file from a stream with explicit settings.
-    
+
     Args:
         infile (str): Path to the PDF file to print.
     """
@@ -100,7 +100,7 @@ def print_large_pdf_from_stream(infile: str) -> None:
 
 def run_all_examples(data_dir=None, license_path=None) -> None:
     """Execute all large-print examples and report status.
-    
+
     Args:
         data_dir (str, optional): Custom data directory path. Defaults to None.
         license_path (str, optional): Path to Aspose license file. Defaults to None.
@@ -110,9 +110,18 @@ def run_all_examples(data_dir=None, license_path=None) -> None:
 
     infile = path.join(input_dir, "sample.pdf")
     examples = [
-        ("Print Large PDF with Default Settings", print_large_pdf_with_default_settings),
-        ("Print Large PDF with Printer Settings", print_large_pdf_with_printer_settings),
-        ("Print Large PDF with Page and Printer Settings", print_large_pdf_with_page_and_printer_settings),
+        (
+            "Print Large PDF with Default Settings",
+            print_large_pdf_with_default_settings,
+        ),
+        (
+            "Print Large PDF with Printer Settings",
+            print_large_pdf_with_printer_settings,
+        ),
+        (
+            "Print Large PDF with Page and Printer Settings",
+            print_large_pdf_with_page_and_printer_settings,
+        ),
         ("Print Large PDF from Stream", print_large_pdf_from_stream),
     ]
 

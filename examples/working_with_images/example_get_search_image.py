@@ -1,11 +1,12 @@
-import sys
 import math
-import aspose.pdf as ap
-from aspose.pycore import cast, is_assignable
-import aspose.pydrawing as drawing
+import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+import aspose.pdf as ap
+import aspose.pydrawing as drawing
+from aspose.pycore import cast, is_assignable
+
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -53,12 +54,13 @@ def extract_image_types_from_pdf(infile):
         extract_image_types_from_pdf("sample_extr.pdf")
 
     Note:
-        Prints total images count, color type for each image, and resolution info.
-        Uses operators analysis (GSave/GRestore/ConcatenateMatrix/Do) to calculate scaling.
+        Prints total images count, color type for each image, and resolution info.        
     """
+
     document = ap.Document(infile)
     absorber = ap.ImagePlacementAbsorber()
 
+    # Counters for grayscale and RGB images
     grayscaled = 0
     rgb = 0
 
@@ -70,6 +72,7 @@ def extract_image_types_from_pdf(infile):
     image_counter = 1
 
     for image_placement in absorber.image_placements:
+        # Determine the color type of the image
         colorType = image_placement.image.get_color_type()
         if colorType == ap.ColorType.GRAYSCALE:
             grayscaled += 1
@@ -79,65 +82,9 @@ def extract_image_types_from_pdf(infile):
             print(f"Image {image_counter} is RGB...")
         image_counter += 1
 
-    default_resolution = 72
-    graphics_state = []
-
-    image_names = list(document.pages[1].resources.images.names)
-
-    graphics_state.append(
-        drawing.drawing2d.Matrix(
-            float(1), float(0), float(0), float(1), float(0), float(0)
-        )
-    )
-
-    for op in document.pages[1].contents:
-        if is_assignable(op, ap.operators.GSave):
-            graphics_state.append(
-                cast(drawing.drawing2d.Matrix, graphics_state[-1]).clone()
-            )
-
-        elif is_assignable(op, ap.operators.GRestore):
-            graphics_state.pop()
-
-        elif is_assignable(op, ap.operators.ConcatenateMatrix):
-            opCM = cast(ap.operators.ConcatenateMatrix, op)
-            cm = drawing.drawing2d.Matrix(
-                float(opCM.matrix.a),
-                float(opCM.matrix.b),
-                float(opCM.matrix.c),
-                float(opCM.matrix.d),
-                float(opCM.matrix.e),
-                float(opCM.matrix.f),
-            )
-
-            graphics_state[-1].multiply(cm)
-            continue
-
-        elif is_assignable(op, ap.operators.Do):
-            opDo = cast(ap.operators.Do, op)
-            if opDo.name in image_names:
-                last_ctm = cast(drawing.drawing2d.Matrix, graphics_state[-1])
-                index = image_names.index(opDo.name) + 1
-                image = document.pages[1].resources.images[index]
-
-                scaled_width = math.sqrt(
-                    last_ctm.elements[0] ** 2 + last_ctm.elements[1] ** 2
-                )
-                scaled_height = math.sqrt(
-                    last_ctm.elements[2] ** 2 + last_ctm.elements[3] ** 2
-                )
-
-                original_width = image.width
-                original_height = image.height
-
-                res_horizontal = original_width * default_resolution / scaled_width
-                res_vertical = original_height * default_resolution / scaled_height
-
-                print(
-                    f"image {opDo.name} "
-                    f"({scaled_width:.2f}:{scaled_height:.2f}): "
-                    f"res {res_horizontal:.2f} x {res_vertical:.2f}"
-                )
+    print("--------------------------------")
+    print("Grayscale Images = " + str(grayscaled))
+    print("RGB Images = " + str(rgb))
 
 
 def extract_image_alt_text(infile):
@@ -187,67 +134,71 @@ def extract_image_information_from_pdf(infile):
         Uses graphics state stack to track transformations.
     """
 
-    document = ap.Document(infile)
+    with ap.Document(infile) as document:
+        default_resolution = 72
+        graphics_state = []
 
-    default_resolution = 72
-    graphics_state = []
+        image_names = list(document.pages[1].resources.images.names)
 
-    image_names = list(document.pages[1].resources.images.names)
-
-    graphics_state.append(
-        drawing.drawing2d.Matrix(
-            float(1), float(0), float(0), float(1), float(0), float(0)
+        graphics_state.append(
+            drawing.drawing2d.Matrix(
+                float(1), float(0), float(0), float(1), float(0), float(0)
+            )
         )
-    )
 
-    for op in document.pages[1].contents:
-        if is_assignable(op, ap.operators.GSave):
-            graphics_state.append(
-                cast(drawing.drawing2d.Matrix, graphics_state[-1]).clone()
-            )
-
-        elif is_assignable(op, ap.operators.GRestore):
-            graphics_state.pop()
-
-        elif is_assignable(op, ap.operators.ConcatenateMatrix):
-            opCM = cast(ap.operators.ConcatenateMatrix, op)
-            cm = drawing.drawing2d.Matrix(
-                float(opCM.matrix.a),
-                float(opCM.matrix.b),
-                float(opCM.matrix.c),
-                float(opCM.matrix.d),
-                float(opCM.matrix.e),
-                float(opCM.matrix.f),
-            )
-
-            graphics_state[-1].multiply(cm)
-            continue
-
-        elif is_assignable(op, ap.operators.Do):
-            opDo = cast(ap.operators.Do, op)
-            if opDo.name in image_names:
-                last_ctm = cast(drawing.drawing2d.Matrix, graphics_state[-1])
-                index = image_names.index(opDo.name) + 1
-                image = document.pages[1].resources.images[index]
-
-                scaled_width = math.sqrt(
-                    last_ctm.elements[0] ** 2 + last_ctm.elements[1] ** 2
-                )
-                scaled_height = math.sqrt(
-                    last_ctm.elements[2] ** 2 + last_ctm.elements[3] ** 2
+        for op in document.pages[1].contents:
+            if is_assignable(op, ap.operators.GSave):
+                graphics_state.append(
+                    cast(drawing.drawing2d.Matrix, graphics_state[-1]).clone()
                 )
 
-                original_width = image.width
-                original_height = image.height
+            elif is_assignable(op, ap.operators.GRestore):
+                graphics_state.pop()
 
-                res_horizontal = original_width * default_resolution / scaled_width
-                res_vertical = original_height * default_resolution / scaled_height
-
-                print(
-                    f"image {opDo.name} "
-                    f"({scaled_width:.2f}:{scaled_height:.2f}): "
-                    f"res {res_horizontal:.2f} x {res_vertical:.2f}"
+            elif is_assignable(op, ap.operators.ConcatenateMatrix):
+                op_cm = cast(ap.operators.ConcatenateMatrix, op)
+                cm = drawing.drawing2d.Matrix(
+                    float(op_cm.matrix.a),
+                    float(op_cm.matrix.b),
+                    float(op_cm.matrix.c),
+                    float(op_cm.matrix.d),
+                    float(op_cm.matrix.e),
+                    float(op_cm.matrix.f),
                 )
+
+                graphics_state[-1].multiply(cm)
+                continue
+
+            elif is_assignable(op, ap.operators.Do):
+                op_do = cast(ap.operators.Do, op)
+                if op_do.name in image_names:
+                    last_ctm = cast(drawing.drawing2d.Matrix, graphics_state[-1])
+                    index = image_names.index(op_do.name) + 1
+                    image = document.pages[1].resources.images[index]
+
+                    scaled_width = math.sqrt(
+                        last_ctm.elements[0] ** 2 + last_ctm.elements[1] ** 2
+                    )
+                    scaled_height = math.sqrt(
+                        last_ctm.elements[2] ** 2 + last_ctm.elements[3] ** 2
+                    )
+
+                    original_width = image.width
+                    original_height = image.height
+
+                    res_horizontal = (
+                        original_width * default_resolution / scaled_width
+                    )
+                    res_vertical = (
+                        original_height * default_resolution / scaled_height
+                    )
+
+                    info = (
+                        f"{infile} image {op_do.name} "
+                        f"({scaled_width:.2f}:{scaled_height:.2f}): "
+                        f"res {res_horizontal:.2f} x {res_vertical:.2f}\n"
+                    )
+                    print(info.rstrip())
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -258,7 +209,7 @@ def run_all_examples(data_dir=None, license_path=None):
     Returns:
         None
     """
-    
+
     set_license(license_path)
     input_dir, _ = initialize_data_dir(data_dir)
 

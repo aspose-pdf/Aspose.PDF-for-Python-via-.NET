@@ -7,9 +7,9 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import initialize_data_dir, set_license
+from config import initialize_data_dir, set_license  # noqa: E402
 
-from _pdf_file_signature_helpers import (
+from _pdf_file_signature_helpers import (  # noqa: E402
     DEFAULT_CERTIFIED_PDF,
     DEFAULT_SIGNED_PDF,
     create_pdf_file_signature,
@@ -52,7 +52,11 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Get Signature Revision", get_signature_revision, DEFAULT_SIGNED_PDF),
-        ("Get Total Document Revisions", get_total_document_revisions, DEFAULT_SIGNED_PDF),
+        (
+            "Get Total Document Revisions",
+            get_total_document_revisions,
+            DEFAULT_SIGNED_PDF,
+        ),
         ("Get Access Permissions", get_access_permissions, DEFAULT_CERTIFIED_PDF),
     ]
 

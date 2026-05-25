@@ -5,7 +5,7 @@ from aspose.pdf.annotations import SubmitFormAction
 from os import path
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -20,7 +20,9 @@ def add_submit_button(input_file_name, output_file_name):
         None
     """
     editor = ap.facades.FormEditor(input_file_name, output_file_name)
-    editor.add_submit_btn("submitbutton", 1, "Submit", "http://localhost/testing/show", 100, 450, 150, 475)
+    editor.add_submit_btn(
+        "submitbutton", 1, "Submit", "http://localhost/testing/show", 100, 450, 150, 475
+    )
     editor.save()
 
 
@@ -53,6 +55,7 @@ def add_submit_action(input_file_name, output_file_name):
 
     except Exception as e:
         print(f"Error adding submit button: {e}")
+
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run acroforms posting examples and report status.

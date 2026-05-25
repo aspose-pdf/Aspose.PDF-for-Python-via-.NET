@@ -2,7 +2,7 @@ import aspose.pdf as ap
 from os import path
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -44,7 +44,6 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"✅ Success: {name}")
         except Exception as e:
             print(f"❌ Failed: {name} - {e}")
-
 
 
 if __name__ == "__main__":

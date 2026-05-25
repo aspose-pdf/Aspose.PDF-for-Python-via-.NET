@@ -7,9 +7,9 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import initialize_data_dir, set_license
+from config import initialize_data_dir, set_license  # noqa: E402
 
-from _pdf_file_signature_helpers import (
+from _pdf_file_signature_helpers import (  # noqa: E402
     DEFAULT_SIGNED_PDF,
     create_pdf_file_signature,
     require_signature_name,
@@ -44,7 +44,11 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Extract Signature Image", extract_signature_image, "signature-image.bin"),
-        ("Extract Signature Certificate", extract_signature_certificate, "signature-certificate.cer"),
+        (
+            "Extract Signature Certificate",
+            extract_signature_certificate,
+            "signature-certificate.cer",
+        ),
     ]
 
     for name, func, output_name in examples:

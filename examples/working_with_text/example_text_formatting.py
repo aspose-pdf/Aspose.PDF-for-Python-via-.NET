@@ -2,9 +2,10 @@ import aspose.pdf as ap
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def specify_line_spacing_simple_case(outfile):
     """
@@ -1060,11 +1061,11 @@ def custom_tab_stops(output_file_name):
 def run_all_examples(data_dir=None, license_path=None):
     """Run text formatting examples and report status.
 
-        Args:
-            data_dir (str, optional): Input/output directory override.
-            license_path (str, optional): Path to Aspose.PDF license file.
-        Returns:
-            None
+    Args:
+        data_dir (str, optional): Input/output directory override.
+        license_path (str, optional): Path to Aspose.PDF license file.
+    Returns:
+        None
     """
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)

@@ -136,14 +136,16 @@ def remove_graphics_objects(infile, outfile):
         remove_graphics_objects("RemoveGraphicsObjects.pdf", "NoGraphics_out.pdf")
 
     Note:
-        Removes Stroke, ClosePathStroke, and Fill operators from first page.        
+        Removes Stroke, ClosePathStroke, and Fill operators from first page.
     """
     with ap.Document(infile) as document:
         page = document.pages[1]
         # Collect operators to remove in single pass
         # Operator codes: S=Stroke, h=ClosePathStroke, f=Fill'
         graphics_operators = {"S", "h", "f"}
-        operators_to_remove = [op for op in page.contents if str(op) in graphics_operators]
+        operators_to_remove = [
+            op for op in page.contents if str(op) in graphics_operators
+        ]
 
         page.contents.delete(operators_to_remove)
         document.save(outfile)

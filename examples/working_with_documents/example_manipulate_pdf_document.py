@@ -59,7 +59,9 @@ def set_toc_levels(input_pdf, output_pdf):
     toc_info.format_array[0].margin.left = 0
     toc_info.format_array[0].margin.right = 30
     toc_info.format_array[0].line_dash = ap.text.TabLeaderType.DOT
-    toc_info.format_array[0].text_state.font_style = ap.text.FontStyles.BOLD | ap.text.FontStyles.ITALIC
+    toc_info.format_array[0].text_state.font_style = (
+        ap.text.FontStyles.BOLD | ap.text.FontStyles.ITALIC
+    )
     toc_info.format_array[1].margin.left = 10
     toc_info.format_array[1].margin.right = 30
     toc_info.format_array[1].line_dash = 3
@@ -99,7 +101,9 @@ def hide_page_numbers_in_toc(input_pdf, output_pdf):
 
     toc_info.format_array_length = 4
     toc_info.format_array[0].margin.right = 0
-    toc_info.format_array[0].text_state.font_style = ap.text.FontStyles.BOLD | ap.text.FontStyles.ITALIC
+    toc_info.format_array[0].text_state.font_style = (
+        ap.text.FontStyles.BOLD | ap.text.FontStyles.ITALIC
+    )
     toc_info.format_array[1].margin.left = 30
     toc_info.format_array[1].text_state.underline = True
     toc_info.format_array[1].text_state.font_size = 10
@@ -119,7 +123,7 @@ def hide_page_numbers_in_toc(input_pdf, output_pdf):
     document.save(output_pdf)
 
 
-def customize_page_numbers_in_toc(input_pdf, output_pdf):  
+def customize_page_numbers_in_toc(input_pdf, output_pdf):
     document = ap.Document(input_pdf)
     toc_page = document.pages.insert(1)
     toc_info = ap.TocInfo()

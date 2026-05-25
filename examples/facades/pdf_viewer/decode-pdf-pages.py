@@ -9,7 +9,7 @@ EXAMPLES_DIR = path.abspath(path.join(CURRENT_DIR, "..", ".."))
 if EXAMPLES_DIR not in sys.path:
     sys.path.insert(0, EXAMPLES_DIR)
 
-from config import initialize_data_dir, set_license
+from config import initialize_data_dir, set_license  # noqa: E402
 
 
 def _create_viewer() -> pdf_facades.PdfViewer:
@@ -68,12 +68,12 @@ def run_all_examples(data_dir=None, license_path=None) -> None:
     examples = [
         ("Decode All Pages", lambda: decode_all_pages(infile, output_dir)),
         (
-            "Decode pecific Page",
+            "Decode Specific Page",
             lambda: decode_specific_page(
                 infile, path.join(output_dir, "decode_specific_page.png")
             ),
         ),
-        ("Inspect PDF Metadata", lambda: inspect_pdf_metadata),
+        ("Inspect PDF Metadata", lambda: inspect_pdf_metadata(infile)),
     ]
 
     for name, func in examples:
