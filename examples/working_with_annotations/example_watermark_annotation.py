@@ -1,6 +1,7 @@
 from os import path
-import aspose.pdf as ap
 import sys
+
+import aspose.pdf as ap
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 
@@ -22,7 +23,7 @@ def watermark_add(infile, outfile):
         >>> watermark_add("sample.pdf", "output.pdf")
 
     Note:
-        The watermark is positioned at coordinates (100, 0, 400, 100) with blue text
+        The watermark is positioned at coordinates (100, 100, 400, 200) with blue text
         at 25pt font size and 50% opacity.
     """
     document = ap.Document(infile)
@@ -30,23 +31,25 @@ def watermark_add(infile, outfile):
     # Load Page object to add Annotation
     page = document.pages[1]
 
-    # Create Annotation
-    wa = ap.annotations.WatermarkAnnotation(page, ap.Rectangle(100, 0, 400, 100, True))
+    watermark_annotation = ap.annotations.WatermarkAnnotation(
+        page,
+        ap.Rectangle(100, 100, 400, 200, True),
+    )
 
     # Add annotation into Annotation collection of Page
-    page.annotations.append(wa)
+    page.annotations.append(watermark_annotation)
 
     # Create TextState for Font settings
-    ts = ap.text.TextState()
-    ts.foreground_color = ap.Color.blue
-    ts.font_size = 25
-    ts.font = ap.text.FontRepository.find_font("Arial")
+    text_state = ap.text.TextState()
+    text_state.foreground_color = ap.Color.blue
+    text_state.font_size = 25
+    text_state.font = ap.text.FontRepository.find_font("Arial")
 
     # Set opacity level of Annotation Text
-    wa.opacity = 0.5
+    watermark_annotation.opacity = 0.5
 
     # Add Text in Annotation
-    wa.set_text_and_state(["HELLO", "Line 1", "Line 2"], ts)
+    watermark_annotation.set_text_and_state(["HELLO", "Line 1", "Line 2"], text_state)
 
     document.save(outfile)
 
@@ -69,14 +72,14 @@ def watermark_get(infile, outfile):
         This function prints the rectangle coordinates of all watermark annotations found on the first page.
     """
     document = ap.Document(infile)
-    watermarkAnnotations = [
+    watermark_annotations = [
         a
         for a in document.pages[1].annotations
         if (a.annotation_type == ap.annotations.AnnotationType.WATERMARK)
     ]
 
-    for ta in watermarkAnnotations:
-        print(ta.rect)
+    for watermark_annotation in watermark_annotations:
+        print(watermark_annotation.rect)
 
 
 def watermark_delete(infile, outfile):
@@ -97,44 +100,48 @@ def watermark_delete(infile, outfile):
         This function removes all watermark annotations from the first page and saves the modified PDF.
     """
     document = ap.Document(infile)
-    watermarkAnnotations = [
+    watermark_annotations = [
         a
         for a in document.pages[1].annotations
         if (a.annotation_type == ap.annotations.AnnotationType.WATERMARK)
     ]
 
-    for ta in watermarkAnnotations:
-        document.pages[1].annotations.delete(ta)
+    for watermark_annotation in watermark_annotations:
+        document.pages[1].annotations.delete(watermark_annotation)
 
-    document.save(outfile)
-
+    document.save(outfile)        
+ 
 
 def run_all_examples(data_dir=None, license_path=None):
-    """Run adding watermark annotations examples and report status.
-
+    """Run adding extra annotations examples and report status.
     Args:
         data_dir (str, optional): Input/output directory override.
         license_path (str, optional): Path to Aspose.PDF license file.
     Returns:
         None
     """
+
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("watermark_add", watermark_add),
-        ("watermark_get", watermark_get),
-        ("watermark_delete", watermark_delete),
+        ("Add Watermark Annotation", watermark_add, ["sample.pdf", "output_watermark_add.pdf"]),
+        ("Get Watermark Annotation", watermark_get, ["sample_watermark.pdf", "output_watermark_get.pdf"]),
+        ("Delete Watermark Annotation", watermark_delete, ["sample_watermark.pdf", "output_watermark_delete.pdf"])
+
     ]
 
-    for name, func in examples:
-        input_file_name = path.join(input_dir, "Annotations.pdf")
-        output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
+    for name, func, args in examples:
+        input_file_name = path.join(input_dir, args[0])
+        output_file_name = path.join(output_dir, args[1])
         try:
-            func(input_file_name, output_file_name)
+            if len(args) > 2:
+                func(input_file_name, output_file_name, args[2])
+            else:
+                func(input_file_name, output_file_name)
             print(f"✅ Success: {name}")
         except Exception as e:
-            print(f"❌ Failed: {name} - {str(e)}")
+            print(f"❌ Failed: {name} - {e}")
 
 
 if __name__ == "__main__":

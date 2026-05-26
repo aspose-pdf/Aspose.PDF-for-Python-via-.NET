@@ -1,6 +1,7 @@
-import sys
-import aspose.pdf as ap
 from os import path
+import sys
+
+import aspose.pdf as ap
 
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
