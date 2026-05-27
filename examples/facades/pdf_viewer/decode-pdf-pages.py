@@ -17,8 +17,7 @@ def _create_viewer() -> pdf_facades.PdfViewer:
     viewer = pdf_facades.PdfViewer()
     viewer.coordinate_type = ap.PageCoordinateType.MEDIA_BOX
     viewer.resolution = 150
-    viewer.scale_factor = 1.0
-    viewer.show_hidden_areas = False
+    viewer.scale_factor = 1.0    
     return viewer
 
 
@@ -26,7 +25,7 @@ def decode_all_pages(infile: str, output_dir: str) -> None:
     """Decode all pages of a PDF document into image files."""
     viewer = _create_viewer()
     try:
-        viewer.open_pdf_file(infile)
+        viewer.bind_pdf(infile)
         decoded_pages = viewer.decode_all_pages()
 
         for index, page_image in enumerate(decoded_pages, start=1):
@@ -44,14 +43,14 @@ def decode_specific_page(infile: str, outfile: str, page_number: int = 1) -> Non
         page_image = viewer.decode_page(page_number)
         page_image.save(outfile)
     finally:
-        viewer.close()
+        viewer.close_pdf_file()
 
 
 def inspect_pdf_metadata(infile: str) -> None:
     """Open a PDF and print page-count related viewer metadata."""
     viewer = _create_viewer()
     try:
-        viewer.open_pdf_file(infile)
+        viewer.bind_pdf(infile)
         print(f"Page count: {viewer.page_count}")
         print(f"Coordinate type: {viewer.coordinate_type}")
         print(f"Resolution: {viewer.resolution}")
