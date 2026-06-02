@@ -234,7 +234,7 @@ def run_all_examples(data_dir=None, license_path=None):
         (
             "screen_annotation_with_media_add",
             screen_annotation_with_media_add,
-            (path.join(input_dir, "input.swf"), path.join(output_dir, "screen_annotation_with_media_add_out.pdf")),
+            (path.join(input_dir, "sample.swf"), path.join(output_dir, "screen_annotation_with_media_add_out.pdf")),
         ),
     ]
 
