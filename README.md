@@ -3,14 +3,14 @@
 
 [Aspose.PDF for Python via .NET](https://products.aspose.com/pdf/python-net) is a Python wrapper that enables the developers to add PDF processing capabilities to their applications. It can be used to generate or read, convert and manipulate PDF files without the use of Adobe Acrobat.
 
-Directory | Description
---------- | -----------
-[examples](examples) | A collection of Python examples that help you learn the product features.
-[sample_data](sample_data) | A collection of test data for running Python examples.
+| Directory                  | Description                                                               |
+|----------------------------|---------------------------------------------------------------------------|
+| [examples](examples)       | A collection of Python examples that help you learn the product features. |
+| [sample_data](sample_data) | A collection of test data for running Python examples.                    |
 
-<p align="center">
+<p style="text-align: center">
   <a title="Download Examples ZIP" href="https://github.com/aspose-pdf/Aspose.PDF-for-Python-via-.NET/archive/master.zip">
-	<img src="https://raw.github.com/AsposeExamples/java-examples-dashboard/master/images/downloadZip-Button-Large.png" />
+	<img src="https://raw.github.com/AsposeExamples/java-examples-dashboard/master/images/downloadZip-Button-Large.png" alt="Download"/>
   </a>
 </p>
 
@@ -20,7 +20,7 @@ Directory | Description
 - Supports most established PDF standards and PDF specifications.
 - Ability to read & export PDFs in multiple image formats including BMP, GIF, JPEG & PNG.
 - Set basic information (e.g. author, creator) of the PDF document.
-- Configure PDF Page properties (e.g. width, height, cropbox, bleedbox etc.).
+- Configure PDF Page properties (e.g. width, height, cropBox, bleedBox etc.).
 - Set page numbering, bookmark level, page sizes etc.
 - Ability to work with text, paragraphs, headings, hyperlinks, graphs, attachments etc.
 
@@ -73,9 +73,9 @@ To learn more about **Aspose.PDF for Python via .NET** and explore the basic req
 
 Below code snippet follows these steps:
 
-1. Create an instance of the HtmlLoadOptions object.
-1. Initialize Document object.
-1. Save output PDF document by calling Document.save() method.
+1. Create an instance of the HtmlLoadOptions object. 
+2. Initialize Document object.
+3. Save output PDF document by calling Document.save() method.
 
 ```python
 import aspose.pdf as ap
