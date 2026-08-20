@@ -1,6 +1,5 @@
 import aspose.pdf as ap
 import io
-import pytesseract
 import sys
 from os import path
 from pathlib import Path
@@ -20,29 +19,33 @@ def create_new_document(input_pdf, output_pdf):
 
 
 def create_searchable_document(infile, outfile, image_file_path, page_number=1):
+    """Use optical character recognition (OCR) to create a searchable PDF document.
+
+    Args:
+        infile (str): The path to the input PDF file.
+        outfile (str): The path to the output searchable PDF file.
+        image_file_path (str): The path to the intermediate image file.
+        page_number (int): The page number to process.
+
+    Returns:
+        None
     """
-        An example of using optical character recognition (OCR) technology to create a searchable PDF document.
 
-        Args:
-            infile (str): The name of the input PDF file
-            outfile (str): The base name for output files (index will be appended)
-            image_file_path (str): The name of the image file
-            page_number (int): The page number
+    # Requires: pip install pytesseract
+    # Also ensure the Tesseract OCR engine is installed and available on your system PATH.
+    import pytesseract
 
-        Returns:
-            None
-        """
-    image_stream = io.FileIO(image_file_path, 'x')
     try:
+        image_stream = io.FileIO(image_file_path, 'x')
         document = ap.Document(infile)
         resolution = ap.devices.Resolution(300)
         png_device = ap.devices.PngDevice(resolution)
         png_device.process(document.pages[page_number], image_stream)
+        image_stream.close()
         pdf = pytesseract.image_to_pdf_or_hocr(image_file_path, extension='pdf')
         document = ap.Document(io.BytesIO(pdf))
         document.save(outfile)
     finally:
-        image_stream.close()
         image_file = Path(image_file_path)
         image_file.unlink(missing_ok=True)
 
