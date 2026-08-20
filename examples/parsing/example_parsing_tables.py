@@ -6,7 +6,6 @@ sys.path.append(path.join(path.dirname(__file__), ".."))
 from config import set_license, initialize_data_dir
 
 
-
 def extract_tables_from_pdf(infile):
     # Open PDF document
     document = ap.Document(infile)

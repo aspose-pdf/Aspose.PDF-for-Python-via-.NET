@@ -2,14 +2,14 @@ import aspose.pdf as ap
 from os import path
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
 
 def replace_cells(infile: str, outfile: str) -> None:
     """Replace text in table cells."""
-    # Open PDF document
+    # Open PDF document    
     document = ap.Document(infile)
 
     # Create TableAbsorber object to find tables
@@ -18,11 +18,15 @@ def replace_cells(infile: str, outfile: str) -> None:
     # Visit first page with absorber
     absorber.visit(document.pages[1])
 
-    # Get access to first table on page, their first cell and text fragments in it
-    fragment = absorber.table_list[0].row_list[0].cell_list[0].text_fragments[1]
+    if len(absorber.table_list) == 0:
+        raise ValueError("No tables were found on page 1.")
+
+    first_cell = absorber.table_list[0].row_list[0].cell_list[0]
+    if len(first_cell.text_fragments) == 0:
+        raise ValueError("The target cell has no text fragments.")
 
     # Change text of the first text fragment in the cell
-    fragment.text = "New Value"
+    first_cell.text_fragments[0].text = "New Value"
 
     # Save PDF document
     document.save(outfile)
@@ -39,8 +43,11 @@ def replace_table(infile: str, outfile: str) -> None:
     # Visit first page with absorber
     absorber.visit(document.pages[1])
 
+    if len(absorber.table_list) == 0:
+        raise ValueError("No tables were found on page 1.")
+
     # Get first table on the page
-    table = absorber.table_list[0]
+    old_table = absorber.table_list[0]
 
     # Create new table
     new_table = ap.Table()
@@ -56,8 +63,8 @@ def replace_table(infile: str, outfile: str) -> None:
     row.cells.add("Col 22")
     row.cells.add("Col 32")
 
-    # Replace the table with new one
-    absorber.replace(document.pages[1], table, new_table)
+    # Replace the old table with the new one
+    absorber.replace(document.pages[1], old_table, new_table)
 
     # Save PDF document
     document.save(outfile)

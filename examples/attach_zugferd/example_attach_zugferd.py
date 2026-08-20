@@ -47,11 +47,11 @@ def attach_invoice_zugferd_format(infile, invoice, outfile):
 
 def run_all_examples(data_dir=None, license_path=None):
     """Run ZUGFeRD attachment examples and report status.
-    
+
     Args:
         data_dir (str, optional): Input/output directory override.
         license_path (str, optional): Path to Aspose.PDF license file.
-    
+
     Returns:
         None
     """

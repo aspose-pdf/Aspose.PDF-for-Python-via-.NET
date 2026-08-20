@@ -6,7 +6,6 @@ sys.path.append(path.join(path.dirname(__file__), ".."))
 from config import set_license, initialize_data_dir
 
 
-
 def extract_fonts(infile):
     """
     Extract and print font names from PDF.

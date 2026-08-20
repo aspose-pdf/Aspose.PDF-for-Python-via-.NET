@@ -3,7 +3,7 @@ import aspose.pdf as ap
 from os import path
 from io import FileIO
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -149,7 +149,7 @@ def add_image_to_pdf_with_flate_compression(image_file, outfile):
     image_id = resources_images.add(image_stream, ap.ImageFilterType.FLATE)
 
     # Save the current graphics state
-    page.contents.add(ap.operators.GSave())
+    page.contents.add([ap.operators.GSave()])
 
     # Set coordinates for the image placement
     lowerLeftX = 0
@@ -170,11 +170,11 @@ def add_image_to_pdf_with_flate_compression(image_file, outfile):
     )
 
     # Use ConcatenateMatrix operator to define how the image must be placed
-    page.contents.add(ap.operators.ConcatenateMatrix(matrix))
-    page.contents.add(ap.operators.Do(image_id))
+    page.contents.add([ap.operators.ConcatenateMatrix(matrix)])
+    page.contents.add([ap.operators.Do(image_id)])
 
     # Restore the graphics state
-    page.contents.add(ap.operators.GRestore())
+    page.contents.add([ap.operators.GRestore()])
 
     # Save the document
     document.save(outfile)

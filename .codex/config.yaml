@@ -1,0 +1,29 @@
+# ~/.codex/config.yaml
+
+# --- Core Codex Settings ---
+model: gpt-5.3
+approval_mode: auto-edit
+notify: true
+
+# --- Execution Behavior ---
+fullAutoErrorMode: ask-user   # ask-user | ignore-and-continue
+
+# --- Project Instructions ---
+instructions: |
+  You are working in a repository of Python examples for Aspose.PDF for Python via .NET.
+
+  Prefer the narrowest applicable local skill from `.codex/skills/`:
+  - `pdf-operations` for Aspose.PDF API usage and example behavior
+  - `code-style` for structure, naming, path handling, and output conventions
+  - `spec-generator` for generating or refreshing repository example specs
+
+  Global repository rules:
+  - Preserve the established example architecture under `examples/`
+  - Reuse `examples/config.py` for `set_license(...)` and `initialize_data_dir(...)`
+  - Do not add new dependencies beyond the repo's current Python requirements unless explicitly requested
+  - Prefer repo-owned automation in `scripts/` over ad-hoc one-off generation logic
+  - When examples are added or materially changed, refresh the generated spec artifacts with:
+    `python scripts/generate_example_specs.py`
+  - When scaffolding a new example, prefer:
+    `python scripts/generate_example_stub.py --category <category> --name <slug> --operation <function_name>`
+  - Keep generated artifacts deterministic and safe to re-run

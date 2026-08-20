@@ -2,9 +2,10 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def insert_empty_page(input_file_name, output_file_name):
     """Insert a new empty page at a specific position.
@@ -84,11 +85,11 @@ def run_all_examples(data_dir=None, license_path=None):
     examples = [
         ("insert_empty_page", insert_empty_page),
         ("add_empty_page_to_end", add_empty_page_to_end),
-        ("add_page_from_another_document", add_page_from_another_document)
+        ("add_page_from_another_document", add_page_from_another_document),
     ]
 
     for name, func in examples:
-        input_file_name = path.join(input_dir, "sample.pdf")
+        input_file_name = path.join(input_dir, "sample2pages.pdf")
         output_file_name = path.join(output_dir, f"{name}_out.pdf")
         try:
             func(input_file_name, output_file_name)
@@ -101,5 +102,4 @@ def run_all_examples(data_dir=None, license_path=None):
 
 # Main execution
 if __name__ == "__main__":
-
     run_all_examples()

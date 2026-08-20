@@ -29,12 +29,14 @@ def initialize_data_dir(data_dir=None):
         '/custom/data/path/input'
     """
     if data_dir is None:
-        script_dir = os.path.dirname(os.path.abspath(sys.modules['__main__'].__file__))
+        script_dir = os.path.dirname(os.path.abspath(sys.modules["__main__"].__file__))
         # Find the last occurrence of "examples" in the path and replace it with "sample_data"
         parts = script_dir.split(os.sep)
         if "examples" in parts:
             idx = len(parts) - 1 - parts[::-1].index("examples")
-            sample_data_path = os.sep.join(parts[:idx] + ["sample_data"] + parts[idx+1:])
+            sample_data_path = os.sep.join(
+                parts[:idx] + ["sample_data"] + parts[idx + 1 :]
+            )
             dir_path = sample_data_path
         else:
             dir_path = script_dir

@@ -1,6 +1,6 @@
 import aspose.pdf as ap
-from os import path
 from aspose.pdf import Color, HorizontalAlignment
+from os import path
 import sys
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
@@ -31,7 +31,7 @@ def create_table(outfile: str) -> None:
     # Set the border for table cells
     table.default_cell_border = ap.BorderInfo(ap.BorderSide.ALL, 5, ap.Color.light_gray)
     # Create a loop to add 10 rows
-    for row_count in range(0, 10):
+    for row_count in range(10):
         # Add row to table
         row = table.rows.add()
         # Add table cells
@@ -708,13 +708,17 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("create_table", create_table, []),
-        ("add_svg_image", add_svg_image, [
+        (
+            "add_svg_image",
+            add_svg_image,
             [
-                path.join(input_dir, "genetic-algorithm-svgrepo-com.svg"),
-                path.join(input_dir, "genetic-research-svgrepo-com.svg"),
-                path.join(input_dir, "gene-structure-svgrepo-com.svg"),
-            ]
-        ]),
+                [
+                    path.join(input_dir, "genetic-algorithm-svgrepo-com.svg"),
+                    path.join(input_dir, "genetic-research-svgrepo-com.svg"),
+                    path.join(input_dir, "gene-structure-svgrepo-com.svg"),
+                ]
+            ],
+        ),
         ("add_image", add_image, [path.join(input_dir, "logo.jpg")]),
         ("add_rowspan_or_colspan", add_rowspan_or_colspan, []),
         ("add_borders", add_borders, []),
@@ -741,5 +745,4 @@ def run_all_examples(data_dir=None, license_path=None):
 
 
 if __name__ == "__main__":
-
     run_all_examples()

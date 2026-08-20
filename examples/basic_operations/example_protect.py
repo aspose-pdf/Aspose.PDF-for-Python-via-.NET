@@ -138,11 +138,14 @@ def determine_correct_password_from_list(infile):
             document = ap.Document(infile, password)
             count = len(document.pages)
             if count > 0:
-                print(f"Number of Page in document are = {count}")
+                print(f"Password '{password}' is correct. Number of pages in document: {count}")
         except RuntimeError as ex:
-            template = "An exception of type {0} occurred. Arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)
-            print(message)
+            if "InvalidPasswordException" in str(type(ex)) or "InvalidPasswordException" in str(ex):
+                print(f"Wrong password: {password}")
+            else:
+                template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+                message = template.format(type(ex).__name__, ex.args)
+                print(message)
 
 
 def run_all_examples(data_dir=None, license_path=None):
@@ -164,12 +167,7 @@ def run_all_examples(data_dir=None, license_path=None):
             "sample3.pdf",
             "sample_protected.pdf",
         ),
-        (
-            "Encrypt PDF file",
-            encrypt_pdf_file,
-            "sample3.pdf",
-            "sample_protected.pdf"
-        ),
+        ("Encrypt PDF file", encrypt_pdf_file, "sample3.pdf", "sample_protected.pdf"),
         (
             "Change password",
             change_password,

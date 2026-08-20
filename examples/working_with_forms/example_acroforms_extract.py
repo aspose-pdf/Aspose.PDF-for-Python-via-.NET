@@ -2,7 +2,7 @@ import aspose.pdf as ap
 import sys
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -41,9 +41,7 @@ def run_all_examples(data_dir=None, license_path=None):
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
-    input_file_name = path.join(
-        input_dir, "StudentInfoFormElectronic.pdf"
-    )
+    input_file_name = path.join(input_dir, "StudentInfoFormElectronic.pdf")
 
     try:
         values = get_values_from_all_fields(input_file_name)

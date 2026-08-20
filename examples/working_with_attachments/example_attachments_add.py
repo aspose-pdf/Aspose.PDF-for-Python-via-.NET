@@ -2,7 +2,7 @@ from os import path
 import aspose.pdf as ap
 import sys
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -49,10 +49,13 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
 
     examples = [
-        ("add_attachments", add_attachments,
-         path.join(input_dir, "sample.pdf"),
-         path.join(input_dir, "file_example.txt"),
-         path.join(output_dir, "sample_with_attachment.pdf")),
+        (
+            "add_attachments",
+            add_attachments,
+            path.join(input_dir, "sample.pdf"),
+            path.join(input_dir, "file_example.txt"),
+            path.join(output_dir, "sample_with_attachment.pdf"),
+        ),
     ]
 
     for example in examples:

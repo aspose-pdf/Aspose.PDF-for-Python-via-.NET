@@ -2,9 +2,10 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '../..'))
+sys.path.append(path.join(path.dirname(__file__), "../.."))
 
 from config import set_license, initialize_data_dir
+
 
 def add_image_stamp(infile, input_image_file, outfile):
     document = ap.Document(infile)
@@ -20,6 +21,7 @@ def add_image_stamp(infile, input_image_file, outfile):
     document.pages[1].add_stamp(image_stamp)
     document.save(outfile)
 
+
 def add_image_stamp_with_quality_control(infile, input_image_file, outfile):
     document = ap.Document(infile)
 
@@ -29,11 +31,11 @@ def add_image_stamp_with_quality_control(infile, input_image_file, outfile):
     document.pages[1].add_stamp(image_stamp)
     document.save(outfile)
 
+
 def add_image_as_background_in_floating_box(infile, input_image_file, outfile):
 
     document = ap.Document(infile)
-    # Add page to PDF document
-    page = document.pages.add()
+    page = document.pages[1]
     # Create FloatingBox object
     box = ap.FloatingBox(200.0, 100.0)
     # Set left position for FloatingBox
@@ -58,6 +60,7 @@ def add_image_as_background_in_floating_box(infile, input_image_file, outfile):
     # Save the PDF document
     document.save(outfile)
 
+
 def run_all_examples(data_dir=None, license_path=None):
     """Run image stamps examples and report status.
     Args:
@@ -71,8 +74,14 @@ def run_all_examples(data_dir=None, license_path=None):
     input_dir, output_dir = initialize_data_dir(data_dir)
     examples = [
         ("add_image_stamp", add_image_stamp),
-        ("add_image_stamp_image_control_image_quality", add_image_stamp_with_quality_control),
-        ("add_image_as_background_in_floating_box", add_image_as_background_in_floating_box),
+        (
+            "add_image_stamp_image_control_image_quality",
+            add_image_stamp_with_quality_control,
+        ),
+        (
+            "add_image_as_background_in_floating_box",
+            add_image_as_background_in_floating_box,
+        ),
     ]
 
     input_file_name = path.join(input_dir, "sample.pdf")
@@ -92,4 +101,3 @@ def run_all_examples(data_dir=None, license_path=None):
 # Main execution
 if __name__ == "__main__":
     run_all_examples()
-

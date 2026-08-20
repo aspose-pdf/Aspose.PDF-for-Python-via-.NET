@@ -2,9 +2,10 @@ import sys
 import aspose.pdf as ap
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
+
 
 def extract_page(input_file_name, output_file_name):
     """
@@ -77,7 +78,7 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("extract_page", extract_page),
-        ("extract_bunch_pages", extract_bunch_pages)
+        ("extract_bunch_pages", extract_bunch_pages),
     ]
 
     input_file_name = path.join(input_dir, "sample.pdf")
@@ -91,6 +92,7 @@ def run_all_examples(data_dir=None, license_path=None):
             print(f"❌ {name} failed: {e}")
 
     print(f"\nAll page extraction examples finished. Check output in {output_dir}")
+
 
 if __name__ == "__main__":
     run_all_examples()

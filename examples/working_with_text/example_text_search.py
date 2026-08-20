@@ -1,12 +1,11 @@
 import io
 import sys
-import re
 import shutil
 import aspose.pdf as ap
 import aspose.pydrawing as drawing
 from os import path
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 
@@ -211,8 +210,7 @@ def text_fragment_absorber_sequential_search(input_file_path):
 
     # Continue to next page
     document.pages[2].accept(absorber)
-    absorber.visit(document)
-
+    
     for fragment in absorber.text_fragments:
         print("Text:", fragment.text)
         print("Page:", fragment.page.number)
@@ -347,7 +345,7 @@ def text_fragment_absorber_search_and_add_hyperlink(input_file_path):
             f"https://en.wikipedia.org/wiki/{fragment.text}"
         )
 
-    output = input_file_path.replace("in.pdf", "out.pdf")
+    output = input_file_path.replace("in.pdf", "out.pdf").replace("input", "output")
     document.save(output)
 
 
@@ -453,32 +451,34 @@ def text_fragment_absorber_search_and_highlight(infile):
                     )
                     for seg_num in range(1, len(text_fragment.segments) + 1):
                         segment = text_fragment.segments[seg_num]
-                        for char_num in range(1, len(segment.characters) + 1):
-                            character_info = segment.characters[char_num]
-                            rect = page.get_page_rect(True)
-                            print(
-                                f"TextFragment = {text_fragment.text}"
-                                + f" Page URY = {rect.ury}"
-                                + f" TextFragment URY = {text_fragment.rectangle.ury}"
-                            )
+                        if (page.number >1):
+                            for char_num in range(1, len(segment.characters) + 1):
+                                character_info = segment.characters[char_num]
+                                rect = page.get_page_rect(True)
+                                print(
+                                    f"TextFragment = {text_fragment.text}"
+                                    + f" Page URY = {rect.ury}"
+                                    + f" TextFragment URY = {text_fragment.rectangle.ury}"
+                                )
+                                gr.draw_rectangle(
+                                    drawing.Pens.black,
+                                    float(character_info.rectangle.llx),
+                                    float(character_info.rectangle.lly),
+                                    float(character_info.rectangle.width),
+                                    float(character_info.rectangle.height),
+                                )
+                        if (page.number == 1):
                             gr.draw_rectangle(
-                                drawing.Pens.black,
-                                float(character_info.rectangle.llx),
-                                float(character_info.rectangle.lly),
-                                float(character_info.rectangle.width),
-                                float(character_info.rectangle.height),
+                                drawing.Pens.green,
+                                float(segment.rectangle.llx),
+                                float(segment.rectangle.lly),
+                                float(segment.rectangle.width),
+                                float(segment.rectangle.height),
                             )
-                        gr.draw_rectangle(
-                            drawing.Pens.green,
-                            float(segment.rectangle.llx),
-                            float(segment.rectangle.lly),
-                            float(segment.rectangle.width),
-                            float(segment.rectangle.height),
-                        )
 
                 # Save result
                 bmp.save(
-                    infile.replace("_in.pdf", str(page.number) + "_out.png"),
+                    infile.replace("_in.pdf", str(page.number) + "_out.png").replace("input", "output"),
                     drawing.imaging.ImageFormat.png,
                 )
 
@@ -517,7 +517,7 @@ def run_all_examples(data_dir=None, license_path=None):
         >>> run_all_examples("/custom/data/path")
         # Runs examples in custom directory
     """
-    
+
     set_license(license_path)
     input_dir, output_dir = initialize_data_dir(data_dir)
 
@@ -530,10 +530,7 @@ def run_all_examples(data_dir=None, license_path=None):
             "text_fragment_absorber_sequential_search",
             text_fragment_absorber_sequential_search,
         ),
-        (
-            "text_fragment_absorber_search_phrase",
-            text_fragment_absorber_search_phrase
-        ),
+        ("text_fragment_absorber_search_phrase", text_fragment_absorber_search_phrase),
         ("text_fragment_absorber_search_regex", text_fragment_absorber_search_regex),
         (
             "text_fragment_absorber_search_list_of_phrases",

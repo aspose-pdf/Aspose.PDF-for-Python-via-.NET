@@ -1,21 +1,40 @@
-import aspose.pdf as ap
 import io
 import sys
 from os import path
 from pathlib import Path
 
+import aspose.pdf as ap
+import pytesseract
 
 sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir  # noqa: E402
 
 
-def create_new_document(input_pdf, output_pdf):
+def create_new_document(output_pdf):
     """Create a simple PDF with a single “Hello World!” page."""
     document = ap.Document()
     page = document.pages.add()
     page.paragraphs.add(ap.text.TextFragment("Hello World!"))
     document.save(output_pdf)
+
+def create_searchable_pdf(input_pdf, output_pdf):
+    """Convert a PDF page to an image and use OCR to produce a searchable PDF."""
+    temp_image_path = "temp_image.png"
+    page_number = 1
+    image_stream = io.FileIO(temp_image_path, "w")
+    try:
+        document = ap.Document(input_pdf)
+        resolution = ap.devices.Resolution(300)
+        png_device = ap.devices.PngDevice(resolution)
+        png_device.process(document.pages[page_number], image_stream)
+        image_stream.close()
+        pdf = pytesseract.image_to_pdf_or_hocr(temp_image_path, extension="pdf")
+        document = ap.Document(io.BytesIO(pdf))
+        document.save(output_pdf)
+    finally:
+        image_file = Path(temp_image_path)
+        image_file.unlink(missing_ok=True)
 
 
 def create_searchable_document(infile, outfile, image_file_path, page_number=1):
@@ -57,16 +76,15 @@ def run_all_examples(data_dir=None, license_path=None):
 
     examples = [
         ("Create new document", create_new_document),
-        ("Create a Searchable PDF document", create_searchable_document),
+        ("Create searchable PDF", create_searchable_pdf),
     ]
 
     for name, func in examples:
         try:
             input_file_name = path.join(input_dir, f"{func.__name__}.pdf")
             output_file_name = path.join(output_dir, f"{func.__name__}.pdf")
-            if func == create_searchable_document:
-                image_path = path.join(output_dir, "create_searchable_document.png")
-                func(input_file_name, output_file_name, image_path)
+            if func.__name__ == "create_new_document":
+                func(output_file_name)
             else:
                 func(input_file_name, output_file_name)
             print(f"✅ Success: {name}")

@@ -3,7 +3,7 @@ from os import path
 import aspose.pdf as ap
 import aspose.pydrawing as drawing
 
-sys.path.append(path.join(path.dirname(__file__), '..'))
+sys.path.append(path.join(path.dirname(__file__), ".."))
 
 from config import set_license, initialize_data_dir
 

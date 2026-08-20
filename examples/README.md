@@ -10,10 +10,13 @@ This repository contains Python examples for [Aspose.PDF for Python via .NET](ht
 
 | Folder | Description |
 | --- | --- |
+| [accessibility_tagged_pdf](accessibility_tagged_pdf) | Creating, editing, and extracting tagged PDF content for accessibility and PDF/UA workflows. |
 | [basic_operations](basic_operations) | The first and simplest operation with PDF documents. To learn more about check out the following [Basic operations](https://docs.aspose.com/pdf/python-net/basic-operations/) page. |
 | [attach_zugferd](attach_zugferd) | Working with Zugferd attachments in PDF documents. |
 | [compare](compare) | Comparing and analyzing PDF documents. |
 | [convert_pdf_document](convert_pdf_document) | Converting PDF documents to and from other formats. |
+| [facades](facades) | Using Aspose.PDF Facades API for form editing, content editing, file operations, stamping, viewing, and signing workflows. |
+| [get_started](get_started) | Introductory examples for creating and composing simple PDF documents. |
 | [navigation_and_interaction](navigation_and_interaction) | Working with bookmarks, actions, and navigation elements in PDFs. |
 | [parsing](parsing) | Extracting and parsing content from PDF documents. |
 | [pdf_file_metadata](pdf_file_metadata) | Working with PDF document metadata and properties. |
@@ -65,14 +68,18 @@ This repository contains Python examples for [Aspose.PDF for Python via .NET](ht
 
 ### Sample Data
 
-The examples use sample PDF files located in the `sample_data` directory. The configuration module automatically handles the input and output directories:
+The examples use sample files under the `sample_data` directory. The configuration module creates `input` and `output` folders relative to the example category being executed.
 
-- **Input files**: `sample_data/input/`
-- **Output files**: `sample_data/output/`
+- **Input files**: `sample_data/<category>/input/`
+- **Output files**: `sample_data/<category>/output/`
+
+Example:
+
+- Running `python basic_operations/example_open.py` uses `sample_data/basic_operations/input/` and `sample_data/basic_operations/output/`
 
 ### Running All Examples
 
-To run multiple examples, navigate to the examples directory and execute them one by one:
+To run a small set of examples, navigate to the examples directory and execute them one by one:
 
 ```bash
 python basic_operations/example_open.py
@@ -82,9 +89,45 @@ python basic_operations/example_splitter.py
 python basic_operations/example_protect.py
 ```
 
+To run all example scripts in the `examples` tree:
+
+#### Windows (PowerShell)
+
+```powershell
+Get-ChildItem -Path . -Recurse -Filter "example_*.py" |
+ForEach-Object {
+   Write-Host "Running $($_.FullName)"
+   python $_.FullName
+}
+```
+
+#### macOS/Linux (bash)
+
+```bash
+find . -type f -name "example_*.py" -print0 |
+while IFS= read -r -d '' file; do
+   echo "Running $file"
+   python "$file"
+done
+```
+
+Note:
+
+- Running all examples can take a long time.
+- Some examples require specific input files in corresponding `sample_data/<category>/input/` directories.
+
 ### Troubleshooting
 
 - Ensure all dependencies are installed: `pip install -r requirements.txt`
-- Verify that sample PDF files exist in the `sample_data/input/` directory
-- Check that you have write permissions for the `sample_data/output/` directory
+- Verify that sample PDF files exist in the category-specific input directory (for example, `sample_data/basic_operations/input/`)
+- Check that you have write permissions for the corresponding category-specific output directory
 - Make sure you're running Python 3.7 or higher: `python --version`
+
+## Code Style
+
+Examples are formatted and linted with Ruff.
+
+```bash
+ruff check examples --fix
+ruff format examples
+```

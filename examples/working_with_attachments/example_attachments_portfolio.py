@@ -58,11 +58,14 @@ def run_all_examples(data_dir=None, license_path=None):
         (
             "Create PDF Portfolio",
             create_pdf_portfolio,
-            ([
-                path.join(input_dir, "sample_word.docx"),
-                path.join(input_dir, "sample_excel.xlsx"),
-                path.join(input_dir, "sample_image.png"),
-            ], path.join(output_dir, "sample_with_portfolio.pdf")),
+            (
+                [
+                    path.join(input_dir, "sample_word.docx"),
+                    path.join(input_dir, "sample_excel.xlsx"),
+                    path.join(input_dir, "sample_image.png"),
+                ],
+                path.join(output_dir, "sample_with_portfolio.pdf"),
+            ),
         ),
         (
             "Remove files from PDF Portfolio",

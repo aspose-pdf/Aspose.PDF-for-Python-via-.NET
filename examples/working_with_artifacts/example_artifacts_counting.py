@@ -3,6 +3,7 @@ from collections import Counter
 import sys
 
 import aspose.pdf as ap
+
 sys.path.append(path.join(path.dirname(__file__), ".."))
 from config import initialize_data_dir, set_license
 
