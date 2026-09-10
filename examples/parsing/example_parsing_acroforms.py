@@ -30,7 +30,6 @@ def extract_form_fields_JSON(infile, outfile):
     with io.FileIO(outfile, "w") as json_file:
         form.export_json(json_file, True)
 
-
 def extract_form_fields_json_doc(infile, outfile):
     form = ap.facades.Form(infile)
     form_data = {}

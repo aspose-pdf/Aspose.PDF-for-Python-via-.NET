@@ -162,7 +162,7 @@ def convert_WebPage_to_PDF(infile, outfile):
         convert_WebPage_to_PDF("https://docs.aspose.com/pdf/python-net/", "sample_page.pdf")
 
     Note:
-        This feature is not implemented yet. Requires requests library and temp file handling.
+        This feature is not implemented yet. It requires requests library and temp file handling.
     """
     raise NotImplementedError("Web page to PDF conversion is not implemented yet")
 
