@@ -10,7 +10,10 @@ from config import set_license, initialize_data_dir  # noqa: E402
 
 def _validate_pdfa_standard(input_pdf, output_pdf, pdf_format):
     document = ap.Document(input_pdf)
-    document.validate(output_pdf, pdf_format)
+    if (document.validate(output_pdf, pdf_format)):
+        print("PDF is valid")
+    else:
+        print("PDF is not valid")
 
 
 def validate_pdfa_standard_a1a(input_pdf, output_pdf):
@@ -164,9 +167,7 @@ def set_pdf_expiry_date(input_pdf, output_pdf):
 
 def flatten_fillable_pdf(input_pdf, output_pdf):
     document = ap.Document(input_pdf)
-    if document.form and document.form.fields:
-        for field in document.form.fields:
-            field.flatten()
+    document.flatten()
     document.save(output_pdf)
 
 
