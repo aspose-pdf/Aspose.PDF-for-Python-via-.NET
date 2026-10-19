@@ -8,7 +8,7 @@
 | [examples](examples)       | A collection of Python examples that help you learn the product features. |
 | [sample_data](sample_data) | A collection of test data for running Python examples.                    |
 
-<p style="text-align: center">
+<p align="center">
   <a title="Download Examples ZIP" href="https://github.com/aspose-pdf/Aspose.PDF-for-Python-via-.NET/archive/master.zip">
 	<img src="https://raw.github.com/AsposeExamples/java-examples-dashboard/master/images/downloadZip-Button-Large.png" alt="Download"/>
   </a>
