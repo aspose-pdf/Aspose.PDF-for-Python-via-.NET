@@ -19,6 +19,7 @@ def check_usage_rights(infile, outfile):
         pdf_signature.bind_pdf(infile)
         had_usage_rights = pdf_signature.contains_usage_rights()
         print(f"PDF contains usage rights: {had_usage_rights}")
+        pdf_signature.save(outfile)
     finally:
         pdf_signature.close()
 
