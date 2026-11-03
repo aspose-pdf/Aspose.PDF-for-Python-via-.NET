@@ -308,7 +308,7 @@ def add_latex_fragments(outfile: str) -> None:
 
         cell = row.cells.add()
         cell.paragraphs.add(
-            ap.LatexFragment(f"Column \\tiny{({row_count}, 2)}")
+            ap.LatexFragment(f"Column {{\\tiny ({row_count}, 2)}}")
         )
 
         cell = row.cells.add()
@@ -465,9 +465,9 @@ def add_margins_or_padding(outfile: str) -> None:
     table.border = ap.BorderInfo(ap.BorderSide.ALL, 1)
 
     # Set the default cell padding to the MarginInfo object
-    table.default_cell_padding = ap.MarginInfo(10,15,5,5)
+    table.default_cell_padding = ap.MarginInfo(10, 15, 5, 5)
 
-    table.margin = ap.MarginInfo(5,10,5,15)
+    table.margin = ap.MarginInfo(5, 10, 5, 15)
 
     # Create rows and cells
     row1 = table.rows.add()
