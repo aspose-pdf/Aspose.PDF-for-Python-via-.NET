@@ -169,7 +169,7 @@ def run_all_examples(data_dir=None, license_path=None):
             if "delete" in name:
                 input_file_name = path.join(input_dir, "delete_bookmark_in.pdf")
             else:
-                input_file_name = path.join(input_dir, "bookmark.pdf")
+                input_file_name = path.join(input_dir, "add_bookmark.pdf")
             output_file_name = path.join(output_dir, f"{func.__name__}_out.pdf")
             func(input_file_name, output_file_name)
             print(f"✅ Success: {name}")
