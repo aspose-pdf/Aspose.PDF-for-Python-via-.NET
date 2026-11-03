@@ -16,7 +16,7 @@ def extract_xfa_form_fields(infile):
 
     # Get field position
     if len(names) > 0:
-        name0=names[0]
+        name0 = names[0]
         t = document.form.xfa.get_field_template(name0)
         print(t.attributes["x"].value)
         print(t.attributes["y"].value)
