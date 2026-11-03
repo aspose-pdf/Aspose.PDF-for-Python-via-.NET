@@ -12,7 +12,7 @@ from config import set_license, initialize_data_dir
 def add_line(outfile: str):
     document = ap.Document()
     page = document.pages.add()
-    graph = drawing.Graph(100, 400)
+    graph = drawing.Graph(200, 400)
     page.paragraphs.add(graph)
 
     line = drawing.Line([100, 100, 200, 100])

@@ -308,12 +308,12 @@ def add_latex_fragments(outfile: str) -> None:
 
         cell = row.cells.add()
         cell.paragraphs.add(
-            ap.LatexFragment(f"Column $\\textcolor{{red}}{{({row_count}, 2)}}$")
+            ap.LatexFragment(f"Column \\tiny{({row_count}, 2)}")
         )
 
         cell = row.cells.add()
         cell.paragraphs.add(
-            ap.LatexFragment(f"Column $\\underline{{({row_count}, 3)}}$")
+            ap.LatexFragment(f"Column \\underline{{({row_count}, 3)}}")
         )
         row_count += 1
 
@@ -442,11 +442,18 @@ def add_margins_or_padding(outfile: str) -> None:
     # Add page
     page = document.pages.add()
 
+    text = ap.text.TextFragment("Demo Text")
+
+
     # Instantiate a table object
     table = ap.Table()
 
+    # Add text before table
+    page.paragraphs.add(text)
     # Add the table in paragraphs collection of the desired section
     page.paragraphs.add(table)
+    # Add text after table
+    page.paragraphs.add(text)
 
     # Set column widths of the table
     table.column_widths = "50 50 50"
@@ -457,15 +464,10 @@ def add_margins_or_padding(outfile: str) -> None:
     # Set table border using another customized BorderInfo object
     table.border = ap.BorderInfo(ap.BorderSide.ALL, 1)
 
-    # Create MarginInfo object and set its left, bottom, right and top margins
-    margin = ap.MarginInfo()
-    margin.top = 5
-    margin.left = 5
-    margin.right = 5
-    margin.bottom = 5
-
     # Set the default cell padding to the MarginInfo object
-    table.default_cell_padding = margin
+    table.default_cell_padding = ap.MarginInfo(10,15,5,5)
+
+    table.margin = ap.MarginInfo(5,10,5,15)
 
     # Create rows and cells
     row1 = table.rows.add()
