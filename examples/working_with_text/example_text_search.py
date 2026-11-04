@@ -298,7 +298,7 @@ def text_fragment_absorber_search_list_of_phrases(input_file_path):
     Search for multiple regex patterns simultaneously (NOT IMPLEMENTED).
 
     Intended to demonstrate searching for multiple regular expression patterns
-    in a single operation. Currently raises NotImplementedError as this
+    in a single operation. Currently, raises NotImplementedError as this
     functionality may not be available in the current Aspose.PDF version.
     """
 

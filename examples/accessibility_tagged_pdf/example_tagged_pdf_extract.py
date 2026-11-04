@@ -36,7 +36,7 @@ def get_root_structure(outfile):
         tagged_content.set_language("en-US")
 
         # Properties StructTreeRootElement and RootElement are used for access to
-        # StructTreeRoot object of pdf document and to root structure element (Document structure element).
+        # StructTreeRoot object of PDF document and to root structure element (Document structure element).
         struct_tree_root_element = tagged_content.struct_tree_root_element
         root_element = tagged_content.root_element
 

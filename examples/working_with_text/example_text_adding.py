@@ -320,6 +320,7 @@ def add_text_with_rtl_text(output_file_name):
     text_fragment.horizontal_alignment = ap.HorizontalAlignment.RIGHT
 
     page.paragraphs.add(text_fragment)
+    document.direction = ap.Direction.R2L
     document.save(output_file_name)
 
 

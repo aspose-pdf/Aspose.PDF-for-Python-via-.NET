@@ -39,9 +39,9 @@ def get_child_bookmarks(input_pdf):
     document = ap.Document(input_pdf)
     for i in range(len(document.outlines)):
         outline_item = document.outlines[i + 1]
-        print(outline_item.title)
-        print(outline_item.italic)
-        print(outline_item.bold)
+        print(f"Title: {outline_item.title}")
+        print(f"Italic: {outline_item.italic}")
+        print(f"Bold: {outline_item.bold}")
         print(outline_item.color)
         count = len(outline_item)
         if count > 0:
@@ -49,10 +49,10 @@ def get_child_bookmarks(input_pdf):
             # There are child bookmarks then loop through that as well
             for j in range(len(outline_item)):
                 child_outline_item = outline_item[j + 1]
-                print(child_outline_item.title)
-                print(child_outline_item.italic)
-                print(child_outline_item.bold)
-                print(child_outline_item.color)
+                print(f"\tTitle: {child_outline_item.title}")
+                print(f"\tItalic: {child_outline_item.italic}")
+                print(f"\tBold: {child_outline_item.bold}")
+                print(f"\t{child_outline_item.color}")
 
 
 def update_bookmarks(input_pdf, output_pdf):

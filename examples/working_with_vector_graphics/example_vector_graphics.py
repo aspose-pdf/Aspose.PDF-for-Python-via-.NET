@@ -23,14 +23,13 @@ def using_graphics_absorber(infile: str):
     Note:
         Prints information about each vector graphic element found on the first page.
     """
-    with ap.Document(infile) as document:
-        with ap.vector.GraphicsAbsorber() as graphics_absorber:
-            page = document.pages[1]
-            graphics_absorber.visit(page)
-            for element in graphics_absorber.elements:
-                print(f"Page Number: {element.source_page.number}")
-                print(f"Position: ({element.position.x}, {element.position.y})")
-                print(f"Number of Operators: {element.operators.length}")
+    with ap.Document(infile) as document, ap.vector.GraphicsAbsorber() as graphics_absorber:
+        page = document.pages[1]
+        graphics_absorber.visit(page)
+        for element in graphics_absorber.elements:
+            print(f"Page Number: {element.source_page.number}")
+            print(f"Position: ({element.position.x}, {element.position.y})")
+            print(f"Number of Operators: {element.operators.length}")
 
 
 def move_graphics(infile: str, outfile: str):
@@ -50,15 +49,14 @@ def move_graphics(infile: str, outfile: str):
     Note:
         Moves all vector graphics 150 units right and 10 units down.
     """
-    with ap.Document(infile) as document:
-        with ap.vector.GraphicsAbsorber() as graphics_absorber:
-            page = document.pages[1]
-            graphics_absorber.visit(page)
-            graphics_absorber.suppress_update()
-            for element in graphics_absorber.elements:
-                position = element.position
-                element.position = ap.Point(position.x + 150, position.y - 10)
-            graphics_absorber.resume_update()
+    with ap.Document(infile) as document, ap.vector.GraphicsAbsorber() as graphics_absorber:
+        page = document.pages[1]
+        graphics_absorber.visit(page)
+        graphics_absorber.suppress_update()
+        for element in graphics_absorber.elements:
+            position = element.position
+            element.position = ap.Point(position.x + 150, position.y - 10)
+        graphics_absorber.resume_update()
         document.save(outfile)
 
 
@@ -79,16 +77,15 @@ def remove_graphics_method_1(infile: str, outfile: str):
     Note:
         Removes graphics by calling element.remove() on each element within the rectangle.
     """
-    with ap.Document(infile) as document:
-        with ap.vector.GraphicsAbsorber() as graphics_absorber:
-            page = document.pages[1]
-            graphics_absorber.visit(page)
-            rectangle = ap.Rectangle(70, 248, 170, 252, True)
-            graphics_absorber.suppress_update()
-            for element in graphics_absorber.elements:
-                if rectangle.contains(element.position, False):
-                    element.remove()
-            graphics_absorber.resume_update()
+    with ap.Document(infile) as document, ap.vector.GraphicsAbsorber() as graphics_absorber:
+        page = document.pages[1]
+        graphics_absorber.visit(page)
+        rectangle = ap.Rectangle(70, 248, 170, 252, True)
+        graphics_absorber.suppress_update()
+        for element in graphics_absorber.elements:
+            if rectangle.contains(element.position, False):
+                element.remove()
+        graphics_absorber.resume_update()
         document.save(outfile)
 
 
